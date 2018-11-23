@@ -403,6 +403,7 @@ module ex(
 	end	
 
 	//MFHI、MFLO、MOVN、MOVZ指令
+	// MFC0
 	always @ (*) begin
 		if(rst == `RstEnable) begin
 	  	moveres <= `ZeroWord;
@@ -421,6 +422,7 @@ module ex(
 	   	`EXE_MOVN_OP:		begin
 	   		moveres <= reg1_i;
 	   	end
+		// mfc0指令
 	   	`EXE_MFC0_OP:		begin
 		   	// 要从cp0中读取的寄存器的地址
 	   	  	cp0_reg_read_addr_o <= inst_i[15:11];
@@ -459,8 +461,7 @@ module ex(
 	 	end
 	 	`EXE_RES_SHIFT:		begin
 	 		wdata_o <= shiftres;
-	 	end	 	
-		// mfc0指令
+	 	end
 	 	`EXE_RES_MOVE:		begin
 	 		wdata_o <= moveres;
 	 	end	 	

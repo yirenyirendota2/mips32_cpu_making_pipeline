@@ -57,6 +57,7 @@ module cp0_reg(
 	output reg[`RegBus]           epc_o,
 	output reg[`RegBus]           config_o,
 	output reg[`RegBus]           prid_o,
+	output reg[`RegBus]			  ebase_o,
 	
 	output reg                    timer_int_o	// 是否有定时中断
 	
@@ -71,7 +72,8 @@ module cp0_reg(
 			status_o <= 32'b00010000000000000000000000000000;
 			cause_o <= `ZeroWord;
 			epc_o <= `ZeroWord;
-			// TOD:改端序
+			ebase_o <= `ZeroWord;
+			// TODO:改端序
 			//config寄存器的BE为1，表示Big-Endian；MT为00，表示没有MMU
 			config_o <= 32'b00000000000000001000000000000000;
 			// TODO: 改CPU信息，可以自定义
@@ -108,6 +110,9 @@ module cp0_reg(
 						cause_o[9:8] <= data_i[9:8];
 						cause_o[23] <= data_i[23];
 						cause_o[22] <= data_i[22];
+					end
+					`CP0_REG_EBASE: begin
+						ebase_o <= data_i;
 					end					
 				endcase  //case addr_i
 			end
@@ -140,6 +145,9 @@ module cp0_reg(
 				end
 				`CP0_REG_CONFIG:	begin
 					data_o <= config_o ;
+				end
+				`CP0_REG_EBASE:	begin
+					data_o <= ebase_o;
 				end	
 				default: 	begin
 				end			
