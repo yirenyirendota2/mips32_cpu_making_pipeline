@@ -43,7 +43,8 @@ module ex(
 	input wire[`RegBus]           reg2_i,
 	input wire[`RegAddrBus]       wd_i,
 	input wire                    wreg_i,
-
+	input wire[`RegBus]           inst_i,
+	
 	//HI、LO寄存器的值
 	input wire[`RegBus]           hi_i,
 	input wire[`RegBus]           lo_i,
@@ -68,6 +69,25 @@ module ex(
 	//是否转移、以及link address
 	input wire[`RegBus]           link_address_i,
 	input wire                    is_in_delayslot_i,	
+
+	//访存阶段的指令是否要写CP0，用来检测数据相关
+  	input wire                    mem_cp0_reg_we,
+	input wire[4:0]               mem_cp0_reg_write_addr,
+	input wire[`RegBus]           mem_cp0_reg_data,
+	
+	//回写阶段的指令是否要写CP0，用来检测数据相关
+  	input wire                    wb_cp0_reg_we,
+	input wire[4:0]               wb_cp0_reg_write_addr,
+	input wire[`RegBus]           wb_cp0_reg_data,
+
+	//与CP0相连，读取其中CP0寄存器的值
+	input wire[`RegBus]           cp0_reg_data_i,
+	output reg[4:0]               cp0_reg_read_addr_o,
+
+	//向下一流水级传递，用于写CP0中的寄存器
+	output reg                    cp0_reg_we_o,
+	output reg[4:0]               cp0_reg_write_addr_o,
+	output reg[`RegBus]           cp0_reg_data_o,
 	
 	output reg[`RegAddrBus]       wd_o,
 	output reg                    wreg_o,
@@ -84,6 +104,11 @@ module ex(
 	output reg[`RegBus]           div_opdata2_o,
 	output reg                    div_start_o,
 	output reg                    signed_div_o,
+
+	//下面新增的几个输出是为加载、存储指令准备的
+	output wire[`AluOpBus]        aluop_o,
+	output wire[`RegBus]          mem_addr_o,
+	output wire[`RegBus]          reg2_o,
 
 	output reg										stallreq       			
 	
@@ -108,6 +133,15 @@ module ex(
 	reg[`DoubleRegBus] hilo_temp1;
 	reg stallreq_for_madd_msub;			
 	reg stallreq_for_div;
+
+  //aluop_o传递到访存阶段，用于加载、存储指令
+  assign aluop_o = aluop_i;
+  
+  //mem_addr传递到访存阶段，是加载、存储指令对应的存储器地址
+  assign mem_addr_o = reg1_i + {{16{inst_i[15]}},inst_i[15:0]};
+
+  //将两个操作数也传递到访存阶段，也是为记载、存储指令准备的
+  assign reg2_o = reg2_i;
 			
 	always @ (*) begin
 		if(rst == `RstEnable) begin
@@ -156,7 +190,7 @@ module ex(
 	end      //always
 
 	assign reg2_i_mux = ((aluop_i == `EXE_SUB_OP) || (aluop_i == `EXE_SUBU_OP) ||
-											 (aluop_i == `EXE_SLT_OP) ) 
+											 (aluop_i == `EXE_SLT_OP)) 
 											 ? (~reg2_i)+1 : reg2_i;
 
 	assign result_sum = reg1_i + reg2_i_mux;										 
@@ -387,6 +421,22 @@ module ex(
 	   	`EXE_MOVN_OP:		begin
 	   		moveres <= reg1_i;
 	   	end
+	   	`EXE_MFC0_OP:		begin
+		   	// 要从cp0中读取的寄存器的地址
+	   	  	cp0_reg_read_addr_o <= inst_i[15:11];
+			// 读取到的cp0中指定寄存器的值
+			// 读取是组合逻辑，一个周期内完成
+	   		moveres <= cp0_reg_data_i;
+			// 判断是否存在数据相关
+			// 数据前移:要保证moveres是最新的，所以如果有写操作并且就是写要读的寄存器，那直接赋给moveres
+	   		if( mem_cp0_reg_we == `WriteEnable &&
+				mem_cp0_reg_write_addr == inst_i[15:11] ) begin
+				moveres <= mem_cp0_reg_data;
+	   		end else if( wb_cp0_reg_we == `WriteEnable &&
+				wb_cp0_reg_write_addr == inst_i[15:11] ) begin
+				moveres <= wb_cp0_reg_data;
+	   		end
+	   	end	   	
 	   	default : begin
 	   	end
 	   endcase
@@ -410,6 +460,7 @@ module ex(
 	 	`EXE_RES_SHIFT:		begin
 	 		wdata_o <= shiftres;
 	 	end	 	
+		// mfc0指令
 	 	`EXE_RES_MOVE:		begin
 	 		wdata_o <= moveres;
 	 	end	 	
@@ -463,5 +514,21 @@ module ex(
 			lo_o <= `ZeroWord;
 		end				
 	end			
+
+	always @ (*) begin
+		if(rst == `RstEnable) begin
+			cp0_reg_write_addr_o <= 5'b00000;
+			cp0_reg_we_o <= `WriteDisable;
+			cp0_reg_data_o <= `ZeroWord;
+		end else if(aluop_i == `EXE_MTC0_OP) begin	// mtc0指令
+			cp0_reg_write_addr_o <= inst_i[15:11];
+			cp0_reg_we_o <= `WriteEnable;
+			cp0_reg_data_o <= reg1_i;	// 译码阶段获得的rt寄存器
+	  end else begin
+			cp0_reg_write_addr_o <= 5'b00000;
+			cp0_reg_we_o <= `WriteDisable;
+			cp0_reg_data_o <= `ZeroWord;
+		end				
+	end		
 
 endmodule
