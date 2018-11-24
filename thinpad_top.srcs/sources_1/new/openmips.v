@@ -31,6 +31,8 @@
 
 `include "defines.v"
 
+// TODO: lzp fix this file
+
 module openmips(
 
 	input wire clk,
@@ -55,6 +57,9 @@ module openmips(
 	wire[`RegAddrBus] id_wd_o;
 	wire id_is_in_delayslot_o;
     wire[`RegBus] id_link_address_o;	
+	wire[`RegBus] id_inst_o;
+  	wire[31:0] id_excepttype_o;
+  	wire[`RegBus] id_current_inst_address_o;
 	
 	//连接ID/EX模块的输出与执行阶段EX模块的输入
 	wire[`AluOpBus] ex_aluop_i;
@@ -64,7 +69,10 @@ module openmips(
 	wire ex_wreg_i;
 	wire[`RegAddrBus] ex_wd_i;
 	wire ex_is_in_delayslot_i;	
-    wire[`RegBus] ex_link_address_i;	
+    wire[`RegBus] ex_link_address_i;
+	wire[`RegBus] ex_inst_i;
+	wire[31:0] ex_excepttype_i;	
+	wire[`RegBus] ex_current_inst_address_i;	
 	
 	//连接执行阶段EX模块的输出与EX/MEM模块的输入
 	wire ex_wreg_o;

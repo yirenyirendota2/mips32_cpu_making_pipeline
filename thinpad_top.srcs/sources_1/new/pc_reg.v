@@ -37,7 +37,9 @@ module pc_reg(
 	input wire rst,
 
 	//来自控制模块的信息
-	input wire[5:0] stall,
+	input wire[5:0] 	stall,
+	input wire			flush,
+	input wire[`RegBus]	new_pc,
 
 	//来自译码阶段的信息
 	input wire branch_flag_i,
@@ -51,12 +53,18 @@ module pc_reg(
 	always @ (posedge clk) begin
 		if (ce == `ChipDisable) begin
 			pc <= 32'h00000000;
-		end else if(stall[0] == `NoStop) begin
-		  	if(branch_flag_i == `Branch) begin
+		end else begin
+			// flush == 1'b1 异常发生，new_pc处执行异常处理
+			// TODO: 我觉得需要改，改到监控程序指定的异常处理程序入口地址
+			if(flush == 1'b1) begin
+				pc <= new_pc;
+			end else if(stall[0] == `NoStop) begin
+				if(branch_flag_i == `Branch) begin
 					pc <= branch_target_address_i;
 				end else begin
 		  		pc <= pc + 4'h4;
 		  	end
+			end
 		end
 	end
 	

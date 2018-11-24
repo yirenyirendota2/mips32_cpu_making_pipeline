@@ -39,11 +39,12 @@ module mem_wb(
 
   //来自控制模块的信息
 	input wire[5:0]               stall,	
+	input wire					  flush,
 
 	//来自访存阶段的信息	
 	input wire[`RegAddrBus]       mem_wd,
 	input wire                    mem_wreg,
-	input wire[`RegBus]				mem_wdata,
+	input wire[`RegBus]			  mem_wdata,
 	input wire[`RegBus]           mem_hi,
 	input wire[`RegBus]           mem_lo,
 	input wire                    mem_whilo,	
@@ -83,6 +84,18 @@ module mem_wb(
 			wb_whilo <= `WriteDisable;
 			wb_LLbit_we <= 1'b0;
 			wb_LLbit_value <= 1'b0;		
+			wb_cp0_reg_we <= `WriteDisable;
+			wb_cp0_reg_write_addr <= 5'b00000;
+			wb_cp0_reg_data <= `ZeroWord;	
+		end else if(flush == 1'b1 ) begin
+			wb_wd <= `NOPRegAddr;
+			wb_wreg <= `WriteDisable;
+			wb_wdata <= `ZeroWord;
+			wb_hi <= `ZeroWord;
+			wb_lo <= `ZeroWord;
+			wb_whilo <= `WriteDisable;
+			wb_LLbit_we <= 1'b0;
+			wb_LLbit_value <= 1'b0;	
 			wb_cp0_reg_we <= `WriteDisable;
 			wb_cp0_reg_write_addr <= 5'b00000;
 			wb_cp0_reg_data <= `ZeroWord;				  	  	
