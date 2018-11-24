@@ -51,7 +51,7 @@ module id_ex(
 	input wire[`RegBus]           id_link_address,
 	input wire                    id_is_in_delayslot,
 	input wire                    next_inst_in_delayslot_i,		
-	// TODO: 暂时不需要?
+	// TODO: 暂时不需要?访存?
 	input wire[`RegBus]           id_inst,		
 	input wire[`RegBus]           id_current_inst_address,	// 译码阶段指令的地址
 	input wire[31:0]              id_excepttype,			// 译码阶段收集到的异常信息
@@ -66,7 +66,7 @@ module id_ex(
 	output reg[`RegBus]           ex_link_address,
   	output reg                    ex_is_in_delayslot,
 	output reg                    is_in_delayslot_o	
-	// TODO: 暂时不需要?
+	// TODO: 暂时不需要?访存?
 	output reg[`RegBus]           ex_inst,
 	output reg[31:0]              ex_excepttype,			// 译码阶段收集到的异常信息
 	output reg[`RegBus]           ex_current_inst_address	// 执行阶段指令的地址

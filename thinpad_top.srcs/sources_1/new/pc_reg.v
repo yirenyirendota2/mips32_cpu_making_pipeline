@@ -46,7 +46,7 @@ module pc_reg(
 	input wire[`RegBus] branch_target_address_i,
 	
 	output reg[`InstAddrBus] pc,
-	output reg ce
+	output reg 				 ce,
 	
 );
 
@@ -56,6 +56,7 @@ module pc_reg(
 		end else begin
 			// flush == 1'b1 异常发生，new_pc处执行异常处理
 			// TODO: 我觉得需要改，改到监控程序指定的异常处理程序入口地址
+			// Update: 可能不需要在这里改
 			if(flush == 1'b1) begin
 				pc <= new_pc;
 			end else if(stall[0] == `NoStop) begin

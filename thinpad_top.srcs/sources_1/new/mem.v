@@ -52,10 +52,10 @@ module mem(
 	input wire[`RegBus]          mem_data_i,
 
 	//LLbit_i是LLbit寄存器的值
-	input wire                  LLbit_i,
+	input wire                   LLbit_i,
 	//但不一定是最新值，回写阶段可能要写LLbit，所以还要进一步判断
-	input wire                  wb_LLbit_we_i,
-	input wire                  wb_LLbit_value_i,
+	input wire                   wb_LLbit_we_i,
+	input wire                   wb_LLbit_value_i,
 
 	//协处理器CP0的写信号
 	input wire                   cp0_reg_we_i,
@@ -72,9 +72,9 @@ module mem(
 	input wire[`RegBus]          cp0_epc_i,
 
 	//回写阶段的指令是否要写CP0，用来检测数据相关
-    input wire                    wb_cp0_reg_we,
-	input wire[4:0]               wb_cp0_reg_write_addr,
-	input wire[`RegBus]           wb_cp0_reg_data,
+    input wire                   wb_cp0_reg_we,
+	input wire[4:0]              wb_cp0_reg_write_addr,
+	input wire[`RegBus]          wb_cp0_reg_data,
 
 	//送到回写阶段的信息
 	output reg[`RegAddrBus]      wd_o,
@@ -93,13 +93,13 @@ module mem(
 	
 	//送到memory的信息
 	output reg[`RegBus]          mem_addr_o,
-	output wire									 mem_we_o,
+	output wire					 mem_we_o,
 	output reg[3:0]              mem_sel_o,
 	output reg[`RegBus]          mem_data_o,
 	output reg                   mem_ce_o	
 	
 	output reg[31:0]             excepttype_o,
-	output wire[`RegBus]          cp0_epc_o,
+	output wire[`RegBus]         cp0_epc_o,
 	output wire                  is_in_delayslot_o,
 	
 	output wire[`RegBus]         current_inst_address_o	
@@ -443,10 +443,10 @@ module mem(
 		if(rst == `RstEnable) begin
 			cp0_status <= `ZeroWord;
 		end else if((wb_cp0_reg_we == `WriteEnable) && 
-								(wb_cp0_reg_write_addr == `CP0_REG_STATUS ))begin
+					(wb_cp0_reg_write_addr == `CP0_REG_STATUS ))begin
 			cp0_status <= wb_cp0_reg_data;
 		end else begin
-		  cp0_status <= cp0_status_i;
+		  	cp0_status <= cp0_status_i;
 		end
 	end
 	
@@ -454,7 +454,7 @@ module mem(
 		if(rst == `RstEnable) begin
 			cp0_epc <= `ZeroWord;
 		end else if((wb_cp0_reg_we == `WriteEnable) && 
-								(wb_cp0_reg_write_addr == `CP0_REG_EPC ))begin
+					(wb_cp0_reg_write_addr == `CP0_REG_EPC ))begin
 			cp0_epc <= wb_cp0_reg_data;
 		end else begin
 		  cp0_epc <= cp0_epc_i;
@@ -462,17 +462,17 @@ module mem(
 	end
 
 	always @ (*) begin
-			if(rst == `RstEnable) begin
-				cp0_cause <= `ZeroWord;
-			end else if((wb_cp0_reg_we == `WriteEnable) && 
-									(wb_cp0_reg_write_addr == `CP0_REG_CAUSE ))begin
-				cp0_cause[9:8] <= wb_cp0_reg_data[9:8];
-				cp0_cause[22] <= wb_cp0_reg_data[22];
-				cp0_cause[23] <= wb_cp0_reg_data[23];
-			end else begin
-			cp0_cause <= cp0_cause_i;
-			end
+		if(rst == `RstEnable) begin
+			cp0_cause <= `ZeroWord;
+		end else if((wb_cp0_reg_we == `WriteEnable) && 
+					(wb_cp0_reg_write_addr == `CP0_REG_CAUSE ))begin
+			cp0_cause[9:8] <= wb_cp0_reg_data[9:8];
+			cp0_cause[22] <= wb_cp0_reg_data[22];
+			cp0_cause[23] <= wb_cp0_reg_data[23];
+		end else begin
+		cp0_cause <= cp0_cause_i;
 		end
+	end
 
 	always @ (*) begin
 		if(rst == `RstEnable) begin
@@ -482,10 +482,10 @@ module mem(
 			
 			if(current_inst_address_i != `ZeroWord) begin
 				if(((cp0_cause[15:8] & (cp0_status[15:8])) != 8'h00) && (cp0_status[1] == 1'b0) && 
-							(cp0_status[0] == 1'b1)) begin
+					(cp0_status[0] == 1'b1)) begin
 					excepttype_o <= 32'h00000001;        //interrupt
 				end else if(excepttype_i[8] == 1'b1) begin
-				excepttype_o <= 32'h00000008;        //syscall
+					excepttype_o <= 32'h00000008;        //syscall
 				end else if(excepttype_i[9] == 1'b1) begin
 					excepttype_o <= 32'h0000000a;        //inst_invalid
 				end else if(excepttype_i[10] ==1'b1) begin
