@@ -65,8 +65,10 @@ module id_ex(
 	output reg                    ex_wreg,
 	output reg[`RegBus]           ex_link_address,
   	output reg                    ex_is_in_delayslot,
-	output reg                    is_in_delayslot_o	
+	output reg                    is_in_delayslot_o,	
+	
 	// TODO: 暂时不需要?访存?
+	
 	output reg[`RegBus]           ex_inst,
 	output reg[31:0]              ex_excepttype,			// 译码阶段收集到的异常信息
 	output reg[`RegBus]           ex_current_inst_address	// 执行阶段指令的地址

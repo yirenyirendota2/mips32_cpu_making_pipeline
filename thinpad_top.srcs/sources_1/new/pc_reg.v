@@ -46,8 +46,7 @@ module pc_reg(
 	input wire[`RegBus] branch_target_address_i,
 	
 	output reg[`InstAddrBus] pc,
-	output reg 				 ce,
-	
+	output reg 				 ce
 );
 
 	always @ (posedge clk) begin

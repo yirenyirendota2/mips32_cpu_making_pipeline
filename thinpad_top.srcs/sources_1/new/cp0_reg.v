@@ -111,9 +111,11 @@ module cp0_reg(
 						cause_o[23] <= data_i[23];
 						cause_o[22] <= data_i[22];
 					end
+					/*
 					`CP0_REG_EBASE: begin
 						ebase_o <= data_i;
-					end					
+					end		
+					*/			
 				endcase  //case addr_i
 			end
 
@@ -219,9 +221,11 @@ module cp0_reg(
 				`CP0_REG_CONFIG:	begin
 					data_o <= config_o ;
 				end
+				/*
 				`CP0_REG_EBASE:	begin
 					data_o <= ebase_o;
 				end	
+				*/
 				default: 	begin
 				end			
 			endcase  //case addr_i			

@@ -96,7 +96,7 @@ module mem(
 	output wire					 mem_we_o,
 	output reg[3:0]              mem_sel_o,
 	output reg[`RegBus]          mem_data_o,
-	output reg                   mem_ce_o	
+	output reg                   mem_ce_o,	
 	
 	output reg[31:0]             excepttype_o,
 	output wire[`RegBus]         cp0_epc_o,
