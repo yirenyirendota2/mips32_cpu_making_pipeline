@@ -26,7 +26,7 @@
 // File:    inst_rom.v
 // Author:  Lei Silei
 // E-mail:  leishangwen@163.com
-// Description: Ö¸Áî´æ´¢Æ÷
+// Description: Ö¸ï¿½ï¿½æ´¢ï¿½ï¿½
 // Revision: 1.0
 //////////////////////////////////////////////////////////////////////
 
@@ -46,7 +46,7 @@ module inst_rom(
 	// initial $readmemh ( "inst_rom.data", inst_mem );
 
 	initial begin
-    $readmemh("C:/Users/liujiashuo/Desktop/mip32_cpu_making/thinpad_top.srcs/sources_1/new/inst_rom.data", inst_mem);       // ?????txt??????
+    $readmemh("D:/Computer_Organization/test/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/inst_rom.data", inst_mem);       // ?????txt??????
     for(i=0;i<24;i=i+1)  
         $display("%h%h%h%h",inst_mem[i*4+0],inst_mem[i*4+1],inst_mem[i*4+2],inst_mem[i*4+3]);    // ?????????
 	end
