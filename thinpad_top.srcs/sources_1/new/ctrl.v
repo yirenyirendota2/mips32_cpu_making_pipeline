@@ -46,9 +46,6 @@ module ctrl(
     //来自执行阶段的暂停请求
 	input wire                   stallreq_from_ex,
 
-	// Ebase
-	// input wire					 ebase_i,
-
 	output reg[`RegBus]          new_pc,
 	output reg                   flush,	
 	output reg[5:0]              stall       

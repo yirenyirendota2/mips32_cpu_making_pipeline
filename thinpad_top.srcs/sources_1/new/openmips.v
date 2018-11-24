@@ -602,6 +602,8 @@ module openmips(
 		.excepttype_i(mem_excepttype_o),
 		.cp0_epc_i(latest_epc),
 
+		.cp0_ebase_i(cp0_ebase),
+
 		.stallreq_from_id(stallreq_from_id),
 	
   		//来自执行阶段的暂停请求
