@@ -1,9 +1,9 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
+// Company: Tsinghua University
+// Engineer: Bingjian Huang
 // 
-// Create Date: 2018/11/17 21:16:53
+// Create Date: 2018/11/24 22:42:49
 // Design Name: 
 // Module Name: uart
 // Project Name: 
@@ -21,114 +21,92 @@
 
 
 module uart(
-    input wire clk,
-    input wire data_ready, tbre, tsre,
-    output wire wrn, rdn,
-    inout wire[31:0] uart_data,
-    input wire[31:0] cpu_input_data,
-    output wire[31:0] cpu_output_data,
-    input wire uart_enable,
-    input wire write_or_read,//write = 1, read = 0;
-    output wire write_finished,
-    output wire read_finished
+    input wire clk_50M,
+    input wire rxd,
+    output wire txd,
+    inout wire ext_uart_ready,
+    output wire ext_uart_busy,
+    input wire[7:0] input_data, 
+    output reg[7:0] output_data,
+    input wire write_or_read,//write = 1, read = 0
+    input wire enable,
+    output reg write_finished,
+    output reg read_finished
     );
 
-reg temp_wrn;
-reg temp_rdn;
-reg[31:0] temp_uart_data;
-reg temp_write_finished;
-reg temp_read_finished;
-reg[31:0] temp_cpu_output_data;
-assign wrn = temp_wrn;
-assign rdn = temp_rdn;
-assign uart_data = temp_uart_data;
-assign write_finished = temp_write_finished;
-assign read_finished = temp_read_finished;
-assign cpu_output_data = temp_cpu_output_data;
+//直连串口接收发送演示，从直连串口收到的数据再发送出去
+wire [7:0] ext_uart_rx;
+reg  [7:0] ext_uart_tx;
+reg ext_uart_start;
 
-/* cycle of write and cycle of read */
-reg[2:0] write_cycle = 3'b000;
-reg[2:0] read_cycle = 3'b000;
+async_receiver #(.ClkFrequency(50000000),.Baud(9600)) //接收模块，9600无检验位
+    ext_uart_r(
+        .clk(clk_50M),                       //外部时钟信号
+        .RxD(rxd),                           //外部串行信号输入
+        .RxD_data_ready(ext_uart_ready),  //数据接收到标志
+        .RxD_clear(ext_uart_ready),       //清除接收标志
+        .RxD_data(ext_uart_rx)             //接收到的一字节数据
+    );
 
-always@(posedge clk) begin
-    if(clk) begin
-        if(~uart_enable) begin
-            if(write_or_read) begin
-                case(write_cycle)
-                    3'b000: begin
-                        temp_uart_data <= cpu_input_data;
-                        temp_wrn <= 1'b1;
-                        temp_rdn <= 1'b1;  
-                        write_cycle <= write_cycle + 1'b1;
-                    end
-                    3'b001: begin
-                        temp_wrn <= 1'b0;
-                        temp_rdn <= 1'b1;
-                        write_cycle <= write_cycle + 1'b1;
-                    end
-                    3'b010: begin
-                        temp_wrn <= 1'b1;
-                        temp_rdn <= 1'b1;
-                        write_cycle <= write_cycle + 1'b1;  
-                    end
-                    3'b011: begin
-                        if(tbre) begin
-                            write_cycle <= write_cycle + 1'b1;  
-                        end
-                        else begin
-                            write_cycle <= write_cycle - 1'b1;  //tbre no ready return to last state
-                        end  
-                    end
-                    3'b100: begin
-                        if(tsre) begin
-                            //finish write cycle
-                            temp_write_finished <= 1'b1;
-                        end
-                    end
-                    default: begin
-                        write_cycle <= 3'b000;
-                    end
-                endcase
+async_transmitter #(.ClkFrequency(50000000),.Baud(9600)) //发送模块，9600无检验位
+    ext_uart_t(
+        .clk(clk_50M),                  //外部时钟信号
+        .TxD(txd),                      //串行信号输出
+        .TxD_busy(ext_uart_busy),       //发送器忙状态指示
+        .TxD_start(ext_uart_start),    //开始发送信号
+        .TxD_data(ext_uart_tx)        //待发送的数据
+    );
+
+always @(posedge clk_50M) begin
+    if(enable) begin
+        if(write_or_read) begin
+            if(~ext_uart_busy) begin
+                if(~write_finished) begin
+                    ext_uart_tx <= input_data;
+                    ext_uart_start <= 1'b1;
+                    write_finished <= 1'b1;  
+                end
+                else begin
+                    ext_uart_start <= 1'b0;
+                end
             end
-            else begin
-                case(read_cycle)  
-                    3'b000: begin
-                        temp_uart_data <= 32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz;
-                        temp_wrn <= 1'b1;
-                        temp_rdn <= 1'b1;
-                        read_cycle <= read_cycle + 1'b1;
-                    end
-                    3'b001: begin
-                        if(data_ready) begin
-                            temp_rdn <= 1'b0;  
-                            temp_wrn <= 1'b1;
-                            read_cycle <= read_cycle + 1'b1;
-                        end  
-                        else begin
-                            read_cycle <= read_cycle - 1'b1;
-                        end
-                    end
-                    3'b010: begin
-                        temp_cpu_output_data = temp_uart_data;
-                        temp_rdn = 1'b1;
-                        temp_wrn = 1'b1;
-                        temp_read_finished = 1'b1;  
-                    end
-                    default: begin
-                        read_cycle <= 3'b000;  
-                    end
-                endcase
-            end
-        end  
-        else begin
-            temp_wrn <= 1'b1;
-            temp_rdn <= 1'b1;  
-            temp_write_finished <= 1'b0;
-            temp_read_finished <= 1'b0;
-            write_cycle <= 3'b000;
-            read_cycle <= 3'b000;
         end
+        else begin
+            if(ext_uart_ready) begin
+                output_data <= ext_uart_rx;
+                read_finished <= 1'b1;  
+            end  
+        end  
+    end
+    else begin
+        write_finished <= 1'b0;
+        read_finished <= 1'b0;
+        ext_uart_start <= 1'b0;
     end
 end
+
+// always @(posedge clk_50M) begin //接收到缓冲区ext_uart_buffer
+//     if(ext_uart_ready)begin
+//         ext_uart_buffer <= ext_uart_rx;
+//         led_bits[7:0] <= ext_uart_rx;
+//         ext_uart_avai <= 1;
+//     end else if(!ext_uart_busy && ext_uart_avai)begin 
+//         ext_uart_avai <= 0;
+//     end
+// end
+// always @(posedge clk_50M) begin //将缓冲区ext_uart_buffer发送出去
+//     if(one_second == 10000000) begin
+//         one_second <= 8'b00000000;
+//         if(!ext_uart_busy)begin 
+//             ext_uart_tx <= ext_uart_buffer;
+//             ext_uart_buffer <= ext_uart_buffer + 1'b1;
+//             ext_uart_start <= 1'b1;
+//         end 
+//     end
+//     else begin
+//         one_second <= one_second + 1'b1;  
+//         ext_uart_start <= 1'b0;
+//     end
+// end
 
 endmodule

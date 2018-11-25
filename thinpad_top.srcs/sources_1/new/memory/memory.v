@@ -62,7 +62,7 @@ assign finished = temp_finished;
 
 always@(posedge clk) begin
     if(clk) begin
-        if(~ram_enable) begin
+        if(ram_enable) begin
             if(~temp_finished) begin//should start
                 if(write_or_read) begin//read
                     temp_ram_data <= cpu_input_data;
