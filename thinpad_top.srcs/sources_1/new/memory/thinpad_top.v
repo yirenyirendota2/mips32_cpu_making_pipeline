@@ -6,6 +6,7 @@ module thinpad_top(
     input wire data_write_or_read,//write = 1, read = 0
     input wire[31:0] instruction_input_addr,
     output reg[31:0] instruction_output_data,
+    input wire[3:0] data_be_n,
     input wire[31:0] data_input_addr,
     input wire[31:0] data_input_data,
     output reg[31:0] data_output_data,
@@ -164,6 +165,7 @@ reg baseram_write_or_read;
 reg[31:0] baseram_input_data = 32'h00000000;
 wire[31:0] baseram_output_data;
 reg[19:0] baseram_addr = 20'h00000;
+reg[3:0] base_cpu_be_n = 4'b1111;
 wire baseram_finished;
 /* baseram module */
 memory baseRam(
@@ -183,6 +185,7 @@ memory baseRam(
     .cpu_input_data(baseram_input_data),
     .cpu_output_data(baseram_output_data),
     .cpu_addr(baseram_addr),
+    .cpu_be_n(base_cpu_be_n),
     .finished(baseram_finished)
     );
 
@@ -192,6 +195,7 @@ reg extram_write_or_read;
 reg[31:0] extram_input_data = 32'h00000000;
 wire[31:0] extram_output_data;
 reg[19:0] extram_addr = 20'h00000;
+reg[3:0] ext_cpu_be_n = 4'b1111;
 wire extram_finished;
 /* extram module */
 memory extRam(
@@ -211,6 +215,7 @@ memory extRam(
     .cpu_input_data(extram_input_data),
     .cpu_output_data(extram_output_data),
     .cpu_addr(extram_addr),
+    .cpu_be_n(ext_cpu_be_n),
     .finished(extram_finished)
     );
 
@@ -242,6 +247,7 @@ always @(posedge clk_50M) begin
                 baseram_addr <= data_input_addr[21:2];
                 baseram_enable <= 1'b1;
                 baseram_write_or_read <= data_write_or_read;
+                base_cpu_be_n <= data_be_n;
                 //set others disabled
                 extram_enable <= 1'b0;
                 uart_enable <= 1'b0;            
@@ -256,6 +262,7 @@ always @(posedge clk_50M) begin
                     extram_addr <= data_input_addr[21:2];
                     extram_input_data <= data_input_data;
                     extram_write_or_read <= data_write_or_read;
+                    ext_cpu_be_n <= data_be_n;
                     extram_enable <= 1'b1;
                     //set others disabled
                     uart_enable <= 1'b0;
@@ -296,6 +303,8 @@ always @(posedge clk_50M) begin
             baseram_enable <= 1'b0;
             extram_enable <= 1'b0;
             uart_enable <= 1'b0;
+            base_cpu_be_n <= 4'b1111;
+            ext_cpu_be_n <= 4'b1111;
             start <= 1'b0;
         end
     end
@@ -303,6 +312,8 @@ always @(posedge clk_50M) begin
         baseram_enable <= 1'b0;
         extram_enable <= 1'b0;
         uart_enable <= 1'b0; 
+        base_cpu_be_n <= 4'b1111;
+        ext_cpu_be_n <= 4'b1111;
         start <= 1'b0;
     end
 end
