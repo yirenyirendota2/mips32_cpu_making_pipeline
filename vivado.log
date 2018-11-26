@@ -1,0 +1,36 @@
+#-----------------------------------------------------------
+# Vivado v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Fri Nov 23 23:01:58 2018
+# Process ID: 10684
+# Current directory: D:/2018autumn/organization/mips32_cpu_making_pipeline
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent4048 D:\2018autumn\organization\mips32_cpu_making_pipeline\thinpad_top.xpr
+# Log file: D:/2018autumn/organization/mips32_cpu_making_pipeline/vivado.log
+# Journal file: D:/2018autumn/organization/mips32_cpu_making_pipeline\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project D:/2018autumn/organization/mips32_cpu_making_pipeline/thinpad_top.xpr
+INFO: [Project 1-313] Project file moved from 'C:/Users/liujiashuo/Desktop/mip32_cpu_making' since last save.
+CRITICAL WARNING: [Project 1-311] Could not find the file 'D:/2018autumn/organization/大三学期/computerPrinciple/cpu/挑战组/文档/OpenMIPS/OpenMIPS/Chapter8/openmips_min_sopc_tb.v', nor could it be found using path 'C:/Users/liujiashuo/Desktop/大三学期/computerPrinciple/cpu/挑战组/文档/OpenMIPS/OpenMIPS/Chapter8/openmips_min_sopc_tb.v'.
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'D:/programs/Xilinx/Vivado/2018.2/data/ip'.
+WARNING: [IP_Flow 19-2162] IP 'pll_example' is locked:
+* IP definition 'Clocking Wizard (6.0)' for IP 'pll_example' (customized with software release 2018.1) has a different revision in the IP Catalog.
+Please select 'Report IP Status' from the 'Tools/Report' menu or run Tcl command 'report_ip_status' for more information.
+open_project: Time (s): cpu = 00:00:11 ; elapsed = 00:00:06 . Memory (MB): peak = 872.898 ; gain = 159.246
+update_compile_order -fileset sources_1
+update_compile_order -fileset mips32_chapter8
+close_project
+open_project D:/2018autumn/organization/memory/thinpad_top/thinpad_top.xpr
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'D:/programs/Xilinx/Vivado/2018.2/data/ip'.
+update_compile_order -fileset sources_1
+exit
+INFO: [Common 17-206] Exiting Vivado at Fri Nov 23 23:35:19 2018...
