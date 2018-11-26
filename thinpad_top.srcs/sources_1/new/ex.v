@@ -1,40 +1,14 @@
-//////////////////////////////////////////////////////////////////////
-////                                                              ////
-//// Copyright (C) 2014 leishangwen@163.com                       ////
-////                                                              ////
-//// This source file may be used and distributed without         ////
-//// restriction provided that this copyright statement is not    ////
-//// removed from the file and that any derivative work contains  ////
-//// the original copyright notice and the associated disclaimer. ////
-////                                                              ////
-//// This source file is free software; you can redistribute it   ////
-//// and/or modify it under the terms of the GNU Lesser General   ////
-//// Public License as published by the Free Software Foundation; ////
-//// either version 2.1 of the License, or (at your option) any   ////
-//// later version.                                               ////
-////                                                              ////
-//// This source is distributed in the hope that it will be       ////
-//// useful, but WITHOUT ANY WARRANTY; without even the implied   ////
-//// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR      ////
-//// PURPOSE.  See the GNU Lesser General Public License for more ////
-//// details.                                                     ////
-////                                                              ////
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
 // Module:  ex
 // File:    ex.v
-// Author:  Lei Silei
-// E-mail:  leishangwen@163.com
+// Author:  liujiashuo
 // Description: 执行阶段
-// Revision: 1.0
 //////////////////////////////////////////////////////////////////////
 
 `include "defines.v"
 
 module ex(
 
-	input wire										rst,
+	input wire	rst,
 	
 	//送到执行阶段的信息
 	input wire[`AluOpBus]         aluop_i,
@@ -43,7 +17,8 @@ module ex(
 	input wire[`RegBus]           reg2_i,
 	input wire[`RegAddrBus]       wd_i,
 	input wire                    wreg_i,
-
+	input wire[`RegBus]           inst_i,
+	
 	//HI、LO寄存器的值
 	input wire[`RegBus]           hi_i,
 	input wire[`RegBus]           lo_i,
@@ -85,6 +60,11 @@ module ex(
 	output reg                    div_start_o,
 	output reg                    signed_div_o,
 
+	//下面新增的几个输出是为加载、存储指令准备的
+	output wire[`AluOpBus]        aluop_o,
+	output wire[`RegBus]          mem_addr_o,
+	output wire[`RegBus]          reg2_o,
+
 	output reg										stallreq       			
 	
 );
@@ -108,6 +88,15 @@ module ex(
 	reg[`DoubleRegBus] hilo_temp1;
 	reg stallreq_for_madd_msub;			
 	reg stallreq_for_div;
+
+  //aluop_o传递到访存阶段，用于加载、存储指令
+  assign aluop_o = aluop_i;
+  
+  //mem_addr传递到访存阶段，是加载、存储指令对应的存储器地址
+  assign mem_addr_o = reg1_i + {{16{inst_i[15]}},inst_i[15:0]};
+
+  //将两个操作数也传递到访存阶段，也是为记载、存储指令准备的
+  assign reg2_o = reg2_i;
 			
 	always @ (*) begin
 		if(rst == `RstEnable) begin

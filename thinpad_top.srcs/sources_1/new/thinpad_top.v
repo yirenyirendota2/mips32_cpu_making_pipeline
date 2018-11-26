@@ -84,12 +84,13 @@ module thinpad_top(
 /* =========== Demo code begin =========== */
 
 // PLL分频示例
-wire locked, clk_10M, clk_20M;
+wire locked, clk_10M, clk_20M, clk_5M;
 pll_example clock_gen 
  (
   // Clock out ports
   .clk_out1(clk_10M), // 时钟输出1，频率在IP配置界面中设置
   .clk_out2(clk_20M), // 时钟输出2，频率在IP配置界面中设置
+  .clk_out3(clk_5M),
   // Status and control signals
   .reset(reset_btn), // PLL复位输入
   .locked(locked), // 锁定输出，"1"表示时钟稳定，可作为后级电路复位
@@ -97,107 +98,180 @@ pll_example clock_gen
   .clk_in1(clk_50M) // 外部时钟输入
  );
 
-reg reset_of_clk10M;
-// 异步复位，同步释放
-always@(posedge clk_10M or negedge locked) begin
-    if(~locked) reset_of_clk10M <= 1'b1;
-    else        reset_of_clk10M <= 1'b0;
-end
+// reg reset_of_clk10M;
+// // 异步复位，同步释放
+// always@(posedge clk_10M or negedge locked) begin
+//     if(~locked) reset_of_clk10M <= 1'b1;
+//     else        reset_of_clk10M <= 1'b0;
+// end
 
-always@(posedge clk_10M or posedge reset_of_clk10M) begin
-    if(reset_of_clk10M)begin
-        // Your Code
-    end
-    else begin
-        // Your Code
-    end
-end
+// always@(posedge clk_10M or posedge reset_of_clk10M) begin
+//     if(reset_of_clk10M)begin
+//         // Your Code
+//     end
+//     else begin
+//         // Your Code
+//     end
+// end
 
-// 数码管连接关系示意图，dpy1同理
-// p=dpy0[0] // ---a---
-// c=dpy0[1] // |     |
-// d=dpy0[2] // f     b
-// e=dpy0[3] // |     |
-// b=dpy0[4] // ---g---
-// a=dpy0[5] // |     |
-// f=dpy0[6] // e     c
-// g=dpy0[7] // |     |
-//           // ---d---  p
+// // 数码管连接关系示意图，dpy1同理
+// // p=dpy0[0] // ---a---
+// // c=dpy0[1] // |     |
+// // d=dpy0[2] // f     b
+// // e=dpy0[3] // |     |
+// // b=dpy0[4] // ---g---
+// // a=dpy0[5] // |     |
+// // f=dpy0[6] // e     c
+// // g=dpy0[7] // |     |
+// //           // ---d---  p
 
-// 7段数码管译码器演示，将number用16进制显示在数码管上面
-reg[7:0] number;
-SEG7_LUT segL(.oSEG1(dpy0), .iDIG(number[3:0])); //dpy0是低位数码管
-SEG7_LUT segH(.oSEG1(dpy1), .iDIG(number[7:4])); //dpy1是高位数码管
+// // 7段数码管译码器演示，将number用16进制显示在数码管上面
+// reg[7:0] number;
+// SEG7_LUT segL(.oSEG1(dpy0), .iDIG(number[3:0])); //dpy0是低位数码管
+// SEG7_LUT segH(.oSEG1(dpy1), .iDIG(number[7:4])); //dpy1是高位数码管
 
-reg[15:0] led_bits;
-assign leds = led_bits;
+// reg[15:0] led_bits;
+// assign leds = led_bits;
 
-always@(posedge clock_btn or posedge reset_btn) begin
-    if(reset_btn)begin //复位按下，设置LED和数码管为初始值
-        number<=0;
-        led_bits <= 16'h1;
-    end
-    else begin //每次按下时钟按钮，数码管显示值加1，LED循环左移
-        number <= number+1;
-        led_bits <= {led_bits[14:0],led_bits[15]};
-    end
-end
+// always@(posedge clock_btn or posedge reset_btn) begin
+//     if(reset_btn)begin //复位按下，设置LED和数码管为初始值
+//         number<=0;
+//         led_bits <= 16'h1;
+//     end
+//     else begin //每次按下时钟按钮，数码管显示值加1，LED循环左移
+//         number <= number+1;
+//         led_bits <= {led_bits[14:0],led_bits[15]};
+//     end
+// end
 
-//直连串口接收发送演示，从直连串口收到的数据再发送出去
-wire [7:0] ext_uart_rx;
-reg  [7:0] ext_uart_buffer, ext_uart_tx;
-wire ext_uart_ready, ext_uart_busy;
-reg ext_uart_start, ext_uart_avai;
+// //直连串口接收发送演示，从直连串口收到的数据再发送出去
+// wire [7:0] ext_uart_rx;
+// reg  [7:0] ext_uart_buffer, ext_uart_tx;
+// wire ext_uart_ready, ext_uart_busy;
+// reg ext_uart_start, ext_uart_avai;
 
-async_receiver #(.ClkFrequency(50000000),.Baud(9600)) //接收模块，9600无检验位
-    ext_uart_r(
-        .clk(clk_50M),                       //外部时钟信号
-        .RxD(rxd),                           //外部串行信号输入
-        .RxD_data_ready(ext_uart_ready),  //数据接收到标志
-        .RxD_clear(ext_uart_ready),       //清除接收标志
-        .RxD_data(ext_uart_rx)             //接收到的一字节数据
-    );
+// async_receiver #(.ClkFrequency(50000000),.Baud(9600)) //接收模块，9600无检验位
+//     ext_uart_r(
+//         .clk(clk_50M),                       //外部时钟信号
+//         .RxD(rxd),                           //外部串行信号输入
+//         .RxD_data_ready(ext_uart_ready),  //数据接收到标志
+//         .RxD_clear(ext_uart_ready),       //清除接收标志
+//         .RxD_data(ext_uart_rx)             //接收到的一字节数据
+//     );
     
-always @(posedge clk_50M) begin //接收到缓冲区ext_uart_buffer
-    if(ext_uart_ready)begin
-        ext_uart_buffer <= ext_uart_rx;
-        ext_uart_avai <= 1;
-    end else if(!ext_uart_busy && ext_uart_avai)begin 
-        ext_uart_avai <= 0;
-    end
-end
-always @(posedge clk_50M) begin //将缓冲区ext_uart_buffer发送出去
-    if(!ext_uart_busy && ext_uart_avai)begin 
-        ext_uart_tx <= ext_uart_buffer;
-        ext_uart_start <= 1;
-    end else begin 
-        ext_uart_start <= 0;
-    end
-end
+// always @(posedge clk_50M) begin //接收到缓冲区ext_uart_buffer
+//     if(ext_uart_ready)begin
+//         ext_uart_buffer <= ext_uart_rx;
+//         ext_uart_avai <= 1;
+//     end else if(!ext_uart_busy && ext_uart_avai)begin 
+//         ext_uart_avai <= 0;
+//     end
+// end
+// always @(posedge clk_50M) begin //将缓冲区ext_uart_buffer发送出去
+//     if(!ext_uart_busy && ext_uart_avai)begin 
+//         ext_uart_tx <= ext_uart_buffer;
+//         ext_uart_start <= 1;
+//     end else begin 
+//         ext_uart_start <= 0;
+//     end
+// end
 
-async_transmitter #(.ClkFrequency(50000000),.Baud(9600)) //发送模块，9600无检验位
-    ext_uart_t(
-        .clk(clk_50M),                  //外部时钟信号
-        .TxD(txd),                      //串行信号输出
-        .TxD_busy(ext_uart_busy),       //发送器忙状态指示
-        .TxD_start(ext_uart_start),    //开始发送信号
-        .TxD_data(ext_uart_tx)        //待发送的数据
-    );
+// async_transmitter #(.ClkFrequency(50000000),.Baud(9600)) //发送模块，9600无检验位
+//     ext_uart_t(
+//         .clk(clk_50M),                  //外部时钟信号
+//         .TxD(txd),                      //串行信号输出
+//         .TxD_busy(ext_uart_busy),       //发送器忙状态指示
+//         .TxD_start(ext_uart_start),    //开始发送信号
+//         .TxD_data(ext_uart_tx)        //待发送的数据
+//     );
 
-//图像输出演示，分辨率800x600@75Hz，像素时钟为50MHz
-wire [11:0] hdata;
-assign video_red = hdata < 266 ? 3'b111 : 0; //红色竖条
-assign video_green = hdata < 532 && hdata >= 266 ? 3'b111 : 0; //绿色竖条
-assign video_blue = hdata >= 532 ? 2'b11 : 0; //蓝色竖条
-assign video_clk = clk_50M;
-vga #(12, 800, 856, 976, 1040, 600, 637, 643, 666, 1, 1) vga800x600at75 (
-    .clk(clk_50M), 
-    .hdata(hdata), //横坐标
-    .vdata(),      //纵坐标
-    .hsync(video_hsync),
-    .vsync(video_vsync),
-    .data_enable(video_de)
+// //图像输出演示，分辨率800x600@75Hz，像素时钟为50MHz
+// wire [11:0] hdata;
+// assign video_red = hdata < 266 ? 3'b111 : 0; //红色竖条
+// assign video_green = hdata < 532 && hdata >= 266 ? 3'b111 : 0; //绿色竖条
+// assign video_blue = hdata >= 532 ? 2'b11 : 0; //蓝色竖条
+// assign video_clk = clk_50M;
+// vga #(12, 800, 856, 976, 1040, 600, 637, 643, 666, 1, 1) vga800x600at75 (
+//     .clk(clk_50M), 
+//     .hdata(hdata), //横坐标
+//     .vdata(),      //纵坐标
+//     .hsync(video_hsync),
+//     .vsync(video_vsync),
+//     .data_enable(video_de)
+// );
+
+//mips cpu部分
+////////////////////////////////////////////////////// 
+//连接指令存储器
+wire[`InstAddrBus] inst_addr;
+wire[`InstBus] inst;
+wire rom_ce;
+wire mem_we_i;
+wire[`RegBus] mem_addr_i;
+wire[`RegBus] mem_data_i;
+wire[`RegBus] mem_data_o;
+wire[3:0] mem_sel_i;   
+wire mem_ce_i; 
+wire pause_signal;    // IM部分给出的冲突信号
+wire enable_mmu;
+assign enable_mmu = ~reset_btn;
+
+openmips openmips_version1(  //例化cpu模块（除去内存和串口）
+    .clk(clk_5M),
+    .rst(reset_btn),
+
+    .rom_addr_o(inst_addr),
+	.rom_data_i(inst),
+	.rom_ce_o(rom_ce),
+
+
+	.ram_we_o(mem_we_i),
+    .ram_addr_o(mem_addr_i),
+	.ram_sel_o(mem_sel_i),
+	.ram_data_o(mem_data_i),
+	.ram_data_i(mem_data_o),
+	.ram_ce_o(mem_ce_i)		
+
 );
-/* =========== Demo code end =========== */
+
+mmu_memory mmu_memory_version1 (
+    .control_enable(enable_mmu),   //存疑
+    .data_write_or_read(mem_we_i),  // 写使能/读使能
+
+    .instruction_input_addr(inst_addr), // 给IM的地址
+    .instruction_output_data(inst),     // 从IM中读入的指令32位
+
+    .data_be_n(mem_sel_i),     // 字节使能
+    .data_input_addr(mem_addr_i), // 需要读/写的地址
+    .data_input_data(mem_data_i), // 需要写入的数据
+    .data_output_data(mem_data_o), // 返回给cpu的数据
+
+    .pause_signal(pause_signal),    // 还没有支持结构冲突的暂停 ！！！！！！！！！！！！！！
+
+    .clk_50M(clk_50M),
+
+
+    // baseRam部分
+    .base_ram_data(base_ram_data),
+    .base_ram_addr(base_ram_addr),
+    .base_ram_be_n(base_ram_be_n),
+    .base_ram_ce_n(base_ram_ce_n),
+    .base_ram_oe_n(base_ram_oe_n),
+    .base_ram_we_n(base_ram_we_n),
+
+    //ExtRam部分
+    .ext_ram_data(ext_ram_data),
+    .ext_ram_addr(ext_ram_addr),
+    .ext_ram_be_n(ext_ram_be_n),
+    .ext_ram_ce_n(ext_ram_ce_n),
+    .ext_ram_oe_n(ext_ram_oe_n),
+    .ext_ram_we_n(ext_ram_we_n),
+
+    // 直连串口部分
+    .txd(txd),
+    .rxd(rxd)
+
+);
+
 
 endmodule
