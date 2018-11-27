@@ -217,7 +217,7 @@ wire enable_mmu;
 assign enable_mmu = ~reset_btn;
 
 openmips openmips_version1(  //例化cpu模块（除去内存和串口）
-    .clk(clk_5M),
+    .clk(clk_10M),
     .rst(reset_btn),
 
     .rom_addr_o(inst_addr),
@@ -248,7 +248,7 @@ mmu_memory mmu_memory_version1 (
 
     .pause_signal(pause_signal),    // 还没有支持结构冲突的暂停 ！！！！！！！！！！！！！！
 
-    .clk_50M(clk_50M),
+    .clk_50M(clk_20M),
 
 
     // baseRam部分

@@ -43,7 +43,7 @@ module memory(
 
 //RAM信号
 reg[31:0] temp_ram_data;  //RAM数据，低8位与CPLD串口控制器共享
-reg[19:0] temp_ram_addr; //RAM地址
+reg[19:0] temp_ram_addr = 20'h00000; //RAM地址
 reg[3:0] temp_ram_be_n = 4'b0000;  //RAM字节使能，低有效。如果不使用字节使能，请保持为0
 reg temp_ram_ce_n = 1'b1;       //RAM片选，低有效
 reg temp_ram_oe_n = 1'b1;       //RAM读使能，低有效
@@ -84,10 +84,10 @@ always@(posedge clk) begin
                 temp_finished <= 1'b1;
             end
             else begin//should end
-                temp_ram_ce_n <= 1'b1;
-                temp_ram_we_n <= 1'b1;
-                temp_ram_oe_n <= 1'b1;
-                temp_ram_be_n <= 4'b0000;
+                // temp_ram_ce_n <= 1'b1;
+                // temp_ram_we_n <= 1'b1;
+                // temp_ram_oe_n <= 1'b1;
+                // temp_ram_be_n <= 4'b0000;
                 if(~write_or_read) begin//read data;
                     temp_cpu_data <= ram_data;  
                 end
