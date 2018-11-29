@@ -61,8 +61,8 @@ assign ram_we_n = temp_ram_we_n;
 assign cpu_output_data = temp_cpu_data;
 assign finished = temp_finished;
 
-always@(posedge clk) begin
-    if(clk) begin
+always@(negedge clk) begin
+    if(~clk) begin
         if(ram_enable) begin
             if(~temp_finished) begin//should start
                 if(write_or_read) begin//read
@@ -91,6 +91,9 @@ always@(posedge clk) begin
                 if(~write_or_read) begin//read data;
                     temp_cpu_data <= ram_data;  
                 end
+                temp_ram_ce_n <= 1'b1;
+                temp_ram_we_n <= 1'b1;
+                temp_ram_oe_n <= 1'b1;  
                 temp_finished <= 1'b0;
             end
         end

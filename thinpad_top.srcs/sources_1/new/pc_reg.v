@@ -14,6 +14,9 @@ module pc_reg(
 	input wire clk,
 	input wire rst,
 
+	// 来自指令存储器的冲突暂停信号   1为暂停
+	input wire inst_pause, 
+
 	//来自控制模块的信息
 	input wire[5:0] stall,
 
@@ -29,6 +32,8 @@ module pc_reg(
 	always @ (posedge clk) begin
 		if (ce == `ChipDisable) begin
 			pc <= 32'h80000000;
+		end else if (inst_pause == 1) begin   //  收到了指令存储器的暂停信号，pc值不变，因为指令取不出来
+		  pc <= pc ;
 		end else if(stall[0] == `NoStop) begin
 		  	if(branch_flag_i == `Branch) begin
 					pc <= branch_target_address_i;

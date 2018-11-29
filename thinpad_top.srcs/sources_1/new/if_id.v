@@ -11,6 +11,9 @@ module if_id(
 	input wire clk,
 	input wire rst,
 
+	// 来自指令储存器的暂停信号
+	input wire inst_pause, 
+
 	//来自控制模块的信息
 	input wire[5:0] stall,	
 
@@ -25,7 +28,7 @@ module if_id(
 		if (rst == `RstEnable) begin
 			id_pc <= `ZeroWord;
 			id_inst <= `ZeroWord;
-		end else if(stall[1] == `Stop && stall[2] == `NoStop) begin
+		end else if((stall[1] == `Stop && stall[2] == `NoStop) || inst_pause) begin
 			id_pc <= `ZeroWord;
 			id_inst <= `ZeroWord;	
 	  end else if(stall[1] == `NoStop) begin

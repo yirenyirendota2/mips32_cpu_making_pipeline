@@ -10,20 +10,21 @@ module openmips(
 
 	input wire clk,
 	input wire rst,
-	
- 
-	input wire[`RegBus]           rom_data_i,
+	input wire inst_pause,        // 指令存储器要写入，产生冲突的信号
+
+  // 连接指令存储器
+	input wire[`RegBus]            rom_data_i,
 	output wire[`RegBus]           rom_addr_o,
 	output wire                    rom_ce_o,
 	
   //连接数据存储器data_ram
-	input wire[`RegBus]           ram_data_i,
+	input wire[`RegBus]            ram_data_i,
 	output wire[`RegBus]           ram_addr_o,
 	output wire[`RegBus]           ram_data_o,
 	output wire                    ram_we_o,
 	output wire[3:0]               ram_sel_o,
-	output wire[3:0]               ram_ce_o
-	
+	output wire[3:0]               ram_ce_o,
+	output wire[31:0]              right_count
 );
 
 	wire[`InstAddrBus] pc;
@@ -139,6 +140,7 @@ module openmips(
 	pc_reg pc_reg0(
 		.clk(clk),
 		.rst(rst),
+		.inst_pause(inst_pause),
 		.stall(stall),
 		.branch_flag_i(id_branch_flag_o),
 		.branch_target_address_i(branch_target_address),		
@@ -153,6 +155,7 @@ module openmips(
 	if_id if_id0(
 		.clk(clk),
 		.rst(rst),
+		.inst_pause(inst_pause),
 		.stall(stall),
 		.if_pc(pc),
 		.if_inst(rom_data_i),
@@ -221,7 +224,8 @@ module openmips(
 		.rdata1 (reg1_data),
 		.re2 (reg2_read),
 		.raddr2 (reg2_addr),
-		.rdata2 (reg2_data)
+		.rdata2 (reg2_data),
+		.reg19(right_count)
 	);
 
 	//ID/EX模块

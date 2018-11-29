@@ -24,7 +24,9 @@ module regfile(
 	//读端口2
 	input wire	re2,
 	input wire[`RegAddrBus] raddr2,
-	output reg[`RegBus] rdata2
+	output reg[`RegBus] rdata2, 
+
+	output reg[`RegBus]     reg19   // 用来计数
 	
 );
 
@@ -67,5 +69,13 @@ module regfile(
 	      rdata2 <= `ZeroWord;
 	  end
 	end
+
+	always @ (*) begin
+        if (rst == `RstEnable) begin
+            reg19 <= `ZeroWord;
+        end else begin
+            reg19 <= regs[5'h13];
+        end
+    end
 
 endmodule

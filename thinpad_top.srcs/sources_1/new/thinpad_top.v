@@ -84,13 +84,13 @@ module thinpad_top(
 /* =========== Demo code begin =========== */
 
 // PLL分频示例
-wire locked, clk_10M, clk_20M, clk_5M;
+wire locked, clk_10M, clk_20M, clk_25M;
 pll_example clock_gen 
  (
   // Clock out ports
   .clk_out1(clk_10M), // 时钟输出1，频率在IP配置界面中设置
   .clk_out2(clk_20M), // 时钟输出2，频率在IP配置界面中设置
-  .clk_out3(clk_5M),
+  .clk_out3(clk_25M),
   // Status and control signals
   .reset(reset_btn), // PLL复位输入
   .locked(locked), // 锁定输出，"1"表示时钟稳定，可作为后级电路复位
@@ -125,24 +125,26 @@ pll_example clock_gen
 // // g=dpy0[7] // |     |
 // //           // ---d---  p
 
-// // 7段数码管译码器演示，将number用16进制显示在数码管上面
-// reg[7:0] number;
-// SEG7_LUT segL(.oSEG1(dpy0), .iDIG(number[3:0])); //dpy0是低位数码管
-// SEG7_LUT segH(.oSEG1(dpy1), .iDIG(number[7:4])); //dpy1是高位数码管
+// 7段数码管译码器演示，将number用16进制显示在数码管上面
+wire[31:0] right_count;   // 正确的测例计数
 
-// reg[15:0] led_bits;
-// assign leds = led_bits;
+reg[7:0] number;
+SEG7_LUT segL(.oSEG1(dpy0), .iDIG(right_count[3:0])); //dpy0是低位数码管
+SEG7_LUT segH(.oSEG1(dpy1), .iDIG(right_count[7:4])); //dpy1是高位数码管
 
-// always@(posedge clock_btn or posedge reset_btn) begin
-//     if(reset_btn)begin //复位按下，设置LED和数码管为初始值
-//         number<=0;
-//         led_bits <= 16'h1;
-//     end
-//     else begin //每次按下时钟按钮，数码管显示值加1，LED循环左移
-//         number <= number+1;
-//         led_bits <= {led_bits[14:0],led_bits[15]};
-//     end
-// end
+reg[15:0] led_bits;
+assign leds = led_bits;
+
+always@(posedge clock_btn or posedge reset_btn) begin
+    if(reset_btn)begin //复位按下，设置LED和数码管为初始值
+        number<=0;
+        led_bits <= 16'h1;
+    end
+    else begin //每次按下时钟按钮，数码管显示值加1，LED循环左移
+        number <= number+1;
+        led_bits <= {led_bits[14:0],led_bits[15]};
+    end
+end
 
 // //直连串口接收发送演示，从直连串口收到的数据再发送出去
 // wire [7:0] ext_uart_rx;
@@ -216,10 +218,12 @@ wire pause_signal;    // IM部分给出的冲突信号
 wire enable_mmu;
 assign enable_mmu = ~reset_btn;
 
-openmips openmips_version1(  //例化cpu模块（除去内存和串口）
-    .clk(clk_10M),
-    .rst(reset_btn),
 
+
+openmips openmips_version1(  //例化cpu模块（除去内存和串口）
+    .clk(clk_25M),
+    .rst(reset_btn),
+    .inst_pause(pause_signal), 
     .rom_addr_o(inst_addr),
 	.rom_data_i(inst),
 	.rom_ce_o(rom_ce),
@@ -230,7 +234,9 @@ openmips openmips_version1(  //例化cpu模块（除去内存和串口）
 	.ram_sel_o(mem_sel_i),
 	.ram_data_o(mem_data_i),
 	.ram_data_i(mem_data_o),
-	.ram_ce_o(mem_ce_i)		
+	.ram_ce_o(mem_ce_i),
+
+    .right_count(right_count)
 
 );
 
@@ -246,9 +252,9 @@ mmu_memory mmu_memory_version1 (
     .data_input_data(mem_data_i), // 需要写入的数据
     .data_output_data(mem_data_o), // 返回给cpu的数据
 
-    .pause_signal(pause_signal),    // 还没有支持结构冲突的暂停 ！！！！！！！！！！！！！！
+    .pause_signal(pause_signal),    // 已经支持了
 
-    .clk_50M(clk_20M),
+    .clk_50M(clk_50M),
 
 
     // baseRam部分
