@@ -1,24 +1,50 @@
+//////////////////////////////////////////////////////////////////////
+////                                                              ////
+//// Copyright (C) 2014 leishangwen@163.com                       ////
+////                                                              ////
+//// This source file may be used and distributed without         ////
+//// restriction provided that this copyright statement is not    ////
+//// removed from the file and that any derivative work contains  ////
+//// the original copyright notice and the associated disclaimer. ////
+////                                                              ////
+//// This source file is free software; you can redistribute it   ////
+//// and/or modify it under the terms of the GNU Lesser General   ////
+//// Public License as published by the Free Software Foundation; ////
+//// either version 2.1 of the License, or (at your option) any   ////
+//// later version.                                               ////
+////                                                              ////
+//// This source is distributed in the hope that it will be       ////
+//// useful, but WITHOUT ANY WARRANTY; without even the implied   ////
+//// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR      ////
+//// PURPOSE.  See the GNU Lesser General Public License for more ////
+//// details.                                                     ////
+////                                                              ////
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
 // Module:  div
 // File:    div.v
-// Author:  liujiashuo
-// Description: 除法模块
+// Author:  Lei Silei
+// E-mail:  leishangwen@163.com
+// Description: ����ģ��
+// Revision: 1.0
 //////////////////////////////////////////////////////////////////////
 
 `include "defines.v"
 
 module div(
 
-	input wire clk,
-	input wire rst,
+	input	wire										clk,
+	input wire										rst,
 	
 	input wire                    signed_div_i,
 	input wire[31:0]              opdata1_i,
-	input wire[31:0]		   	  opdata2_i,
+	input wire[31:0]		   				opdata2_i,
 	input wire                    start_i,
 	input wire                    annul_i,
 	
-	output reg[63:0]              result_o,
-	output reg			          ready_o
+	output reg[63:0]             result_o,
+	output reg			             ready_o
 );
 
 	wire[32:0] div_temp;
@@ -38,7 +64,7 @@ module div(
 			result_o <= {`ZeroWord,`ZeroWord};
 		end else begin
 		  case (state)
-		  	`DivFree:			begin               //DivFree状态
+		  	`DivFree:			begin               //DivFree״̬
 		  		if(start_i == `DivStart && annul_i == 1'b0) begin
 		  			if(opdata2_i == `ZeroWord) begin
 		  				state <= `DivByZero;
@@ -64,11 +90,11 @@ module div(
 						result_o <= {`ZeroWord,`ZeroWord};
 				  end          	
 		  	end
-		  	`DivByZero:		begin               //DivByZero状态
+		  	`DivByZero:		begin               //DivByZero״̬
          	dividend <= {`ZeroWord,`ZeroWord};
           state <= `DivEnd;		 		
 		  	end
-		  	`DivOn:				begin               //DivOn状态
+		  	`DivOn:				begin               //DivOn״̬
 		  		if(annul_i == 1'b0) begin
 		  			if(cnt != 6'b100000) begin
                if(div_temp[32] == 1'b1) begin
@@ -91,7 +117,7 @@ module div(
 		  			state <= `DivFree;
 		  		end	
 		  	end
-		  	`DivEnd:			begin               //DivEnd状态
+		  	`DivEnd:			begin               //DivEnd״̬
         	result_o <= {dividend[64:33], dividend[31:0]};  
           ready_o <= `DivResultReady;
           if(start_i == `DivStop) begin

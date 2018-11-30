@@ -62,7 +62,7 @@ assign cpu_output_data = temp_cpu_data;
 assign finished = temp_finished;
 
 always@(negedge clk) begin
-    if(~clk) begin
+    // if(~clk) begin
         if(ram_enable) begin
             if(~temp_finished) begin//should start
                 if(write_or_read) begin//read
@@ -74,7 +74,7 @@ always@(negedge clk) begin
                     temp_ram_be_n <= ~cpu_be_n;
                 end
                 else begin//write
-                    temp_ram_data <= 32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz;
+                    temp_ram_data <= {32{1'bZ}};
                     temp_ram_addr <= cpu_addr;
                     temp_ram_ce_n <= 1'b0;
                     temp_ram_we_n <= 1'b1;
@@ -103,7 +103,7 @@ always@(negedge clk) begin
             temp_ram_oe_n <= 1'b1;  
             temp_finished <= 1'b0;
         end
-    end
+    // end
 end
 
 endmodule

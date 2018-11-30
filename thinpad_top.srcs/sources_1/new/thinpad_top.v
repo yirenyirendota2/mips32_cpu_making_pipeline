@@ -83,8 +83,11 @@ module thinpad_top(
 
 /* =========== Demo code begin =========== */
 
+assign uart_rdn = 1'b1;
+assign uart_wrn = 1'b1;
+
 // PLL分频示例
-wire locked, clk_10M, clk_20M, clk_25M;
+wire locked, clk_10M, clk_25M, clk_20M;
 pll_example clock_gen 
  (
   // Clock out ports
@@ -98,42 +101,170 @@ pll_example clock_gen
   .clk_in1(clk_50M) // 外部时钟输入
  );
 
-// reg reset_of_clk10M;
-// // 异步复位，同步释放
-// always@(posedge clk_10M or negedge locked) begin
-//     if(~locked) reset_of_clk10M <= 1'b1;
-//     else        reset_of_clk10M <= 1'b0;
-// end
+reg reset_of_clk10M;
+// 异步复位，同步释放
+always@(posedge clk_10M or negedge locked) begin
+    if(~locked) reset_of_clk10M <= 1'b1;
+    else        reset_of_clk10M <= 1'b0;
+end
 
-// always@(posedge clk_10M or posedge reset_of_clk10M) begin
-//     if(reset_of_clk10M)begin
-//         // Your Code
-//     end
-//     else begin
-//         // Your Code
-//     end
-// end
+wire[31:0] rom_data;
+wire[31:0] rom_addr;
+wire[31:0] inst_addr;
+wire[31:0] inst;
+wire rom_ce;
 
-// // 数码管连接关系示意图，dpy1同理
-// // p=dpy0[0] // ---a---
-// // c=dpy0[1] // |     |
-// // d=dpy0[2] // f     b
-// // e=dpy0[3] // |     |
-// // b=dpy0[4] // ---g---
-// // a=dpy0[5] // |     |
-// // f=dpy0[6] // e     c
-// // g=dpy0[7] // |     |
-// //           // ---d---  p
+wire ram_we;
+wire[31:0] ram_addr;
+wire[31:0] ram_data_o; // from the view of openmips
+wire[31:0] ram_data_i; // from the view of openmips
+wire[3:0] ram_sel;
+wire ram_ce;
+wire[31:0] right_count;
+wire[5:0] int;
+wire timer_int;
+wire enable_mmu;
+wire pause_signal;
+
+assign enable_mmu = ~reset_btn;
+
+assign int = {5'b00000, timer_int};
+
+openmips openmips0(
+        .clk(clk_10M),
+        // .clk(clock_btn),
+        .rst(reset_btn),
+        .inst_pause(pause_signal),
+        .rom_addr_o(inst_addr),
+        .rom_data_i(inst),
+        .rom_ce_o(rom_ce),
+        .int_i(int),
+
+        .ram_we_o(ram_we),
+        .ram_addr_o(ram_addr),
+        .ram_sel_o(ram_sel),
+        .ram_data_o(ram_data_o),
+        .ram_data_i(ram_data_i),
+        .ram_ce_o(ram_ce),      
+        .right_count(right_count),
+        .timer_int_o(timer_int)
+    );
+
+
+mmu_memory mmu_memory_version1 (
+    .control_enable(enable_mmu),   //存疑
+    .data_write_or_read(ram_we),  // 写使能/读使能
+
+    .instruction_input_addr(inst_addr), // 给IM的地址
+    .instruction_output_data(inst),     // 从IM中读入的指令32位
+
+    .data_be_n(ram_sel),     // 字节使能
+    .data_input_addr(ram_addr), // 需要读/写的地址
+    .data_input_data(ram_data_i), // 需要写入的数据
+    .data_output_data(ram_data_o), // 返回给cpu的数据
+
+    .pause_signal(pause_signal),    // 已经支持了
+
+    .clk_50M(clk_20M),
+
+
+    // baseRam部分
+    .base_ram_data(base_ram_data),
+    .base_ram_addr(base_ram_addr),
+    .base_ram_be_n(base_ram_be_n),
+    .base_ram_ce_n(base_ram_ce_n),
+    .base_ram_oe_n(base_ram_oe_n),
+    .base_ram_we_n(base_ram_we_n),
+
+    //ExtRam部分
+    .ext_ram_data(ext_ram_data),
+    .ext_ram_addr(ext_ram_addr),
+    .ext_ram_be_n(ext_ram_be_n),
+    .ext_ram_ce_n(ext_ram_ce_n),
+    .ext_ram_oe_n(ext_ram_oe_n),
+    .ext_ram_we_n(ext_ram_we_n),
+
+    // 直连串口部分
+    .txd(txd),
+    .rxd(rxd)
+
+);
+
+/*
+mmu mmu0(
+    .clk(clk_20M),
+    .rst(reset_btn),
+    .rom_data_o(rom_data),      
+    .rom_addr_i(rom_addr),
+    .rom_ce_i(rom_ce),
+
+    .ram_data_o(ram_data_i),
+    .ram_addr_i(ram_addr),
+    .ram_data_i(ram_data_o),
+    .ram_we_i(ram_we),
+    .ram_sel_i(ram_sel),
+    .ram_ce_i(ram_ce),
+
+    .base_ram_data(base_ram_data),  //BaseRAM数据，低8位与CPLD串口控制器共享
+    .base_ram_addr(base_ram_addr), //BaseRAM地址
+    .base_ram_be_n(base_ram_be_n),  //BaseRAM字节使能，低有效。如果不使用字节使能，请保持为0
+    .base_ram_ce_n(base_ram_ce_n),  //BaseRAM片选，低有效
+    .base_ram_oe_n(base_ram_oe_n),       //BaseRAM读使能，低有效
+    .base_ram_we_n(base_ram_we_n),       //BaseRAM写使能，低有效
+
+//ExtRAM信号
+    .ext_ram_data(ext_ram_data),  //ExtRAM数据
+    .ext_ram_addr(ext_ram_addr), //ExtRAM地址
+    .ext_ram_be_n(ext_ram_be_n),  //ExtRAM字节使能，低有效。如果不使用字节使能，请保持为0
+    .ext_ram_ce_n(ext_ram_ce_n),       //ExtRAM片选，低有效
+    .ext_ram_oe_n(ext_ram_oe_n),       //ExtRAM读使能，低有效
+    .ext_ram_we_n(ext_ram_we_n)       //ExtRAM写使能，低有效
+);
+
+inst_real_rom inst_real_rom0(
+       .ce(rom_ce),
+	   .addr(inst_addr),
+	   
+	   .rom_data_i(rom_data),       
+       .rom_addr_o(rom_addr),
+	   
+	   .inst(inst)
+	
+    );
+
+*/
+always@(posedge clk_10M or posedge reset_of_clk10M) begin
+    if(reset_of_clk10M)begin
+        // Your Code
+    end
+    else begin
+        // Your Code
+    end
+    
+end
+
+// 数码管连接关系示意图，dpy1同理
+// p=dpy0[0] // ---a---
+// c=dpy0[1] // |     |
+// d=dpy0[2] // f     b
+// e=dpy0[3] // |     |
+// b=dpy0[4] // ---g---
+// a=dpy0[5] // |     |
+// f=dpy0[6] // e     c
+// g=dpy0[7] // |     |
+//           // ---d---  p
 
 // 7段数码管译码器演示，将number用16进制显示在数码管上面
-wire[31:0] right_count;   // 正确的测例计数
-
 reg[7:0] number;
+
+// show right_count
+
 SEG7_LUT segL(.oSEG1(dpy0), .iDIG(right_count[3:0])); //dpy0是低位数码管
 SEG7_LUT segH(.oSEG1(dpy1), .iDIG(right_count[7:4])); //dpy1是高位数码管
 
 reg[15:0] led_bits;
-assign leds = led_bits;
+// assign leds = led_bits;
+assign leds = base_ram_data[15:0];
 
 always@(posedge clock_btn or posedge reset_btn) begin
     if(reset_btn)begin //复位按下，设置LED和数码管为初始值
@@ -141,12 +272,12 @@ always@(posedge clock_btn or posedge reset_btn) begin
         led_bits <= 16'h1;
     end
     else begin //每次按下时钟按钮，数码管显示值加1，LED循环左移
-        number <= number+1;
-        led_bits <= {led_bits[14:0],led_bits[15]};
+        // number <= number+1;
+        // led_bits <= {led_bits[14:0],led_bits[15]};
     end
 end
 
-// //直连串口接收发送演示，从直连串口收到的数据再发送出去
+//直连串口接收发送演示，从直连串口收到的数据再发送出去
 // wire [7:0] ext_uart_rx;
 // reg  [7:0] ext_uart_buffer, ext_uart_tx;
 // wire ext_uart_ready, ext_uart_busy;
@@ -187,97 +318,20 @@ end
 //         .TxD_data(ext_uart_tx)        //待发送的数据
 //     );
 
-// //图像输出演示，分辨率800x600@75Hz，像素时钟为50MHz
-// wire [11:0] hdata;
-// assign video_red = hdata < 266 ? 3'b111 : 0; //红色竖条
-// assign video_green = hdata < 532 && hdata >= 266 ? 3'b111 : 0; //绿色竖条
-// assign video_blue = hdata >= 532 ? 2'b11 : 0; //蓝色竖条
-// assign video_clk = clk_50M;
-// vga #(12, 800, 856, 976, 1040, 600, 637, 643, 666, 1, 1) vga800x600at75 (
-//     .clk(clk_50M), 
-//     .hdata(hdata), //横坐标
-//     .vdata(),      //纵坐标
-//     .hsync(video_hsync),
-//     .vsync(video_vsync),
-//     .data_enable(video_de)
-// );
-
-//mips cpu部分
-////////////////////////////////////////////////////// 
-//连接指令存储器
-wire[`InstAddrBus] inst_addr;
-wire[`InstBus] inst;
-wire rom_ce;
-wire mem_we_i;
-wire[`RegBus] mem_addr_i;
-wire[`RegBus] mem_data_i;
-wire[`RegBus] mem_data_o;
-wire[3:0] mem_sel_i;   
-wire mem_ce_i; 
-wire pause_signal;    // IM部分给出的冲突信号
-wire enable_mmu;
-assign enable_mmu = ~reset_btn;
-
-
-
-openmips openmips_version1(  //例化cpu模块（除去内存和串口）
-    .clk(clk_25M),
-    .rst(reset_btn),
-    .inst_pause(pause_signal), 
-    .rom_addr_o(inst_addr),
-	.rom_data_i(inst),
-	.rom_ce_o(rom_ce),
-
-
-	.ram_we_o(mem_we_i),
-    .ram_addr_o(mem_addr_i),
-	.ram_sel_o(mem_sel_i),
-	.ram_data_o(mem_data_i),
-	.ram_data_i(mem_data_o),
-	.ram_ce_o(mem_ce_i),
-
-    .right_count(right_count)
-
+//图像输出演示，分辨率800x600@75Hz，像素时钟为50MHz
+wire [11:0] hdata;
+assign video_red = hdata < 266 ? 3'b111 : 0; //红色竖条
+assign video_green = hdata < 532 && hdata >= 266 ? 3'b111 : 0; //绿色竖条
+assign video_blue = hdata >= 532 ? 2'b11 : 0; //蓝色竖条
+assign video_clk = clk_50M;
+vga #(12, 800, 856, 976, 1040, 600, 637, 643, 666, 1, 1) vga800x600at75 (
+    .clk(clk_50M), 
+    .hdata(hdata), //横坐标
+    .vdata(),      //纵坐标
+    .hsync(video_hsync),
+    .vsync(video_vsync),
+    .data_enable(video_de)
 );
-
-mmu_memory mmu_memory_version1 (
-    .control_enable(enable_mmu),   //存疑
-    .data_write_or_read(mem_we_i),  // 写使能/读使能
-
-    .instruction_input_addr(inst_addr), // 给IM的地址
-    .instruction_output_data(inst),     // 从IM中读入的指令32位
-
-    .data_be_n(mem_sel_i),     // 字节使能
-    .data_input_addr(mem_addr_i), // 需要读/写的地址
-    .data_input_data(mem_data_i), // 需要写入的数据
-    .data_output_data(mem_data_o), // 返回给cpu的数据
-
-    .pause_signal(pause_signal),    // 已经支持了
-
-    .clk_50M(clk_50M),
-
-
-    // baseRam部分
-    .base_ram_data(base_ram_data),
-    .base_ram_addr(base_ram_addr),
-    .base_ram_be_n(base_ram_be_n),
-    .base_ram_ce_n(base_ram_ce_n),
-    .base_ram_oe_n(base_ram_oe_n),
-    .base_ram_we_n(base_ram_we_n),
-
-    //ExtRam部分
-    .ext_ram_data(ext_ram_data),
-    .ext_ram_addr(ext_ram_addr),
-    .ext_ram_be_n(ext_ram_be_n),
-    .ext_ram_ce_n(ext_ram_ce_n),
-    .ext_ram_oe_n(ext_ram_oe_n),
-    .ext_ram_we_n(ext_ram_we_n),
-
-    // 直连串口部分
-    .txd(txd),
-    .rxd(rxd)
-
-);
-
+/* =========== Demo code end =========== */
 
 endmodule
