@@ -95,7 +95,7 @@ pll_example clock_gen
   .clk_out2(clk_20M), // 时钟输出2，频率在IP配置界面中设置
   .clk_out3(clk_25M),
   // Status and control signals
-  .reset(touch_btn[3]), // PLL复位输入
+  .reset(reset_btn), // PLL复位输入
   .locked(locked), // 锁定输出，"1"表示时钟稳定，可作为后级电路复位
  // Clock in ports
   .clk_in1(clk_50M) // 外部时钟输入
@@ -126,7 +126,7 @@ wire timer_int;
 wire enable_mmu;
 wire pause_signal;
 
-assign enable_mmu = ~reset_btn;
+assign enable_mmu = ~reset_of_clk10M;
 
 assign int = {5'b00000, timer_int};
 
@@ -137,7 +137,7 @@ wire ext_uart_busy;
 openmips openmips0(
         .clk(clk_10M),
         // .clk(clock_btn),
-        .rst(reset_btn),
+        .rst(reset_of_clk10M),
         .inst_pause(pause_signal),
         .rom_addr_o(inst_addr),
         .rom_data_i(inst),
