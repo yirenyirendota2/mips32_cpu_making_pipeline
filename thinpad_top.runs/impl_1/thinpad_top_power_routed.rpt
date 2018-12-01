@@ -1,7 +1,7 @@
 Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2018.2 (win64) Build 2258646 Thu Jun 14 20:03:12 MDT 2018
-| Date             : Sat Dec  1 22:10:05 2018
+| Date             : Sat Dec  1 23:30:49 2018
 | Host             : DESKTOP-N6B5F4R running 64-bit major release  (build 9200)
 | Command          : report_power -file thinpad_top_power_routed.rpt -pb thinpad_top_power_summary_routed.pb -rpx thinpad_top_power_routed.rpx
 | Design           : thinpad_top
@@ -30,10 +30,10 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.217        |
+| Total On-Chip Power (W)  | 0.226        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.119        |
+| Dynamic (W)              | 0.129        |
 | Device Static (W)        | 0.097        |
 | Effective TJA (C/W)      | 2.6          |
 | Max Ambient (C)          | 99.4         |
@@ -52,23 +52,23 @@ Table of Contents
 +--------------------------+-----------+----------+-----------+-----------------+
 | On-Chip                  | Power (W) | Used     | Available | Utilization (%) |
 +--------------------------+-----------+----------+-----------+-----------------+
-| Clocks                   |     0.005 |        9 |       --- |             --- |
-| Slice Logic              |    <0.001 |    15856 |       --- |             --- |
-|   LUT as Logic           |    <0.001 |     6093 |     63400 |            9.61 |
-|   CARRY4                 |    <0.001 |      294 |     15850 |            1.85 |
-|   Register               |    <0.001 |     7293 |    126800 |            5.75 |
-|   LUT as Distributed RAM |    <0.001 |       24 |     19000 |            0.13 |
+| Clocks                   |     0.009 |       10 |       --- |             --- |
+| Slice Logic              |    <0.001 |    15854 |       --- |             --- |
+|   LUT as Logic           |    <0.001 |     6089 |     63400 |            9.60 |
+|   CARRY4                 |    <0.001 |      296 |     15850 |            1.87 |
+|   Register               |    <0.001 |     7296 |    126800 |            5.75 |
 |   LUT as Shift Register  |    <0.001 |      261 |     19000 |            1.37 |
+|   LUT as Distributed RAM |    <0.001 |       24 |     19000 |            0.13 |
 |   F7/F8 Muxes            |    <0.001 |      285 |     63400 |            0.45 |
-|   BUFG                   |    <0.001 |       12 |        32 |           37.50 |
 |   Others                 |     0.000 |      505 |       --- |             --- |
-| Signals                  |    <0.001 |    13014 |       --- |             --- |
+|   BUFG                   |     0.000 |       11 |        32 |           34.38 |
+| Signals                  |     0.001 |    13001 |       --- |             --- |
 | Block RAM                |    <0.001 |        3 |       135 |            2.22 |
 | MMCM                     |     0.105 |        1 |         6 |           16.67 |
 | DSPs                     |     0.000 |        4 |       240 |            1.67 |
-| I/O                      |     0.008 |      209 |       300 |           69.67 |
+| I/O                      |     0.013 |      208 |       300 |           69.33 |
 | Static Power             |     0.097 |          |           |                 |
-| Total                    |     0.217 |          |           |                 |
+| Total                    |     0.226 |          |           |                 |
 +--------------------------+-----------+----------+-----------+-----------------+
 
 
@@ -78,9 +78,9 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) |
 +-----------+-------------+-----------+-------------+------------+
-| Vccint    |       1.000 |     0.022 |       0.007 |      0.015 |
+| Vccint    |       1.000 |     0.027 |       0.011 |      0.015 |
 | Vccaux    |       1.800 |     0.077 |       0.059 |      0.018 |
-| Vcco33    |       3.300 |     0.006 |       0.002 |      0.004 |
+| Vcco33    |       3.300 |     0.008 |       0.004 |      0.004 |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |
 | Vcco18    |       1.800 |     0.000 |       0.000 |      0.000 |
 | Vcco15    |       1.500 |     0.000 |       0.000 |      0.000 |
@@ -138,6 +138,7 @@ Table of Contents
 | clk_50M                                                                                    | clk_50M_IBUF                                                         |            20.0 |
 | clk_out1_pll_example                                                                       | clock_gen/inst/clk_out1_pll_example                                  |           100.0 |
 | clk_out2_pll_example                                                                       | clock_gen/inst/clk_out2_pll_example                                  |            50.0 |
+| clk_out3_pll_example                                                                       | clock_gen/inst/clk_out3_pll_example                                  |            40.0 |
 | clkfbout_pll_example                                                                       | clock_gen/inst/clkfbout_pll_example                                  |            20.0 |
 | dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_N_EXT_BSCAN.bscan_inst/SERIES7_BSCAN.bscan_inst/TCK | dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_N_EXT_BSCAN.bscan_inst/tck_bs |            33.0 |
 +--------------------------------------------------------------------------------------------+----------------------------------------------------------------------+-----------------+
@@ -152,14 +153,14 @@ Table of Contents
 +------------------------------------------------------------------------------------+-----------+
 | Name                                                                               | Power (W) |
 +------------------------------------------------------------------------------------+-----------+
-| thinpad_top                                                                        |     0.119 |
-|   clock_gen                                                                        |     0.105 |
-|     inst                                                                           |     0.105 |
+| thinpad_top                                                                        |     0.129 |
+|   clock_gen                                                                        |     0.106 |
+|     inst                                                                           |     0.106 |
 |   dbg_hub                                                                          |     0.002 |
 |     inst                                                                           |     0.002 |
 |       BSCANID.u_xsdbm_id                                                           |     0.002 |
 |         CORE_XSDB.UUT_MASTER                                                       |     0.001 |
-|           U_ICON_INTERFACE                                                         |    <0.001 |
+|           U_ICON_INTERFACE                                                         |     0.001 |
 |             U_CMD1                                                                 |    <0.001 |
 |             U_CMD2                                                                 |    <0.001 |
 |             U_CMD3                                                                 |    <0.001 |
@@ -241,79 +242,79 @@ Table of Contents
 |           U_SYNC                                                                   |    <0.001 |
 |         SWITCH_N_EXT_BSCAN.bscan_inst                                              |    <0.001 |
 |         SWITCH_N_EXT_BSCAN.bscan_switch                                            |    <0.001 |
-|   mmu_memory_version1                                                              |    <0.001 |
+|   mmu_memory_version1                                                              |     0.005 |
 |     baseRam                                                                        |    <0.001 |
-|     base_ram_data_IOBUF[0]_inst                                                    |     0.000 |
-|     base_ram_data_IOBUF[10]_inst                                                   |     0.000 |
-|     base_ram_data_IOBUF[11]_inst                                                   |     0.000 |
-|     base_ram_data_IOBUF[12]_inst                                                   |     0.000 |
-|     base_ram_data_IOBUF[13]_inst                                                   |     0.000 |
-|     base_ram_data_IOBUF[14]_inst                                                   |     0.000 |
-|     base_ram_data_IOBUF[15]_inst                                                   |     0.000 |
-|     base_ram_data_IOBUF[16]_inst                                                   |     0.000 |
-|     base_ram_data_IOBUF[17]_inst                                                   |     0.000 |
-|     base_ram_data_IOBUF[18]_inst                                                   |     0.000 |
-|     base_ram_data_IOBUF[19]_inst                                                   |     0.000 |
-|     base_ram_data_IOBUF[1]_inst                                                    |     0.000 |
-|     base_ram_data_IOBUF[20]_inst                                                   |     0.000 |
-|     base_ram_data_IOBUF[21]_inst                                                   |     0.000 |
-|     base_ram_data_IOBUF[22]_inst                                                   |     0.000 |
-|     base_ram_data_IOBUF[23]_inst                                                   |     0.000 |
-|     base_ram_data_IOBUF[24]_inst                                                   |     0.000 |
-|     base_ram_data_IOBUF[25]_inst                                                   |     0.000 |
-|     base_ram_data_IOBUF[26]_inst                                                   |     0.000 |
-|     base_ram_data_IOBUF[27]_inst                                                   |     0.000 |
-|     base_ram_data_IOBUF[28]_inst                                                   |     0.000 |
-|     base_ram_data_IOBUF[29]_inst                                                   |     0.000 |
-|     base_ram_data_IOBUF[2]_inst                                                    |     0.000 |
-|     base_ram_data_IOBUF[30]_inst                                                   |     0.000 |
-|     base_ram_data_IOBUF[31]_inst                                                   |     0.000 |
-|     base_ram_data_IOBUF[3]_inst                                                    |     0.000 |
-|     base_ram_data_IOBUF[4]_inst                                                    |     0.000 |
-|     base_ram_data_IOBUF[5]_inst                                                    |     0.000 |
-|     base_ram_data_IOBUF[6]_inst                                                    |     0.000 |
-|     base_ram_data_IOBUF[7]_inst                                                    |     0.000 |
-|     base_ram_data_IOBUF[8]_inst                                                    |     0.000 |
-|     base_ram_data_IOBUF[9]_inst                                                    |     0.000 |
+|     base_ram_data_IOBUF[0]_inst                                                    |    <0.001 |
+|     base_ram_data_IOBUF[10]_inst                                                   |    <0.001 |
+|     base_ram_data_IOBUF[11]_inst                                                   |    <0.001 |
+|     base_ram_data_IOBUF[12]_inst                                                   |    <0.001 |
+|     base_ram_data_IOBUF[13]_inst                                                   |    <0.001 |
+|     base_ram_data_IOBUF[14]_inst                                                   |    <0.001 |
+|     base_ram_data_IOBUF[15]_inst                                                   |    <0.001 |
+|     base_ram_data_IOBUF[16]_inst                                                   |    <0.001 |
+|     base_ram_data_IOBUF[17]_inst                                                   |    <0.001 |
+|     base_ram_data_IOBUF[18]_inst                                                   |    <0.001 |
+|     base_ram_data_IOBUF[19]_inst                                                   |    <0.001 |
+|     base_ram_data_IOBUF[1]_inst                                                    |    <0.001 |
+|     base_ram_data_IOBUF[20]_inst                                                   |    <0.001 |
+|     base_ram_data_IOBUF[21]_inst                                                   |    <0.001 |
+|     base_ram_data_IOBUF[22]_inst                                                   |    <0.001 |
+|     base_ram_data_IOBUF[23]_inst                                                   |    <0.001 |
+|     base_ram_data_IOBUF[24]_inst                                                   |    <0.001 |
+|     base_ram_data_IOBUF[25]_inst                                                   |    <0.001 |
+|     base_ram_data_IOBUF[26]_inst                                                   |    <0.001 |
+|     base_ram_data_IOBUF[27]_inst                                                   |    <0.001 |
+|     base_ram_data_IOBUF[28]_inst                                                   |    <0.001 |
+|     base_ram_data_IOBUF[29]_inst                                                   |    <0.001 |
+|     base_ram_data_IOBUF[2]_inst                                                    |    <0.001 |
+|     base_ram_data_IOBUF[30]_inst                                                   |    <0.001 |
+|     base_ram_data_IOBUF[31]_inst                                                   |    <0.001 |
+|     base_ram_data_IOBUF[3]_inst                                                    |    <0.001 |
+|     base_ram_data_IOBUF[4]_inst                                                    |    <0.001 |
+|     base_ram_data_IOBUF[5]_inst                                                    |    <0.001 |
+|     base_ram_data_IOBUF[6]_inst                                                    |    <0.001 |
+|     base_ram_data_IOBUF[7]_inst                                                    |    <0.001 |
+|     base_ram_data_IOBUF[8]_inst                                                    |    <0.001 |
+|     base_ram_data_IOBUF[9]_inst                                                    |    <0.001 |
 |     directUart                                                                     |    <0.001 |
 |       ext_uart_r                                                                   |    <0.001 |
 |         tickgen                                                                    |    <0.001 |
 |       ext_uart_t                                                                   |    <0.001 |
 |         tickgen                                                                    |    <0.001 |
 |     extRam                                                                         |    <0.001 |
-|     ext_ram_data_IOBUF[0]_inst                                                     |     0.000 |
-|     ext_ram_data_IOBUF[10]_inst                                                    |     0.000 |
-|     ext_ram_data_IOBUF[11]_inst                                                    |     0.000 |
-|     ext_ram_data_IOBUF[12]_inst                                                    |     0.000 |
-|     ext_ram_data_IOBUF[13]_inst                                                    |     0.000 |
-|     ext_ram_data_IOBUF[14]_inst                                                    |     0.000 |
-|     ext_ram_data_IOBUF[15]_inst                                                    |     0.000 |
-|     ext_ram_data_IOBUF[16]_inst                                                    |     0.000 |
-|     ext_ram_data_IOBUF[17]_inst                                                    |     0.000 |
-|     ext_ram_data_IOBUF[18]_inst                                                    |     0.000 |
-|     ext_ram_data_IOBUF[19]_inst                                                    |     0.000 |
-|     ext_ram_data_IOBUF[1]_inst                                                     |     0.000 |
-|     ext_ram_data_IOBUF[20]_inst                                                    |     0.000 |
-|     ext_ram_data_IOBUF[21]_inst                                                    |     0.000 |
-|     ext_ram_data_IOBUF[22]_inst                                                    |     0.000 |
-|     ext_ram_data_IOBUF[23]_inst                                                    |     0.000 |
-|     ext_ram_data_IOBUF[24]_inst                                                    |     0.000 |
-|     ext_ram_data_IOBUF[25]_inst                                                    |     0.000 |
-|     ext_ram_data_IOBUF[26]_inst                                                    |     0.000 |
-|     ext_ram_data_IOBUF[27]_inst                                                    |     0.000 |
-|     ext_ram_data_IOBUF[28]_inst                                                    |     0.000 |
-|     ext_ram_data_IOBUF[29]_inst                                                    |     0.000 |
-|     ext_ram_data_IOBUF[2]_inst                                                     |     0.000 |
-|     ext_ram_data_IOBUF[30]_inst                                                    |     0.000 |
-|     ext_ram_data_IOBUF[31]_inst                                                    |     0.000 |
-|     ext_ram_data_IOBUF[3]_inst                                                     |     0.000 |
-|     ext_ram_data_IOBUF[4]_inst                                                     |     0.000 |
-|     ext_ram_data_IOBUF[5]_inst                                                     |     0.000 |
-|     ext_ram_data_IOBUF[6]_inst                                                     |     0.000 |
-|     ext_ram_data_IOBUF[7]_inst                                                     |     0.000 |
-|     ext_ram_data_IOBUF[8]_inst                                                     |     0.000 |
-|     ext_ram_data_IOBUF[9]_inst                                                     |     0.000 |
-|   openmips0                                                                        |     0.001 |
+|     ext_ram_data_IOBUF[0]_inst                                                     |    <0.001 |
+|     ext_ram_data_IOBUF[10]_inst                                                    |    <0.001 |
+|     ext_ram_data_IOBUF[11]_inst                                                    |    <0.001 |
+|     ext_ram_data_IOBUF[12]_inst                                                    |    <0.001 |
+|     ext_ram_data_IOBUF[13]_inst                                                    |    <0.001 |
+|     ext_ram_data_IOBUF[14]_inst                                                    |    <0.001 |
+|     ext_ram_data_IOBUF[15]_inst                                                    |    <0.001 |
+|     ext_ram_data_IOBUF[16]_inst                                                    |    <0.001 |
+|     ext_ram_data_IOBUF[17]_inst                                                    |    <0.001 |
+|     ext_ram_data_IOBUF[18]_inst                                                    |    <0.001 |
+|     ext_ram_data_IOBUF[19]_inst                                                    |    <0.001 |
+|     ext_ram_data_IOBUF[1]_inst                                                     |    <0.001 |
+|     ext_ram_data_IOBUF[20]_inst                                                    |    <0.001 |
+|     ext_ram_data_IOBUF[21]_inst                                                    |    <0.001 |
+|     ext_ram_data_IOBUF[22]_inst                                                    |    <0.001 |
+|     ext_ram_data_IOBUF[23]_inst                                                    |    <0.001 |
+|     ext_ram_data_IOBUF[24]_inst                                                    |    <0.001 |
+|     ext_ram_data_IOBUF[25]_inst                                                    |    <0.001 |
+|     ext_ram_data_IOBUF[26]_inst                                                    |    <0.001 |
+|     ext_ram_data_IOBUF[27]_inst                                                    |    <0.001 |
+|     ext_ram_data_IOBUF[28]_inst                                                    |    <0.001 |
+|     ext_ram_data_IOBUF[29]_inst                                                    |    <0.001 |
+|     ext_ram_data_IOBUF[2]_inst                                                     |    <0.001 |
+|     ext_ram_data_IOBUF[30]_inst                                                    |    <0.001 |
+|     ext_ram_data_IOBUF[31]_inst                                                    |    <0.001 |
+|     ext_ram_data_IOBUF[3]_inst                                                     |    <0.001 |
+|     ext_ram_data_IOBUF[4]_inst                                                     |    <0.001 |
+|     ext_ram_data_IOBUF[5]_inst                                                     |    <0.001 |
+|     ext_ram_data_IOBUF[6]_inst                                                     |    <0.001 |
+|     ext_ram_data_IOBUF[7]_inst                                                     |    <0.001 |
+|     ext_ram_data_IOBUF[8]_inst                                                     |    <0.001 |
+|     ext_ram_data_IOBUF[9]_inst                                                     |    <0.001 |
+|   openmips0                                                                        |     0.003 |
 |     cp0_reg0                                                                       |    <0.001 |
 |     ctrl0                                                                          |     0.000 |
 |     div0                                                                           |    <0.001 |
@@ -323,12 +324,12 @@ Table of Contents
 |     id0                                                                            |     0.000 |
 |     id_ex0                                                                         |    <0.001 |
 |     if_id0                                                                         |    <0.001 |
-|     mem0                                                                           |    <0.001 |
+|     mem0                                                                           |     0.000 |
 |     mem_wb0                                                                        |    <0.001 |
 |     pc_reg0                                                                        |    <0.001 |
-|     regfile1                                                                       |    <0.001 |
-|   segH                                                                             |    <0.001 |
-|   segL                                                                             |    <0.001 |
+|     regfile1                                                                       |     0.001 |
+|   segH                                                                             |     0.000 |
+|   segL                                                                             |     0.000 |
 |   u_ila_0                                                                          |     0.001 |
 |     inst                                                                           |     0.001 |
 |       ila_core_inst                                                                |     0.001 |
@@ -643,9 +644,9 @@ Table of Contents
 |                     u_srlC                                                         |    <0.001 |
 |                     u_srlD                                                         |    <0.001 |
 |         xsdb_memory_read_inst                                                      |    <0.001 |
-|   u_ila_2                                                                          |    <0.001 |
-|     inst                                                                           |    <0.001 |
-|       ila_core_inst                                                                |    <0.001 |
+|   u_ila_2                                                                          |     0.001 |
+|     inst                                                                           |     0.001 |
+|       ila_core_inst                                                                |     0.001 |
 |         ila_trace_memory_inst                                                      |    <0.001 |
 |           SUBCORE_RAM_BLK_MEM_1.trace_block_memory                                 |    <0.001 |
 |             inst_blk_mem_gen                                                       |    <0.001 |

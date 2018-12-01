@@ -101,11 +101,11 @@ pll_example clock_gen
   .clk_in1(clk_50M) // 外部时钟输入
  );
 
-reg reset_of_clk10M;
+reg stable_reset;
 // 异步复位，同步释放
-always@(posedge clk_10M or negedge locked) begin
-    if(~locked) reset_of_clk10M <= 1'b1;
-    else        reset_of_clk10M <= 1'b0;
+always@(posedge clk_25M or negedge locked) begin
+    if(~locked) stable_reset <= 1'b1;
+    else        stable_reset <= 1'b0;
 end
 
 wire[31:0] rom_data;
@@ -126,7 +126,7 @@ wire timer_int;
 wire enable_mmu;
 wire pause_signal;
 
-assign enable_mmu = ~reset_of_clk10M;
+assign enable_mmu = ~stable_reset;
 
 assign int = {5'b00000, timer_int};
 
@@ -135,9 +135,9 @@ wire ext_uart_ready;
 wire ext_uart_busy;
 
 openmips openmips0(
-        .clk(clk_10M),
+        .clk(clk_25M),
         // .clk(clock_btn),
-        .rst(reset_of_clk10M),
+        .rst(stable_reset),
         .inst_pause(pause_signal),
         .rom_addr_o(inst_addr),
         .rom_data_i(inst),
@@ -169,8 +169,8 @@ mmu_memory mmu_memory_version1 (
 
     .pause_signal(pause_signal),    // 已经支持了
 
-    .clk_50M(clk_20M),
-    .uart_clk(clk_20M),
+    .clk_50M(clk_50M),
+    .uart_clk(clk_50M),
 
     // baseRam部分
     .base_ram_data(base_ram_data),
