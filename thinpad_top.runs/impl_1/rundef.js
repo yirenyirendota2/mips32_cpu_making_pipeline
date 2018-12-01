@@ -23,9 +23,9 @@ eval( EAInclude(ISEJScriptLib) );
 
 
 // pre-commands:
-ISETouchFile( "init_design", "begin" );
+ISETouchFile( "write_bitstream", "begin" );
 ISEStep( "vivado",
-         "-log openmips_min_sopc.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source openmips_min_sopc.tcl -notrace" );
+         "-log thinpad_top.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source thinpad_top.tcl -notrace" );
 
 
 

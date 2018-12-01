@@ -1,24 +1,20 @@
-// Module:  div
-// File:    div.v
-// Author:  liujiashuo
-// Description: 除法模块
-//////////////////////////////////////////////////////////////////////
+
 
 `include "defines.v"
 
 module div(
 
-	input wire clk,
-	input wire rst,
+	input	wire										clk,
+	input wire										rst,
 	
 	input wire                    signed_div_i,
 	input wire[31:0]              opdata1_i,
-	input wire[31:0]		   	  opdata2_i,
+	input wire[31:0]		   				opdata2_i,
 	input wire                    start_i,
 	input wire                    annul_i,
 	
-	output reg[63:0]              result_o,
-	output reg			          ready_o
+	output reg[63:0]             result_o,
+	output reg			             ready_o
 );
 
 	wire[32:0] div_temp;
@@ -38,7 +34,7 @@ module div(
 			result_o <= {`ZeroWord,`ZeroWord};
 		end else begin
 		  case (state)
-		  	`DivFree:			begin               //DivFree状态
+		  	`DivFree:			begin               //DivFree״̬
 		  		if(start_i == `DivStart && annul_i == 1'b0) begin
 		  			if(opdata2_i == `ZeroWord) begin
 		  				state <= `DivByZero;
@@ -64,11 +60,11 @@ module div(
 						result_o <= {`ZeroWord,`ZeroWord};
 				  end          	
 		  	end
-		  	`DivByZero:		begin               //DivByZero状态
+		  	`DivByZero:		begin               //DivByZero״̬
          	dividend <= {`ZeroWord,`ZeroWord};
           state <= `DivEnd;		 		
 		  	end
-		  	`DivOn:				begin               //DivOn状态
+		  	`DivOn:				begin               //DivOn״̬
 		  		if(annul_i == 1'b0) begin
 		  			if(cnt != 6'b100000) begin
                if(div_temp[32] == 1'b1) begin
@@ -91,7 +87,7 @@ module div(
 		  			state <= `DivFree;
 		  		end	
 		  	end
-		  	`DivEnd:			begin               //DivEnd状态
+		  	`DivEnd:			begin               //DivEnd״̬
         	result_o <= {dividend[64:33], dividend[31:0]};  
           ready_o <= `DivResultReady;
           if(start_i == `DivStop) begin

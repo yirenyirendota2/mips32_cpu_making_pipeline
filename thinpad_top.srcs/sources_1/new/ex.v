@@ -1,16 +1,12 @@
-// Module:  ex
-// File:    ex.v
-// Author:  liujiashuo
-// Description: Ö´ÐÐ½×¶Î
-//////////////////////////////////////////////////////////////////////
+
 
 `include "defines.v"
 
 module ex(
 
-	input wire	rst,
+	input wire										rst,
 	
-	//ËÍµ½Ö´ÐÐ½×¶ÎµÄÐÅÏ¢
+	//ï¿½Íµï¿½Ö´ï¿½Ð½×¶Îµï¿½ï¿½ï¿½Ï¢
 	input wire[`AluOpBus]         aluop_i,
 	input wire[`AluSelBus]        alusel_i,
 	input wire[`RegBus]           reg1_i,
@@ -18,17 +14,19 @@ module ex(
 	input wire[`RegAddrBus]       wd_i,
 	input wire                    wreg_i,
 	input wire[`RegBus]           inst_i,
+	input wire[31:0]              excepttype_i,
+	input wire[`RegBus]          current_inst_address_i,
 	
-	//HI¡¢LO¼Ä´æÆ÷µÄÖµ
+	//HIï¿½ï¿½LOï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
 	input wire[`RegBus]           hi_i,
 	input wire[`RegBus]           lo_i,
 
-	//»ØÐ´½×¶ÎµÄÖ¸ÁîÊÇ·ñÒªÐ´HI¡¢LO£¬ÓÃÓÚ¼ì²âHI¡¢LOµÄÊý¾ÝÏà¹Ø
+	//ï¿½ï¿½Ð´ï¿½×¶Îµï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ÒªÐ´HIï¿½ï¿½LOï¿½ï¿½ï¿½ï¿½ï¿½Ú¼ï¿½ï¿½HIï¿½ï¿½LOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	input wire[`RegBus]           wb_hi_i,
 	input wire[`RegBus]           wb_lo_i,
 	input wire                    wb_whilo_i,
 	
-	//·Ã´æ½×¶ÎµÄÖ¸ÁîÊÇ·ñÒªÐ´HI¡¢LO£¬ÓÃÓÚ¼ì²âHI¡¢LOµÄÊý¾ÝÏà¹Ø
+	//ï¿½Ã´ï¿½×¶Îµï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ÒªÐ´HIï¿½ï¿½LOï¿½ï¿½ï¿½ï¿½ï¿½Ú¼ï¿½ï¿½HIï¿½ï¿½LOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	input wire[`RegBus]           mem_hi_i,
 	input wire[`RegBus]           mem_lo_i,
 	input wire                    mem_whilo_i,
@@ -36,13 +34,32 @@ module ex(
 	input wire[`DoubleRegBus]     hilo_temp_i,
 	input wire[1:0]               cnt_i,
 
-	//Óë³ý·¨Ä£¿éÏàÁ¬
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	input wire[`DoubleRegBus]     div_result_i,
 	input wire                    div_ready_i,
 
-	//ÊÇ·ñ×ªÒÆ¡¢ÒÔ¼°link address
+	//ï¿½Ç·ï¿½×ªï¿½Æ¡ï¿½ï¿½Ô¼ï¿½link address
 	input wire[`RegBus]           link_address_i,
 	input wire                    is_in_delayslot_i,	
+
+	//ï¿½Ã´ï¿½×¶Îµï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ÒªÐ´CP0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  input wire                    mem_cp0_reg_we,
+	input wire[4:0]               mem_cp0_reg_write_addr,
+	input wire[`RegBus]           mem_cp0_reg_data,
+	
+	//ï¿½ï¿½Ð´ï¿½×¶Îµï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ÒªÐ´CP0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  input wire                    wb_cp0_reg_we,
+	input wire[4:0]               wb_cp0_reg_write_addr,
+	input wire[`RegBus]           wb_cp0_reg_data,
+
+	//ï¿½ï¿½CP0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½CP0ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+	input wire[`RegBus]           cp0_reg_data_i,
+	output reg[4:0]               cp0_reg_read_addr_o,
+
+	//ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ë®ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½ï¿½Ð´CP0ï¿½ÐµÄ¼Ä´ï¿½ï¿½ï¿½
+	output reg                    cp0_reg_we_o,
+	output reg[4:0]               cp0_reg_write_addr_o,
+	output reg[`RegBus]           cp0_reg_data_o,
 	
 	output reg[`RegAddrBus]       wd_o,
 	output reg                    wreg_o,
@@ -60,10 +77,14 @@ module ex(
 	output reg                    div_start_o,
 	output reg                    signed_div_o,
 
-	//ÏÂÃæÐÂÔöµÄ¼¸¸öÊä³öÊÇÎª¼ÓÔØ¡¢´æ´¢Ö¸Áî×¼±¸µÄ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Ø¡ï¿½ï¿½æ´¢Ö¸ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½
 	output wire[`AluOpBus]        aluop_o,
 	output wire[`RegBus]          mem_addr_o,
 	output wire[`RegBus]          reg2_o,
+	
+	output wire[31:0]             excepttype_o,
+	output wire                   is_in_delayslot_o,
+	output wire[`RegBus]          current_inst_address_o,	
 
 	output reg										stallreq       			
 	
@@ -88,16 +109,23 @@ module ex(
 	reg[`DoubleRegBus] hilo_temp1;
 	reg stallreq_for_madd_msub;			
 	reg stallreq_for_div;
+	reg trapassert;
+	reg ovassert;
 
-  //aluop_o´«µÝµ½·Ã´æ½×¶Î£¬ÓÃÓÚ¼ÓÔØ¡¢´æ´¢Ö¸Áî
+  //aluop_oï¿½ï¿½ï¿½Ýµï¿½ï¿½Ã´ï¿½×¶Î£ï¿½ï¿½ï¿½ï¿½Ú¼ï¿½ï¿½Ø¡ï¿½ï¿½æ´¢Ö¸ï¿½ï¿½
   assign aluop_o = aluop_i;
   
-  //mem_addr´«µÝµ½·Ã´æ½×¶Î£¬ÊÇ¼ÓÔØ¡¢´æ´¢Ö¸Áî¶ÔÓ¦µÄ´æ´¢Æ÷µØÖ·
+  //mem_addrï¿½ï¿½ï¿½Ýµï¿½ï¿½Ã´ï¿½×¶Î£ï¿½ï¿½Ç¼ï¿½ï¿½Ø¡ï¿½ï¿½æ´¢Ö¸ï¿½ï¿½ï¿½Ó¦ï¿½Ä´æ´¢ï¿½ï¿½ï¿½ï¿½Ö·
   assign mem_addr_o = reg1_i + {{16{inst_i[15]}},inst_i[15:0]};
 
-  //½«Á½¸ö²Ù×÷ÊýÒ²´«µÝµ½·Ã´æ½×¶Î£¬Ò²ÊÇÎª¼ÇÔØ¡¢´æ´¢Ö¸Áî×¼±¸µÄ
+  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½Ýµï¿½ï¿½Ã´ï¿½×¶Î£ï¿½Ò²ï¿½ï¿½Îªï¿½ï¿½ï¿½Ø¡ï¿½ï¿½æ´¢Ö¸ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½
   assign reg2_o = reg2_i;
-			
+ 
+  assign excepttype_o = {excepttype_i[31:12],ovassert,trapassert,excepttype_i[9:8],8'h00};
+  
+	assign is_in_delayslot_o = is_in_delayslot_i;
+	assign current_inst_address_o = current_inst_address_i;
+
 	always @ (*) begin
 		if(rst == `RstEnable) begin
 			logicout <= `ZeroWord;
@@ -145,7 +173,9 @@ module ex(
 	end      //always
 
 	assign reg2_i_mux = ((aluop_i == `EXE_SUB_OP) || (aluop_i == `EXE_SUBU_OP) ||
-											 (aluop_i == `EXE_SLT_OP) ) 
+											 (aluop_i == `EXE_SLT_OP)|| (aluop_i == `EXE_TLT_OP) ||
+	                       (aluop_i == `EXE_TLTI_OP) || (aluop_i == `EXE_TGE_OP) ||
+	                       (aluop_i == `EXE_TGEI_OP)) 
 											 ? (~reg2_i)+1 : reg2_i;
 
 	assign result_sum = reg1_i + reg2_i_mux;										 
@@ -153,7 +183,9 @@ module ex(
 	assign ov_sum = ((!reg1_i[31] && !reg2_i_mux[31]) && result_sum[31]) ||
 									((reg1_i[31] && reg2_i_mux[31]) && (!result_sum[31]));  
 									
-	assign reg1_lt_reg2 = ((aluop_i == `EXE_SLT_OP)) ?
+	assign reg1_lt_reg2 = ((aluop_i == `EXE_SLT_OP) || (aluop_i == `EXE_TLT_OP) ||
+	                       (aluop_i == `EXE_TLTI_OP) || (aluop_i == `EXE_TGE_OP) ||
+	                       (aluop_i == `EXE_TGEI_OP)) ?
 												 ((reg1_i[31] && !reg2_i[31]) || 
 												 (!reg1_i[31] && !reg2_i[31] && result_sum[31])||
 			                   (reg1_i[31] && reg2_i[31] && result_sum[31]))
@@ -208,7 +240,40 @@ module ex(
 		end
 	end
 
-  //È¡µÃ³Ë·¨²Ù×÷µÄ²Ù×÷Êý£¬Èç¹ûÊÇÓÐ·ûºÅ³ý·¨ÇÒ²Ù×÷ÊýÊÇ¸ºÊý£¬ÄÇÃ´È¡·´¼ÓÒ»
+	always @ (*) begin
+		if(rst == `RstEnable) begin
+			trapassert <= `TrapNotAssert;
+		end else begin
+			trapassert <= `TrapNotAssert;
+			case (aluop_i)
+				`EXE_TEQ_OP, `EXE_TEQI_OP:		begin
+					if( reg1_i == reg2_i ) begin
+						trapassert <= `TrapAssert;
+					end
+				end
+				`EXE_TGE_OP, `EXE_TGEI_OP, `EXE_TGEIU_OP, `EXE_TGEU_OP:		begin
+					if( ~reg1_lt_reg2 ) begin
+						trapassert <= `TrapAssert;
+					end
+				end
+				`EXE_TLT_OP, `EXE_TLTI_OP, `EXE_TLTIU_OP, `EXE_TLTU_OP:		begin
+					if( reg1_lt_reg2 ) begin
+						trapassert <= `TrapAssert;
+					end
+				end
+				`EXE_TNE_OP, `EXE_TNEI_OP:		begin
+					if( reg1_i != reg2_i ) begin
+						trapassert <= `TrapAssert;
+					end
+				end
+				default:				begin
+					trapassert <= `TrapNotAssert;
+				end
+			endcase
+		end
+	end
+
+  //È¡ï¿½Ã³Ë·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð·ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã´È¡ï¿½ï¿½ï¿½ï¿½Ò»
 	assign opdata1_mult = (((aluop_i == `EXE_MUL_OP) || (aluop_i == `EXE_MULT_OP) ||
 													(aluop_i == `EXE_MADD_OP) || (aluop_i == `EXE_MSUB_OP))
 													&& (reg1_i[31] == 1'b1)) ? (~reg1_i + 1) : reg1_i;
@@ -234,7 +299,7 @@ module ex(
 		end
 	end
 
-  //µÃµ½×îÐÂµÄHI¡¢LO¼Ä´æÆ÷µÄÖµ£¬´Ë´¦Òª½â¾öÖ¸ÁîÊý¾ÝÏà¹ØÎÊÌâ
+  //ï¿½Ãµï¿½ï¿½ï¿½ï¿½Âµï¿½HIï¿½ï¿½LOï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½Ë´ï¿½Òªï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	always @ (*) begin
 		if(rst == `RstEnable) begin
 			{HI,LO} <= {`ZeroWord,`ZeroWord};
@@ -251,7 +316,7 @@ module ex(
     stallreq = stallreq_for_madd_msub || stallreq_for_div;
   end
 
-  //MADD¡¢MADDU¡¢MSUB¡¢MSUBUÖ¸Áî
+  //MADDï¿½ï¿½MADDUï¿½ï¿½MSUBï¿½ï¿½MSUBUÖ¸ï¿½ï¿½
 	always @ (*) begin
 		if(rst == `RstEnable) begin
 			hilo_temp_o <= {`ZeroWord,`ZeroWord};
@@ -294,7 +359,7 @@ module ex(
 		end
 	end	
 
-  //DIV¡¢DIVUÖ¸Áî	
+  //DIVï¿½ï¿½DIVUÖ¸ï¿½ï¿½	
 	always @ (*) begin
 		if(rst == `RstEnable) begin
 			stallreq_for_div <= `NoStop;
@@ -357,7 +422,7 @@ module ex(
 		end
 	end	
 
-	//MFHI¡¢MFLO¡¢MOVN¡¢MOVZÖ¸Áî
+	//MFHIï¿½ï¿½MFLOï¿½ï¿½MOVNï¿½ï¿½MOVZÖ¸ï¿½ï¿½
 	always @ (*) begin
 		if(rst == `RstEnable) begin
 	  	moveres <= `ZeroWord;
@@ -376,6 +441,17 @@ module ex(
 	   	`EXE_MOVN_OP:		begin
 	   		moveres <= reg1_i;
 	   	end
+	   	`EXE_MFC0_OP:		begin
+	   	  cp0_reg_read_addr_o <= inst_i[15:11];
+	   		moveres <= cp0_reg_data_i;
+	   		if( mem_cp0_reg_we == `WriteEnable &&
+	   				  mem_cp0_reg_write_addr == inst_i[15:11] ) begin
+	   				moveres <= mem_cp0_reg_data;
+	   		end else if( wb_cp0_reg_we == `WriteEnable &&
+	   				 							 wb_cp0_reg_write_addr == inst_i[15:11] ) begin
+	   				moveres <= wb_cp0_reg_data;
+	   		end
+	   	end	   	
 	   	default : begin
 	   	end
 	   endcase
@@ -388,8 +464,10 @@ module ex(
 	 if(((aluop_i == `EXE_ADD_OP) || (aluop_i == `EXE_ADDI_OP) || 
 	      (aluop_i == `EXE_SUB_OP)) && (ov_sum == 1'b1)) begin
 	 	wreg_o <= `WriteDisable;
+	 	ovassert <= 1'b1;
 	 end else begin
 	  wreg_o <= wreg_i;
+	  ovassert <= 1'b0;
 	 end
 	 
 	 case ( alusel_i ) 
@@ -452,5 +530,21 @@ module ex(
 			lo_o <= `ZeroWord;
 		end				
 	end			
+
+	always @ (*) begin
+		if(rst == `RstEnable) begin
+			cp0_reg_write_addr_o <= 5'b00000;
+			cp0_reg_we_o <= `WriteDisable;
+			cp0_reg_data_o <= `ZeroWord;
+		end else if(aluop_i == `EXE_MTC0_OP) begin
+			cp0_reg_write_addr_o <= inst_i[15:11];
+			cp0_reg_we_o <= `WriteEnable;
+			cp0_reg_data_o <= reg1_i;
+	  end else begin
+			cp0_reg_write_addr_o <= 5'b00000;
+			cp0_reg_we_o <= `WriteDisable;
+			cp0_reg_data_o <= `ZeroWord;
+		end				
+	end		
 
 endmodule

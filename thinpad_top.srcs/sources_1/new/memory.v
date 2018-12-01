@@ -43,14 +43,14 @@ module memory(
 
 //RAM信号
 reg[31:0] temp_ram_data;  //RAM数据，低8位与CPLD串口控制器共享
-reg[19:0] temp_ram_addr = 20'h00000; //RAM地址
-reg[3:0] temp_ram_be_n = 4'b0000;  //RAM字节使能，低有效。如果不使用字节使能，请保持为0
-reg temp_ram_ce_n = 1'b1;       //RAM片选，低有效
-reg temp_ram_oe_n = 1'b1;       //RAM读使能，低有效
-reg temp_ram_we_n = 1'b1;       //RAM写使能，低有效
+reg[19:0] temp_ram_addr; //RAM地址
+reg[3:0] temp_ram_be_n;  //RAM字节使能，低有效。如果不使用字节使能，请保持为0
+reg temp_ram_ce_n;       //RAM片选，低有效
+reg temp_ram_oe_n;       //RAM读使能，低有效
+reg temp_ram_we_n;       //RAM写使能，低有效
 //CPU的信号
 reg[31:0] temp_cpu_data;
-reg temp_finished = 1'b0;//start = 0, end = 1;
+reg temp_finished;//start = 0, end = 1;
 
 assign ram_data = temp_ram_data;
 assign ram_addr = temp_ram_addr;
@@ -62,47 +62,49 @@ assign cpu_output_data = temp_cpu_data;
 assign finished = temp_finished;
 
 always@(negedge clk) begin
-    if(~clk) begin
-        if(ram_enable) begin
-            if(~temp_finished) begin//should start
-                if(write_or_read) begin//read
-                    temp_ram_data <= cpu_input_data;
-                    temp_ram_addr <= cpu_addr;
-                    temp_ram_ce_n <= 1'b0;
-                    temp_ram_we_n <= 1'b0;
-                    temp_ram_oe_n <= 1'b1;  
-                    temp_ram_be_n <= ~cpu_be_n;
-                end
-                else begin//write
-                    temp_ram_data <= 32'bzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz;
-                    temp_ram_addr <= cpu_addr;
-                    temp_ram_ce_n <= 1'b0;
-                    temp_ram_we_n <= 1'b1;
-                    temp_ram_oe_n <= 1'b0;   
-                    temp_ram_be_n <= ~cpu_be_n;
-                end
-                temp_finished <= 1'b1;
-            end
-            else begin//should end
-                // temp_ram_ce_n <= 1'b1;
-                // temp_ram_we_n <= 1'b1;
-                // temp_ram_oe_n <= 1'b1;
-                // temp_ram_be_n <= 4'b0000;
-                if(~write_or_read) begin//read data;
-                    temp_cpu_data <= ram_data;  
-                end
-                temp_ram_ce_n <= 1'b1;
-                temp_ram_we_n <= 1'b1;
+    if(ram_enable) begin
+        if(~temp_finished) begin//should start
+            if(write_or_read) begin//read
+                temp_ram_data <= cpu_input_data;
+                temp_ram_addr <= cpu_addr;
+                temp_ram_ce_n <= 1'b0;
+                temp_ram_we_n <= 1'b0;
                 temp_ram_oe_n <= 1'b1;  
-                temp_finished <= 1'b0;
+                temp_ram_be_n <= ~cpu_be_n;
             end
+            else begin//write
+                temp_ram_data <= {32{1'bZ}};
+                temp_ram_addr <= cpu_addr;
+                temp_ram_ce_n <= 1'b0;
+                temp_ram_we_n <= 1'b1;
+                temp_ram_oe_n <= 1'b0;   
+                temp_ram_be_n <= ~cpu_be_n;
+            end
+            temp_finished <= 1'b1;
         end
-        else begin
+        else begin//should end
+            // temp_ram_ce_n <= 1'b1;
+            // temp_ram_we_n <= 1'b1;
+            // temp_ram_oe_n <= 1'b1;
+            // temp_ram_be_n <= 4'b0000;
+            if(~write_or_read) begin//read data;
+                temp_cpu_data <= ram_data;  
+            end
             temp_ram_ce_n <= 1'b1;
             temp_ram_we_n <= 1'b1;
             temp_ram_oe_n <= 1'b1;  
             temp_finished <= 1'b0;
         end
+    end
+    else begin
+        temp_ram_data <= {32{1'b0}};
+        temp_ram_addr <= {32{1'b0}};
+        temp_ram_be_n <= 4'b0000;
+        temp_ram_ce_n <= 1'b1;
+        temp_ram_we_n <= 1'b1;
+        temp_ram_oe_n <= 1'b1;  
+        temp_cpu_data <= {32{1'b0}};
+        temp_finished <= 1'b0;
     end
 end
 

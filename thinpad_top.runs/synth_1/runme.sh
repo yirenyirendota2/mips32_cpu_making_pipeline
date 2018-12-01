@@ -24,7 +24,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='C:/Users/liujiashuo/Desktop/mip32_cpu_making/thinpad_top.runs/synth_1'
+HD_PWD='C:/Users/liujiashuo/Desktop/thinpad_top/thinpad_top.runs/synth_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log
@@ -40,4 +40,4 @@ EAStep()
      fi
 }
 
-EAStep vivado -log openmips_min_sopc.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source openmips_min_sopc.tcl
+EAStep vivado -log thinpad_top.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source thinpad_top.tcl

@@ -1,21 +1,14 @@
-// Module:  data_ram
-// File:    data_ram.v
-// Author:  liujiashuo
-// Description: Êý¾Ý´æ´¢Æ÷
-// Revision: 1.0
-//////////////////////////////////////////////////////////////////////
-
 `include "defines.v"
 
 module data_ram(
 
-	input wire clk,
-	input wire ce,
-	input wire we,
-	input wire[`DataAddrBus] addr,
-	input wire[3:0]	sel,
-	input wire[`DataBus] data_i,
-	output reg[`DataBus] data_o
+	input	wire										clk,
+	input wire										ce,
+	input wire										we,
+	input wire[`DataAddrBus]			addr,
+	input wire[3:0]								sel,
+	input wire[`DataBus]						data_i,
+	output reg[`DataBus]					data_o
 	
 );
 

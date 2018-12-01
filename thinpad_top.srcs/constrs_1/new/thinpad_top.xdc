@@ -1,33 +1,33 @@
 #Clock
-set_property -dict {PACKAGE_PIN D18 IOSTANDARD LVCMOS33} [get_ports clk_50M] ;#50MHz main clock in
-set_property -dict {PACKAGE_PIN C18 IOSTANDARD LVCMOS33} [get_ports clk_11M0592] ;#11.0592MHz clock for UART
+set_property -dict {PACKAGE_PIN D18 IOSTANDARD LVCMOS33} [get_ports clk_50M]
+set_property -dict {PACKAGE_PIN C18 IOSTANDARD LVCMOS33} [get_ports clk_11M0592]
 set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets clk_11M0592_IBUF]
 
 create_clock -period 20.000 -name clk_50M -waveform {0.000 10.000} [get_ports clk_50M]
 create_clock -period 90.422 -name clk_11M0592 -waveform {0.000 45.211} [get_ports clk_11M0592]
 
 #Touch Button
-set_property -dict {PACKAGE_PIN J19 IOSTANDARD LVCMOS33} [get_ports touch_btn[0]] ;#BTN1
-set_property -dict {PACKAGE_PIN E25 IOSTANDARD LVCMOS33} [get_ports touch_btn[1]] ;#BTN2
-set_property -dict {PACKAGE_PIN F23 IOSTANDARD LVCMOS33} [get_ports touch_btn[2]] ;#BTN3
-set_property -dict {PACKAGE_PIN E23 IOSTANDARD LVCMOS33} [get_ports touch_btn[3]] ;#BTN4
-set_property -dict {PACKAGE_PIN H19 IOSTANDARD LVCMOS33} [get_ports clock_btn] ;#BTN5
-set_property -dict {PACKAGE_PIN F22 IOSTANDARD LVCMOS33} [get_ports reset_btn] ;#BTN6
+set_property -dict {PACKAGE_PIN J19 IOSTANDARD LVCMOS33} [get_ports {touch_btn[0]}]
+set_property -dict {PACKAGE_PIN E25 IOSTANDARD LVCMOS33} [get_ports {touch_btn[1]}]
+set_property -dict {PACKAGE_PIN F23 IOSTANDARD LVCMOS33} [get_ports {touch_btn[2]}]
+set_property -dict {PACKAGE_PIN E23 IOSTANDARD LVCMOS33} [get_ports {touch_btn[3]}]
+set_property -dict {PACKAGE_PIN H19 IOSTANDARD LVCMOS33} [get_ports clock_btn]
+set_property -dict {PACKAGE_PIN F22 IOSTANDARD LVCMOS33} [get_ports reset_btn]
 
 #required if touch button used as manual clock source
 set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets clock_btn_IBUF]
 set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets reset_btn_IBUF]
 
 #CPLD
-set_property -dict {PACKAGE_PIN L8 IOSTANDARD LVCMOS33} [get_ports {uart_wrn}]
-set_property -dict {PACKAGE_PIN M6 IOSTANDARD LVCMOS33} [get_ports {uart_rdn}]
-set_property -dict {PACKAGE_PIN L5 IOSTANDARD LVCMOS33} [get_ports {uart_tbre}]
-set_property -dict {PACKAGE_PIN L7 IOSTANDARD LVCMOS33} [get_ports {uart_tsre}]
-set_property -dict {PACKAGE_PIN L4 IOSTANDARD LVCMOS33} [get_ports {uart_dataready}]
+set_property -dict {PACKAGE_PIN L8 IOSTANDARD LVCMOS33} [get_ports uart_wrn]
+set_property -dict {PACKAGE_PIN M6 IOSTANDARD LVCMOS33} [get_ports uart_rdn]
+set_property -dict {PACKAGE_PIN L5 IOSTANDARD LVCMOS33} [get_ports uart_tbre]
+set_property -dict {PACKAGE_PIN L7 IOSTANDARD LVCMOS33} [get_ports uart_tsre]
+set_property -dict {PACKAGE_PIN L4 IOSTANDARD LVCMOS33} [get_ports uart_dataready]
 
 #Ext serial
-set_property -dict {IOSTANDARD LVCMOS33 PACKAGE_PIN L19} [get_ports txd] ;#GPIO5
-set_property -dict {IOSTANDARD LVCMOS33 PACKAGE_PIN K21} [get_ports rxd] ;#GPIO6
+set_property -dict {IOSTANDARD LVCMOS33 PACKAGE_PIN L19} [get_ports txd]
+set_property -dict {IOSTANDARD LVCMOS33 PACKAGE_PIN K21} [get_ports rxd]
 
 #USB
 set_property -dict {PACKAGE_PIN K3 IOSTANDARD LVCMOS33} [get_ports sl811_a0]
@@ -103,7 +103,7 @@ set_property -dict {PACKAGE_PIN G15 IOSTANDARD LVCMOS33} [get_ports {dpy0[3]}]
 set_property -dict {PACKAGE_PIN H16 IOSTANDARD LVCMOS33} [get_ports {dpy0[4]}]
 set_property -dict {PACKAGE_PIN H14 IOSTANDARD LVCMOS33} [get_ports {dpy0[5]}]
 set_property -dict {PACKAGE_PIN G19 IOSTANDARD LVCMOS33} [get_ports {dpy0[6]}]
-set_property -dict {PACKAGE_PIN  J8 IOSTANDARD LVCMOS33} [get_ports {dpy0[7]}]
+set_property -dict {PACKAGE_PIN J8 IOSTANDARD LVCMOS33} [get_ports {dpy0[7]}]
 
 #DPY1
 set_property -dict {PACKAGE_PIN H9 IOSTANDARD LVCMOS33} [get_ports {dpy1[0]}]
@@ -149,7 +149,7 @@ set_property -dict {PACKAGE_PIN N7 IOSTANDARD LVCMOS33} [get_ports {dip_sw[29]}]
 set_property -dict {PACKAGE_PIN M7 IOSTANDARD LVCMOS33} [get_ports {dip_sw[30]}]
 set_property -dict {PACKAGE_PIN M5 IOSTANDARD LVCMOS33} [get_ports {dip_sw[31]}]
 
-set_property -dict {PACKAGE_PIN K8 IOSTANDARD LVCMOS33}  [get_ports {flash_a[0]}]
+set_property -dict {PACKAGE_PIN K8 IOSTANDARD LVCMOS33} [get_ports {flash_a[0]}]
 set_property -dict {PACKAGE_PIN C26 IOSTANDARD LVCMOS33} [get_ports {flash_a[1]}]
 set_property -dict {PACKAGE_PIN B26 IOSTANDARD LVCMOS33} [get_ports {flash_a[2]}]
 set_property -dict {PACKAGE_PIN B25 IOSTANDARD LVCMOS33} [get_ports {flash_a[3]}]
@@ -320,3 +320,62 @@ set_property -dict {PACKAGE_PIN U16 IOSTANDARD LVCMOS33} [get_ports ext_ram_we_n
 set_property CFGBVS VCCO [current_design]
 set_property CONFIG_VOLTAGE 3.3 [current_design]
 
+
+create_debug_core u_ila_0 ila
+set_property ALL_PROBE_SAME_MU true [get_debug_cores u_ila_0]
+set_property ALL_PROBE_SAME_MU_CNT 1 [get_debug_cores u_ila_0]
+set_property C_ADV_TRIGGER false [get_debug_cores u_ila_0]
+set_property C_DATA_DEPTH 1024 [get_debug_cores u_ila_0]
+set_property C_EN_STRG_QUAL false [get_debug_cores u_ila_0]
+set_property C_INPUT_PIPE_STAGES 0 [get_debug_cores u_ila_0]
+set_property C_TRIGIN_EN false [get_debug_cores u_ila_0]
+set_property C_TRIGOUT_EN false [get_debug_cores u_ila_0]
+set_property port_width 1 [get_debug_ports u_ila_0/clk]
+connect_debug_port u_ila_0/clk [get_nets [list clock_gen/inst/clk_out2]]
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe0]
+set_property port_width 8 [get_debug_ports u_ila_0/probe0]
+connect_debug_port u_ila_0/probe0 [get_nets [list {mmu_memory_version1/directUart/ext_uart_rx[0]} {mmu_memory_version1/directUart/ext_uart_rx[1]} {mmu_memory_version1/directUart/ext_uart_rx[2]} {mmu_memory_version1/directUart/ext_uart_rx[3]} {mmu_memory_version1/directUart/ext_uart_rx[4]} {mmu_memory_version1/directUart/ext_uart_rx[5]} {mmu_memory_version1/directUart/ext_uart_rx[6]} {mmu_memory_version1/directUart/ext_uart_rx[7]}]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe1]
+set_property port_width 8 [get_debug_ports u_ila_0/probe1]
+connect_debug_port u_ila_0/probe1 [get_nets [list {mmu_memory_version1/directUart/ext_uart_tx[0]} {mmu_memory_version1/directUart/ext_uart_tx[1]} {mmu_memory_version1/directUart/ext_uart_tx[2]} {mmu_memory_version1/directUart/ext_uart_tx[3]} {mmu_memory_version1/directUart/ext_uart_tx[4]} {mmu_memory_version1/directUart/ext_uart_tx[5]} {mmu_memory_version1/directUart/ext_uart_tx[6]} {mmu_memory_version1/directUart/ext_uart_tx[7]}]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe2]
+set_property port_width 1 [get_debug_ports u_ila_0/probe2]
+connect_debug_port u_ila_0/probe2 [get_nets [list mmu_memory_version1/directUart/ext_uart_busy]]
+create_debug_port u_ila_0 probe
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_0/probe3]
+set_property port_width 1 [get_debug_ports u_ila_0/probe3]
+connect_debug_port u_ila_0/probe3 [get_nets [list mmu_memory_version1/directUart/ext_uart_ready]]
+create_debug_core u_ila_1 ila
+set_property ALL_PROBE_SAME_MU true [get_debug_cores u_ila_1]
+set_property ALL_PROBE_SAME_MU_CNT 1 [get_debug_cores u_ila_1]
+set_property C_ADV_TRIGGER false [get_debug_cores u_ila_1]
+set_property C_DATA_DEPTH 1024 [get_debug_cores u_ila_1]
+set_property C_EN_STRG_QUAL false [get_debug_cores u_ila_1]
+set_property C_INPUT_PIPE_STAGES 0 [get_debug_cores u_ila_1]
+set_property C_TRIGIN_EN false [get_debug_cores u_ila_1]
+set_property C_TRIGOUT_EN false [get_debug_cores u_ila_1]
+set_property port_width 1 [get_debug_ports u_ila_1/clk]
+connect_debug_port u_ila_1/clk [get_nets [list mmu_memory_version1/n_4_114_BUFG]]
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_1/probe0]
+set_property port_width 32 [get_debug_ports u_ila_1/probe0]
+connect_debug_port u_ila_1/probe0 [get_nets [list {inst[0]} {inst[1]} {inst[2]} {inst[3]} {inst[4]} {inst[5]} {inst[6]} {inst[7]} {inst[8]} {inst[9]} {inst[10]} {inst[11]} {inst[12]} {inst[13]} {inst[14]} {inst[15]} {inst[16]} {inst[17]} {inst[18]} {inst[19]} {inst[20]} {inst[21]} {inst[22]} {inst[23]} {inst[24]} {inst[25]} {inst[26]} {inst[27]} {inst[28]} {inst[29]} {inst[30]} {inst[31]}]]
+create_debug_core u_ila_2 ila
+set_property ALL_PROBE_SAME_MU true [get_debug_cores u_ila_2]
+set_property ALL_PROBE_SAME_MU_CNT 1 [get_debug_cores u_ila_2]
+set_property C_ADV_TRIGGER false [get_debug_cores u_ila_2]
+set_property C_DATA_DEPTH 1024 [get_debug_cores u_ila_2]
+set_property C_EN_STRG_QUAL false [get_debug_cores u_ila_2]
+set_property C_INPUT_PIPE_STAGES 0 [get_debug_cores u_ila_2]
+set_property C_TRIGIN_EN false [get_debug_cores u_ila_2]
+set_property C_TRIGOUT_EN false [get_debug_cores u_ila_2]
+set_property port_width 1 [get_debug_ports u_ila_2/clk]
+connect_debug_port u_ila_2/clk [get_nets [list clock_gen/inst/clk_out1]]
+set_property PROBE_TYPE DATA_AND_TRIGGER [get_debug_ports u_ila_2/probe0]
+set_property port_width 32 [get_debug_ports u_ila_2/probe0]
+connect_debug_port u_ila_2/probe0 [get_nets [list {inst_addr[0]} {inst_addr[1]} {inst_addr[2]} {inst_addr[3]} {inst_addr[4]} {inst_addr[5]} {inst_addr[6]} {inst_addr[7]} {inst_addr[8]} {inst_addr[9]} {inst_addr[10]} {inst_addr[11]} {inst_addr[12]} {inst_addr[13]} {inst_addr[14]} {inst_addr[15]} {inst_addr[16]} {inst_addr[17]} {inst_addr[18]} {inst_addr[19]} {inst_addr[20]} {inst_addr[21]} {inst_addr[22]} {inst_addr[23]} {inst_addr[24]} {inst_addr[25]} {inst_addr[26]} {inst_addr[27]} {inst_addr[28]} {inst_addr[29]} {inst_addr[30]} {inst_addr[31]}]]
+set_property C_CLK_INPUT_FREQ_HZ 300000000 [get_debug_cores dbg_hub]
+set_property C_ENABLE_CLK_DIVIDER false [get_debug_cores dbg_hub]
+set_property C_USER_SCAN_CHAIN 1 [get_debug_cores dbg_hub]
+connect_debug_port dbg_hub/clk [get_nets clk_10M]

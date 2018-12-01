@@ -1,24 +1,20 @@
-// Module:  hilo_reg
-// File:    hilo_reg.v
-// Author:  liujiashuo
-// Description: ±£´æ³Ë·¨½á¹ûµÄHI¡¢LO¼Ä´æÆ÷
-//////////////////////////////////////////////////////////////////////
+
 
 `include "defines.v"
 
 module hilo_reg(
 
-	input wire clk,
-	input wire rst,
+	input	wire										clk,
+	input wire										rst,
 	
-	//Ð´¶Ë¿Ú
-	input wire	we,
-	input wire[`RegBus]	hi_i,
-	input wire[`RegBus]	lo_i,
+	//Ð´ï¿½Ë¿ï¿½
+	input wire										we,
+	input wire[`RegBus]				    hi_i,
+	input wire[`RegBus]						lo_i,
 	
-	//¶Á¶Ë¿Ú1
-	output reg[`RegBus] hi_o,
-	output reg[`RegBus] lo_o
+	//ï¿½ï¿½ï¿½Ë¿ï¿½1
+	output reg[`RegBus]           hi_o,
+	output reg[`RegBus]           lo_o
 	
 );
 

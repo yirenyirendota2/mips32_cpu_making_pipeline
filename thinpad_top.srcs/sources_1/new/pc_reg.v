@@ -1,45 +1,46 @@
 
-// Module:  pc_reg
-// File:    pc_reg.v
-// Author:  liujiashuo
-// E-mail:  leishangwen@163.com
-// Description: Ö¸ÁîÖ¸Õë¼Ä´æÆ÷PC
-// Revision: 1.0
-//////////////////////////////////////////////////////////////////////
 
 `include "defines.v"
 
 module pc_reg(
 
-	input wire clk,
-	input wire rst,
+	input	wire				  clk,
+	input wire					  rst,
 
-	// À´×ÔÖ¸Áî´æ´¢Æ÷µÄ³åÍ»ÔİÍ£ĞÅºÅ   1ÎªÔİÍ£
+	// æ¥è‡ªæŒ‡ä»¤å­˜å‚¨å™¨çš„å†²çªæš‚åœä¿¡å·   1ä¸ºæš‚åœ
 	input wire inst_pause, 
-
-	//À´×Ô¿ØÖÆÄ£¿éµÄĞÅÏ¢
-	input wire[5:0] stall,
-
-	//À´×ÔÒëÂë½×¶ÎµÄĞÅÏ¢
-	input wire branch_flag_i,
-	input wire[`RegBus] branch_target_address_i,
 	
-	output reg[`InstAddrBus] pc,
-	output reg ce
+	input wire[5:0]               stall,
+	input wire                    flush,
+	input wire[`RegBus]           new_pc,
+
+	
+	input wire                    branch_flag_i,
+	input wire[`RegBus]           branch_target_address_i,
+	
+	output reg[`InstAddrBus]	  pc,
+	output reg                    ce
 	
 );
 
 	always @ (posedge clk) begin
 		if (ce == `ChipDisable) begin
-			pc <= 32'h80000000;
-		end else if (inst_pause == 1) begin   //  ÊÕµ½ÁËÖ¸Áî´æ´¢Æ÷µÄÔİÍ£ĞÅºÅ£¬pcÖµ²»±ä£¬ÒòÎªÖ¸ÁîÈ¡²»³öÀ´
-		  pc <= pc ;
-		end else if(stall[0] == `NoStop) begin
-		  	if(branch_flag_i == `Branch) begin
+			pc <= `PCStart;		
+		end else begin
+			/*
+			if (inst_pause == 1) begin
+			  pc <= pc;
+			end else 
+			*/
+			if(flush == 1'b1) begin
+				pc <= new_pc;
+			end else if(stall[0] == `NoStop) begin
+				if(branch_flag_i == `Branch) begin
 					pc <= branch_target_address_i;
 				end else begin
 		  		pc <= pc + 4'h4;
 		  	end
+			end
 		end
 	end
 

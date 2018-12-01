@@ -24,7 +24,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='C:/Users/liujiashuo/Desktop/mip32_cpu_making/thinpad_top.runs/impl_1'
+HD_PWD='C:/Users/liujiashuo/Desktop/thinpad_top/thinpad_top.runs/impl_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log
@@ -41,7 +41,7 @@ EAStep()
 }
 
 # pre-commands:
-/bin/touch .init_design.begin.rst
-EAStep vivado -log openmips_min_sopc.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source openmips_min_sopc.tcl -notrace
+/bin/touch .write_bitstream.begin.rst
+EAStep vivado -log thinpad_top.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source thinpad_top.tcl -notrace
 
 

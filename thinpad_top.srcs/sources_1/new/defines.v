@@ -1,4 +1,24 @@
-//全局
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 10/23/2018 08:06:51 PM
+// Design Name: 
+// Module Name: defines
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+//ȫ��
 `define RstEnable 1'b1
 `define RstDisable 1'b0
 `define ZeroWord 32'h00000000
@@ -26,7 +46,7 @@
 `define ChipDisable 1'b0
 
 
-//指令
+//ָ��
 `define EXE_AND  6'b100100
 `define EXE_OR   6'b100101
 `define EXE_XOR 6'b100110
@@ -75,6 +95,7 @@
 
 `define EXE_DIV  6'b011010
 `define EXE_DIVU  6'b011011
+`define EXE_BREAK 6'b001101
 
 `define EXE_J  6'b000010
 `define EXE_JAL  6'b000011
@@ -104,6 +125,22 @@
 `define EXE_SWL  6'b101010
 `define EXE_SWR  6'b101110
 
+`define EXE_SYSCALL 6'b001100
+   
+`define EXE_TEQ 6'b110100
+`define EXE_TEQI 5'b01100
+`define EXE_TGE 6'b110000
+`define EXE_TGEI 5'b01000
+`define EXE_TGEIU 5'b01001
+`define EXE_TGEU 6'b110001
+`define EXE_TLT 6'b110010
+`define EXE_TLTI 5'b01010
+`define EXE_TLTIU 5'b01011
+`define EXE_TLTU 6'b110011
+`define EXE_TNE 6'b110110
+`define EXE_TNEI 5'b01110
+   
+`define EXE_ERET 32'b01000010000000000000000000011000
 
 `define EXE_NOP 6'b000000
 `define SSNOP 32'b00000000000000000000000001000000
@@ -190,6 +227,26 @@
 `define EXE_SWR_OP  8'b11101110
 `define EXE_SYNC_OP  8'b00001111
 
+`define EXE_MFC0_OP 8'b01011101
+`define EXE_MTC0_OP 8'b01100000
+
+`define EXE_SYSCALL_OP 8'b00001100
+
+`define EXE_TEQ_OP 8'b00110100
+`define EXE_TEQI_OP 8'b01001000
+`define EXE_TGE_OP 8'b00110000
+`define EXE_TGEI_OP 8'b01000100
+`define EXE_TGEIU_OP 8'b01000101
+`define EXE_TGEU_OP 8'b00110001
+`define EXE_TLT_OP 8'b00110010
+`define EXE_TLTI_OP 8'b01000110
+`define EXE_TLTIU_OP 8'b01000111
+`define EXE_TLTU_OP 8'b00110011
+`define EXE_TNE_OP 8'b00110110
+`define EXE_TNEI_OP 8'b01001001
+   
+`define EXE_ERET_OP 8'b01101011
+
 `define EXE_NOP_OP    8'b00000000
 
 //AluSel
@@ -204,20 +261,20 @@
 `define EXE_RES_NOP 3'b000
 
 
-//指令存储器inst_rom
+//ָ��洢��inst_rom
 `define InstAddrBus 31:0
 `define InstBus 31:0
-`define InstMemNum 131071
-`define InstMemNumLog2 17
+`define InstMemNum 67108863
+`define InstMemNumLog2 26
 
-//数据存储器data_ram
+//���ݴ洢��data_ram
 `define DataAddrBus 31:0
 `define DataBus 31:0
-`define DataMemNum 131071
-`define DataMemNumLog2 17
+`define DataMemNum 67108863
+`define DataMemNumLog2 26
 `define ByteWidth 7:0
 
-//通用寄存器regfile
+//ͨ�üĴ���regfile
 `define RegAddrBus 4:0
 `define RegBus 31:0
 `define RegWidth 32
@@ -227,7 +284,7 @@
 `define RegNumLog2 5
 `define NOPRegAddr 5'b00000
 
-//除法div
+//����div
 `define DivFree 2'b00
 `define DivByZero 2'b01
 `define DivOn 2'b10
@@ -236,3 +293,27 @@
 `define DivResultNotReady 1'b0
 `define DivStart 1'b1
 `define DivStop 1'b0
+`define PCStart 32'h80000000 
+
+//CP0�Ĵ�����ַ
+`define CP0_REG_COUNT    5'b01001        //�ɶ�д
+`define CP0_REG_COMPARE    5'b01011      //�ɶ�д
+
+`define CP0_REG_BADVADDR    5'b01000      //�ɶ�д
+
+`define CP0_REG_STATUS    5'b01100       //�ɶ�д
+`define CP0_REG_CAUSE    5'b01101        //ֻ��
+`define CP0_REG_EPC    5'b01110          //�ɶ�д
+`define CP0_REG_PrId    5'b01111         //ֻ��
+`define CP0_REG_CONFIG    5'b10000       //ֻ��
+
+`define SRAMEnable          1'b0
+`define SRAMDisable         1'b1
+
+`define sram_nop    3'b000
+`define sram_write1 3'b001
+`define sram_write2 3'b010
+`define sram_read1  3'b011
+`define sram_read2  3'b100
+// `define sram_read2  1'b4
+

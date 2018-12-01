@@ -1,23 +1,18 @@
-// Module:  LLbit_reg
-// File:    LLbit_reg.v
-// Author:  liujiashuo
-// Description: 保存LLbit，用在SC、LL指令中
-// Revision: 1.0
-//////////////////////////////////////////////////////////////////////
+
 
 `include "defines.v"
 
 module LLbit_reg(
 
-	input wire clk,
-	input wire rst,
+	input	wire										clk,
+	input wire										rst,
 	
 	input wire                    flush,
-	//写端口
-	input wire					  LLbit_i,
+	//д�˿�
+	input wire										LLbit_i,
 	input wire                    we,
 	
-	//读端口1
+	//���˿�1
 	output reg                    LLbit_o
 	
 );
