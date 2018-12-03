@@ -1,8 +1,8 @@
 Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2018.2 (win64) Build 2258646 Thu Jun 14 20:03:12 MDT 2018
-| Date         : Mon Dec  3 23:40:42 2018
-| Host         : DESKTOP-N6B5F4R running 64-bit major release  (build 9200)
+| Date         : Tue Dec  4 03:50:46 2018
+| Host         : LAPTOP-5JKB6L2D running 64-bit major release  (build 9200)
 | Command      : report_utilization -file thinpad_top_utilization_synth.rpt -pb thinpad_top_utilization_synth.pb
 | Design       : thinpad_top
 | Device       : 7a100tfgg676-2L
@@ -30,14 +30,14 @@ Table of Contents
 +-------------------------+------+-------+-----------+-------+
 |        Site Type        | Used | Fixed | Available | Util% |
 +-------------------------+------+-------+-----------+-------+
-| Slice LUTs*             | 3857 |     0 |     63400 |  6.08 |
-|   LUT as Logic          | 3857 |     0 |     63400 |  6.08 |
+| Slice LUTs*             | 5439 |     0 |     63400 |  8.58 |
+|   LUT as Logic          | 5439 |     0 |     63400 |  8.58 |
 |   LUT as Memory         |    0 |     0 |     19000 |  0.00 |
-| Slice Registers         | 2859 |     0 |    126800 |  2.25 |
-|   Register as Flip Flop | 2522 |     0 |    126800 |  1.99 |
-|   Register as Latch     |  337 |     0 |    126800 |  0.27 |
-| F7 Muxes                |  283 |     0 |     31700 |  0.89 |
-| F8 Muxes                |  122 |     0 |     15850 |  0.77 |
+| Slice Registers         | 3034 |     0 |    126800 |  2.39 |
+|   Register as Flip Flop | 2696 |     0 |    126800 |  2.13 |
+|   Register as Latch     |  338 |     0 |    126800 |  0.27 |
+| F7 Muxes                |  550 |     0 |     31700 |  1.74 |
+| F8 Muxes                |  178 |     0 |     15850 |  1.12 |
 +-------------------------+------+-------+-----------+-------+
 * Warning! The Final LUT count, after physical optimizations and full implementation, is typically lower. Run opt_design after synthesis, if not already completed, for a more realistic count.
 
@@ -55,9 +55,9 @@ Table of Contents
 | 0     |            _ |       Reset |            - |
 | 0     |          Yes |           - |            - |
 | 1     |          Yes |           - |          Set |
-| 337   |          Yes |           - |        Reset |
+| 338   |          Yes |           - |        Reset |
 | 9     |          Yes |         Set |            - |
-| 2512  |          Yes |       Reset |            - |
+| 2686  |          Yes |       Reset |            - |
 +-------+--------------+-------------+--------------+
 
 
@@ -150,17 +150,17 @@ Table of Contents
 +----------+------+---------------------+
 | Ref Name | Used | Functional Category |
 +----------+------+---------------------+
-| FDRE     | 2512 |        Flop & Latch |
-| LUT6     | 1869 |                 LUT |
-| LUT5     |  712 |                 LUT |
-| LUT2     |  566 |                 LUT |
-| LUT4     |  561 |                 LUT |
-| LUT3     |  351 |                 LUT |
-| LDCE     |  337 |        Flop & Latch |
-| MUXF7    |  283 |               MuxFx |
-| LUT1     |  235 |                 LUT |
+| LUT6     | 3062 |                 LUT |
+| FDRE     | 2686 |        Flop & Latch |
+| LUT5     | 1041 |                 LUT |
+| LUT4     |  628 |                 LUT |
+| LUT2     |  577 |                 LUT |
+| MUXF7    |  550 |               MuxFx |
+| LUT3     |  409 |                 LUT |
+| LDCE     |  338 |        Flop & Latch |
+| LUT1     |  238 |                 LUT |
 | CARRY4   |  233 |          CarryLogic |
-| MUXF8    |  122 |               MuxFx |
+| MUXF8    |  178 |               MuxFx |
 | OBUFT    |  104 |                  IO |
 | OBUF     |  101 |                  IO |
 | IBUF     |   67 |                  IO |

@@ -65,19 +65,17 @@ start_step init_design
 set ACTIVE_STEP init_design
 set rc [catch {
   create_msg_db init_design.pb
-  set_param tcl.collectionResultDisplayLimit 0
-  set_param xicom.use_bs_reader 1
   create_project -in_memory -part xc7a100tfgg676-2L
   set_property design_mode GateLvl [current_fileset]
   set_param project.singleFileAddWarning.threshold 0
-  set_property webtalk.parent_dir C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.cache/wt [current_project]
-  set_property parent.project_path C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.xpr [current_project]
-  set_property ip_output_repo C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.cache/ip [current_project]
+  set_property webtalk.parent_dir D:/Computer_Organization/final_final/mips32_cpu_making_pipeline/thinpad_top.cache/wt [current_project]
+  set_property parent.project_path D:/Computer_Organization/final_final/mips32_cpu_making_pipeline/thinpad_top.xpr [current_project]
+  set_property ip_output_repo D:/Computer_Organization/final_final/mips32_cpu_making_pipeline/thinpad_top.cache/ip [current_project]
   set_property ip_cache_permissions {read write} [current_project]
   set_property XPM_LIBRARIES XPM_CDC [current_project]
-  add_files -quiet C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.runs/synth_1/thinpad_top.dcp
-  read_ip -quiet C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/ip/pll_example/pll_example.xci
-  read_xdc C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/constrs_1/new/thinpad_top.xdc
+  add_files -quiet D:/Computer_Organization/final_final/mips32_cpu_making_pipeline/thinpad_top.runs/synth_1/thinpad_top.dcp
+  read_ip -quiet D:/Computer_Organization/final_final/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/ip/pll_example/pll_example.xci
+  read_xdc D:/Computer_Organization/final_final/mips32_cpu_making_pipeline/thinpad_top.srcs/constrs_1/new/thinpad_top.xdc
   link_design -top thinpad_top -part xc7a100tfgg676-2L
   close_msg_db -file init_design.pb
 } RESULT]

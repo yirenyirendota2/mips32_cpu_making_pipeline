@@ -1,8 +1,8 @@
 Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2018.2 (win64) Build 2258646 Thu Jun 14 20:03:12 MDT 2018
-| Date             : Mon Dec  3 23:43:29 2018
-| Host             : DESKTOP-N6B5F4R running 64-bit major release  (build 9200)
+| Date             : Tue Dec  4 03:54:30 2018
+| Host             : LAPTOP-5JKB6L2D running 64-bit major release  (build 9200)
 | Command          : report_power -file thinpad_top_power_routed.rpt -pb thinpad_top_power_summary_routed.pb -rpx thinpad_top_power_routed.rpx
 | Design           : thinpad_top
 | Device           : xc7a100tfgg676-2L
@@ -30,10 +30,10 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.229        |
+| Total On-Chip Power (W)  | 0.225        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.131        |
+| Dynamic (W)              | 0.127        |
 | Device Static (W)        | 0.097        |
 | Effective TJA (C/W)      | 2.6          |
 | Max Ambient (C)          | 99.4         |
@@ -52,23 +52,23 @@ Table of Contents
 +--------------------------+-----------+----------+-----------+-----------------+
 | On-Chip                  | Power (W) | Used     | Available | Utilization (%) |
 +--------------------------+-----------+----------+-----------+-----------------+
-| Clocks                   |     0.009 |        8 |       --- |             --- |
-| Slice Logic              |    <0.001 |    13716 |       --- |             --- |
-|   LUT as Logic           |    <0.001 |     5247 |     63400 |            8.28 |
+| Clocks                   |     0.008 |        8 |       --- |             --- |
+| Slice Logic              |     0.002 |    15875 |       --- |             --- |
+|   LUT as Logic           |     0.002 |     6830 |     63400 |           10.77 |
 |   CARRY4                 |    <0.001 |      304 |     15850 |            1.92 |
-|   Register               |    <0.001 |     6092 |    126800 |            4.80 |
+|   Register               |    <0.001 |     6267 |    126800 |            4.94 |
+|   F7/F8 Muxes            |    <0.001 |      751 |     63400 |            1.18 |
 |   LUT as Shift Register  |    <0.001 |      328 |     19000 |            1.73 |
 |   LUT as Distributed RAM |    <0.001 |       24 |     19000 |            0.13 |
-|   F7/F8 Muxes            |    <0.001 |      428 |     63400 |            0.68 |
 |   BUFG                   |    <0.001 |        8 |        32 |           25.00 |
-|   Others                 |     0.000 |      430 |       --- |             --- |
-| Signals                  |     0.001 |    10852 |       --- |             --- |
+|   Others                 |     0.000 |      431 |       --- |             --- |
+| Signals                  |     0.002 |    12381 |       --- |             --- |
 | Block RAM                |     0.001 |        7 |       135 |            5.19 |
 | MMCM                     |     0.105 |        1 |         6 |           16.67 |
 | DSPs                     |     0.000 |        4 |       240 |            1.67 |
-| I/O                      |     0.014 |      208 |       300 |           69.33 |
+| I/O                      |     0.009 |      208 |       300 |           69.33 |
 | Static Power             |     0.097 |          |           |                 |
-| Total                    |     0.229 |          |           |                 |
+| Total                    |     0.225 |          |           |                 |
 +--------------------------+-----------+----------+-----------+-----------------+
 
 
@@ -78,9 +78,9 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) |
 +-----------+-------------+-----------+-------------+------------+
-| Vccint    |       1.000 |     0.027 |       0.012 |      0.015 |
+| Vccint    |       1.000 |     0.028 |       0.013 |      0.015 |
 | Vccaux    |       1.800 |     0.077 |       0.059 |      0.018 |
-| Vcco33    |       3.300 |     0.008 |       0.004 |      0.004 |
+| Vcco33    |       3.300 |     0.007 |       0.003 |      0.004 |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |
 | Vcco18    |       1.800 |     0.000 |       0.000 |      0.000 |
 | Vcco15    |       1.500 |     0.000 |       0.000 |      0.000 |
@@ -151,14 +151,14 @@ Table of Contents
 +------------------------------------------------------------------------------------+-----------+
 | Name                                                                               | Power (W) |
 +------------------------------------------------------------------------------------+-----------+
-| thinpad_top                                                                        |     0.131 |
+| thinpad_top                                                                        |     0.127 |
 |   clock_gen                                                                        |     0.105 |
 |     inst                                                                           |     0.105 |
-|   dbg_hub                                                                          |     0.002 |
-|     inst                                                                           |     0.002 |
-|       BSCANID.u_xsdbm_id                                                           |     0.002 |
+|   dbg_hub                                                                          |     0.001 |
+|     inst                                                                           |     0.001 |
+|       BSCANID.u_xsdbm_id                                                           |     0.001 |
 |         CORE_XSDB.UUT_MASTER                                                       |     0.001 |
-|           U_ICON_INTERFACE                                                         |     0.001 |
+|           U_ICON_INTERFACE                                                         |    <0.001 |
 |             U_CMD1                                                                 |    <0.001 |
 |             U_CMD2                                                                 |    <0.001 |
 |             U_CMD3                                                                 |    <0.001 |
@@ -324,12 +324,12 @@ Table of Contents
 |     mem0                                                                           |    <0.001 |
 |     mem_wb0                                                                        |    <0.001 |
 |     pc_reg0                                                                        |    <0.001 |
-|     regfile1                                                                       |     0.001 |
+|     regfile1                                                                       |    <0.001 |
 |   segH                                                                             |     0.000 |
 |   segL                                                                             |     0.000 |
-|   u_ila_0                                                                          |     0.005 |
-|     inst                                                                           |     0.005 |
-|       ila_core_inst                                                                |     0.005 |
+|   u_ila_0                                                                          |     0.004 |
+|     inst                                                                           |     0.004 |
+|       ila_core_inst                                                                |     0.004 |
 |         ila_trace_memory_inst                                                      |     0.001 |
 |           SUBCORE_RAM_BLK_MEM_1.trace_block_memory                                 |     0.001 |
 |             inst_blk_mem_gen                                                       |     0.001 |
@@ -693,7 +693,7 @@ Table of Contents
 |                     u_srlC                                                         |    <0.001 |
 |                     u_srlD                                                         |    <0.001 |
 |         xsdb_memory_read_inst                                                      |    <0.001 |
-|   vga800x600at75                                                                   |    <0.001 |
+|   vga800x600at75                                                                   |     0.002 |
 +------------------------------------------------------------------------------------+-----------+
 
 
