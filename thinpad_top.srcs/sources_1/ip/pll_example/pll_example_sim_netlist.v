@@ -1,10 +1,10 @@
 // Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2018.2 (win64) Build 2258646 Thu Jun 14 20:03:12 MDT 2018
-// Date        : Sat Dec  1 20:23:07 2018
-// Host        : LAPTOP-5JKB6L2D running 64-bit major release  (build 9200)
+// Date        : Mon Dec  3 17:10:10 2018
+// Host        : DESKTOP-N6B5F4R running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
-//               D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/ip/pll_example/pll_example_sim_netlist.v
+//               C:/Users/liujiashuo/Desktop/thinpad_top/thinpad_top.srcs/sources_1/ip/pll_example/pll_example_sim_netlist.v
 // Design      : pll_example
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -118,7 +118,7 @@ module pll_example_pll_example_clk_wiz
     .CLKFBOUT_USE_FINE_PS("FALSE"),
     .CLKIN1_PERIOD(20.000000),
     .CLKIN2_PERIOD(0.000000),
-    .CLKOUT0_DIVIDE_F(25.000000),
+    .CLKOUT0_DIVIDE_F(100.000000),
     .CLKOUT0_DUTY_CYCLE(0.500000),
     .CLKOUT0_PHASE(0.000000),
     .CLKOUT0_USE_FINE_PS("FALSE"),
@@ -128,7 +128,7 @@ module pll_example_pll_example_clk_wiz
     .CLKOUT1_USE_FINE_PS("FALSE"),
     .CLKOUT2_DIVIDE(40),
     .CLKOUT2_DUTY_CYCLE(0.500000),
-    .CLKOUT2_PHASE(0.000000),
+    .CLKOUT2_PHASE(90.000000),
     .CLKOUT2_USE_FINE_PS("FALSE"),
     .CLKOUT3_DIVIDE(1),
     .CLKOUT3_DUTY_CYCLE(0.500000),

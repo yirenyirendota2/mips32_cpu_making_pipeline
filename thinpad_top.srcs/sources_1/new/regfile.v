@@ -44,7 +44,8 @@ module regfile(
 
     // 32 registers
     reg[`RegBus]            regs[0:`RegNum-1];
-    
+    wire[`RegBus] testestreg;
+    (*MARK_DEBUG="TRUE"*) assign testestreg = regs[8];
     // write
     always @ (posedge clk) begin
         if (rst == `RstDisable) begin

@@ -61,7 +61,7 @@ assign ram_we_n = temp_ram_we_n;
 assign cpu_output_data = temp_cpu_data;
 assign finished = temp_finished;
 
-always@(negedge clk) begin
+always@(posedge clk) begin
     if(ram_enable) begin
         if(~temp_finished) begin//should start
             if(write_or_read) begin//read

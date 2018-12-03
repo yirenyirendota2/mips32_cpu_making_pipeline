@@ -197,15 +197,15 @@ module openmips(
   wire flush;
   wire[`RegBus] new_pc;
 
-(*MARK_DEBUG="TRUE"*)	wire[`RegBus] cp0_count;
-(*MARK_DEBUG="TRUE"*)	wire[`RegBus]	cp0_compare;
-(*MARK_DEBUG="TRUE"*)	wire[`RegBus]	cp0_status;
-(*MARK_DEBUG="TRUE"*)	wire[`RegBus]	cp0_cause;
-(*MARK_DEBUG="TRUE"*)	wire[`RegBus]	cp0_epc;
-(*MARK_DEBUG="TRUE"*)	wire[`RegBus]	cp0_config;
-(*MARK_DEBUG="TRUE"*)	wire[`RegBus]	cp0_prid; 
-(*MARK_DEBUG="TRUE"*)	wire[`RegBus]	cp0_badvaddr; 
-(*MARK_DEBUG="TRUE"*)	wire[`RegBus]   cp0_ebase;
+	wire[`RegBus] cp0_count;
+	wire[`RegBus]	cp0_compare;
+	wire[`RegBus]	cp0_status;
+	wire[`RegBus]	cp0_cause;
+	wire[`RegBus]	cp0_epc;
+	wire[`RegBus]	cp0_config;
+	wire[`RegBus]	cp0_prid; 
+	wire[`RegBus]	cp0_badvaddr; 
+	wire[`RegBus]   cp0_ebase;
 
 
   wire[`RegBus] latest_epc;

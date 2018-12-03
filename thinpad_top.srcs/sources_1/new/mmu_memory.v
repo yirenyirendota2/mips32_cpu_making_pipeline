@@ -32,7 +32,7 @@ module mmu_memory (
     output reg pause_signal,//=1 if data conflict with instruction
 
     input wire clk_50M,           //50MHz 时钟输入
-    input wire uart_clk,
+    // input wire uart_clk,
     //BaseRAM信号
     inout wire[31:0] base_ram_data,  //BaseRAM数据，低8位与CPLD串口控制器共�?
     output wire[19:0] base_ram_addr, //BaseRAM地址
@@ -72,7 +72,7 @@ reg uart_enable;
 wire uart_read_finished;
 /* uart module */
 uart directUart(
-    .clk_50M(uart_clk),
+    .clk_50M(clk_50M),
     .rxd(rxd),
     .txd(txd),
     .ext_uart_ready(ext_uart_ready),

@@ -66,7 +66,7 @@ module id(
 	//�͵�ִ�н׶ε���Ϣ
 	output reg[`AluOpBus]         aluop_o,
 	output reg[`AluSelBus]        alusel_o,
-	output reg[`RegBus]           reg1_o,
+	(*MARK_DEBUG="TRUE"*) output reg[`RegBus]           reg1_o,
 	output reg[`RegBus]           reg2_o,
 	output reg[`RegAddrBus]       wd_o,
 	output reg                    wreg_o,
@@ -92,7 +92,7 @@ module id(
   reg[`RegBus]	imm;
   reg instvalid;
   wire[`RegBus] pc_plus_8;
-  wire[`RegBus] pc_plus_4;
+  (*MARK_DEBUG="TRUE"*) wire[`RegBus] pc_plus_4;
   wire[`RegBus] imm_sll2_signedext;  
 
   reg stallreq_for_reg1_loadrelate;
