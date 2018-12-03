@@ -32,7 +32,7 @@ module mmu_memory (
     output reg pause_signal,//=1 if data conflict with instruction
 
     input wire clk_50M,           //50MHz 时钟输入
-    input wire uart_clk,
+    // input wire uart_clk,
     //BaseRAM信号
     inout wire[31:0] base_ram_data,  //BaseRAM数据，低8位与CPLD串口控制器共�?
     output wire[19:0] base_ram_addr, //BaseRAM地址
@@ -61,9 +61,6 @@ module mmu_memory (
 
 
 /* uart variables */
-
-wire ext_uart_ready;
-wire ext_uart_busy;
 reg[7:0] uart_input_data;
 wire[7:0] uart_output_data;
 reg uart_write_or_read;
@@ -72,7 +69,7 @@ reg uart_enable;
 wire uart_read_finished;
 /* uart module */
 uart directUart(
-    .clk_50M(uart_clk),
+    .clk_50M(clk_50M),
     .rxd(rxd),
     .txd(txd),
     .ext_uart_ready(ext_uart_ready),
@@ -147,6 +144,20 @@ memory extRam(
     );
 
 always @(*) begin
+    baseram_enable <= 1'b0;
+    baseram_write_or_read <= 1'b0;
+    baseram_addr <= {20{1'b0}};
+    baseram_input_data <= {32{1'b0}};
+    base_cpu_be_n <= 4'b1111;
+    extram_enable <= 1'b0;
+    extram_write_or_read <= 1'b0;
+    extram_addr <= {20{1'b0}};
+    extram_input_data <= {32{1'b0}};
+    ext_cpu_be_n <= 4'b1111;
+    uart_enable <= 1'b0;
+    uart_input_data <= {8{1'b0}};
+    uart_write_or_read <= 1'b0;
+    pause_signal <= 1'b0;
     if(control_enable) begin
         //deal with instruction memory first
         if(data_input_addr >= 32'h80000000 && data_input_addr <= 32'h803FFFFF) begin//conflict
@@ -225,6 +236,7 @@ always@(*) begin
         if(pause_signal) begin
             //pause means IM is used for data
             data_output_data <= baseram_output_data;
+            instruction_output_data <= {32{1'b0}};
         end
         else begin
             instruction_output_data <= baseram_output_data;
@@ -233,11 +245,14 @@ always@(*) begin
             end
             else if(data_input_addr[31:4] == 28'hBFD003F) begin
                 if(data_input_addr[3:0] == 4'h8) begin
-                    data_output_data = {24'h000000, uart_output_data};
+                    data_output_data <= {24'h000000, uart_output_data};
                 end
                 else if(data_input_addr[3:0] == 4'hC) begin
-                    data_output_data = {{30{1'b0}}, ext_uart_ready, ~ext_uart_busy};
+                    data_output_data <= {{30{1'b0}}, ext_uart_ready, ~ext_uart_busy};
                 end
+            end
+            else begin
+                data_output_data <= {32{1'b0}};
             end
         end 
     end

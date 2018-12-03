@@ -2,12 +2,12 @@
 # Vivado v2018.2 (64-bit)
 # SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
 # IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
-# Start of session at: Mon Dec  3 01:17:20 2018
-# Process ID: 28404
-# Current directory: D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.runs/synth_1
+# Start of session at: Mon Dec  3 23:39:25 2018
+# Process ID: 24020
+# Current directory: C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.runs/synth_1
 # Command line: vivado.exe -log thinpad_top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source thinpad_top.tcl
-# Log file: D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.runs/synth_1/thinpad_top.vds
-# Journal file: D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.runs/synth_1\vivado.jou
+# Log file: C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.runs/synth_1/thinpad_top.vds
+# Journal file: C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.runs/synth_1\vivado.jou
 #-----------------------------------------------------------
 source thinpad_top.tcl -notrace
 Command: synth_design -top thinpad_top -part xc7a100tfgg676-2L
@@ -15,116 +15,116 @@ Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100t'
 INFO: Launching helper process for spawning children vivado processes
-INFO: Helper process launched with PID 26888 
-WARNING: [Synth 8-2611] redeclaration of ansi port ext_uart_ready is not allowed [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mmu_memory.v:65]
-WARNING: [Synth 8-976] ext_uart_ready has already been declared [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mmu_memory.v:65]
-WARNING: [Synth 8-2654] second declaration of ext_uart_ready ignored [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mmu_memory.v:65]
-INFO: [Synth 8-994] ext_uart_ready is declared here [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mmu_memory.v:58]
-WARNING: [Synth 8-2611] redeclaration of ansi port ext_uart_busy is not allowed [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mmu_memory.v:66]
-WARNING: [Synth 8-976] ext_uart_busy has already been declared [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mmu_memory.v:66]
-WARNING: [Synth 8-2654] second declaration of ext_uart_busy ignored [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mmu_memory.v:66]
-INFO: [Synth 8-994] ext_uart_busy is declared here [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mmu_memory.v:59]
+INFO: Helper process launched with PID 10176 
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 400.199 ; gain = 111.418
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 389.117 ; gain = 100.047
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-6157] synthesizing module 'thinpad_top' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/thinpad_top.v:3]
-INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/thinpad_top.v:113]
-INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/thinpad_top.v:114]
-INFO: [Synth 8-6157] synthesizing module 'pll_example' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.runs/synth_1/.Xil/Vivado-28404-LAPTOP-5JKB6L2D/realtime/pll_example_stub.v:5]
-INFO: [Synth 8-6155] done synthesizing module 'pll_example' (1#1) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.runs/synth_1/.Xil/Vivado-28404-LAPTOP-5JKB6L2D/realtime/pll_example_stub.v:5]
-INFO: [Synth 8-6157] synthesizing module 'openmips' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/openmips.v:35]
-INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/openmips.v:200]
-INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/openmips.v:201]
-INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/openmips.v:202]
-INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/openmips.v:203]
-INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/openmips.v:204]
-INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/openmips.v:205]
-INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/openmips.v:206]
-INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/openmips.v:207]
-INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/openmips.v:208]
-INFO: [Synth 8-6157] synthesizing module 'pc_reg' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/pc_reg.v:5]
-INFO: [Synth 8-6155] done synthesizing module 'pc_reg' (2#1) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/pc_reg.v:5]
-INFO: [Synth 8-6157] synthesizing module 'if_id' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/if_id.v:35]
-INFO: [Synth 8-6155] done synthesizing module 'if_id' (3#1) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/if_id.v:35]
-INFO: [Synth 8-6157] synthesizing module 'id' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/id.v:35]
-INFO: [Synth 8-6155] done synthesizing module 'id' (4#1) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/id.v:35]
-INFO: [Synth 8-6157] synthesizing module 'regfile' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/regfile.v:23]
-INFO: [Synth 8-6155] done synthesizing module 'regfile' (5#1) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/regfile.v:23]
-INFO: [Synth 8-6157] synthesizing module 'id_ex' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/id_ex.v:5]
-INFO: [Synth 8-6155] done synthesizing module 'id_ex' (6#1) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/id_ex.v:5]
-INFO: [Synth 8-6157] synthesizing module 'ex' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/ex.v:5]
-INFO: [Synth 8-6155] done synthesizing module 'ex' (7#1) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/ex.v:5]
-INFO: [Synth 8-6157] synthesizing module 'ex_mem' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/ex_mem.v:5]
-INFO: [Synth 8-6155] done synthesizing module 'ex_mem' (8#1) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/ex_mem.v:5]
-INFO: [Synth 8-6157] synthesizing module 'mem' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mem.v:5]
-INFO: [Synth 8-226] default block is never used [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mem.v:153]
-INFO: [Synth 8-226] default block is never used [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mem.v:181]
-INFO: [Synth 8-226] default block is never used [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mem.v:282]
-INFO: [Synth 8-6155] done synthesizing module 'mem' (9#1) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mem.v:5]
-WARNING: [Synth 8-689] width (4) of port connection 'mem_ce_o' does not match port width (1) of module 'mem' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/openmips.v:547]
-INFO: [Synth 8-6157] synthesizing module 'mem_wb' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mem_wb.v:4]
-INFO: [Synth 8-6155] done synthesizing module 'mem_wb' (10#1) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mem_wb.v:4]
-INFO: [Synth 8-6157] synthesizing module 'hilo_reg' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/hilo_reg.v:5]
-INFO: [Synth 8-6155] done synthesizing module 'hilo_reg' (11#1) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/hilo_reg.v:5]
-INFO: [Synth 8-6157] synthesizing module 'ctrl' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/ctrl.v:5]
-INFO: [Synth 8-6155] done synthesizing module 'ctrl' (12#1) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/ctrl.v:5]
-INFO: [Synth 8-6157] synthesizing module 'div' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/div.v:5]
-WARNING: [Synth 8-6014] Unused sequential element temp_op1_reg was removed.  [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/div.v:45]
-WARNING: [Synth 8-6014] Unused sequential element temp_op2_reg was removed.  [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/div.v:50]
-INFO: [Synth 8-6155] done synthesizing module 'div' (13#1) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/div.v:5]
-INFO: [Synth 8-6157] synthesizing module 'LLbit_reg' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/LLbit_reg.v:5]
-INFO: [Synth 8-6155] done synthesizing module 'LLbit_reg' (14#1) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/LLbit_reg.v:5]
-INFO: [Synth 8-6157] synthesizing module 'cp0_reg' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/cp0_reg.v:36]
-INFO: [Synth 8-155] case statement is not full and has no default [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/cp0_reg.v:91]
-WARNING: [Synth 8-151] case item 5'b01111 is unreachable [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/cp0_reg.v:229]
-INFO: [Synth 8-6155] done synthesizing module 'cp0_reg' (15#1) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/cp0_reg.v:36]
-INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'cp0_reg0'. This will prevent further optimization [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/openmips.v:653]
-INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'mem0'. This will prevent further optimization [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/openmips.v:486]
-INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'ctrl0'. This will prevent further optimization [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/openmips.v:609]
-INFO: [Synth 8-6155] done synthesizing module 'openmips' (16#1) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/openmips.v:35]
-WARNING: [Synth 8-689] width (1) of port connection 'ram_ce_o' does not match port width (4) of module 'openmips' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/thinpad_top.v:152]
-INFO: [Synth 8-6157] synthesizing module 'mmu_memory' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mmu_memory.v:22]
-INFO: [Synth 8-6157] synthesizing module 'uart' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/uart.v:23]
-INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/uart.v:38]
-INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/uart.v:39]
-INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/uart.v:49]
-INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/uart.v:50]
-INFO: [Synth 8-6157] synthesizing module 'async_receiver' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/async.v:75]
-	Parameter ClkFrequency bound to: 40000000 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'thinpad_top' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/thinpad_top.v:3]
+INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/thinpad_top.v:113]
+INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/thinpad_top.v:114]
+INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/thinpad_top.v:117]
+INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/thinpad_top.v:118]
+INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/thinpad_top.v:119]
+INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/thinpad_top.v:120]
+INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/thinpad_top.v:127]
+INFO: [Synth 8-6157] synthesizing module 'pll_example' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.runs/synth_1/.Xil/Vivado-24020-DESKTOP-N6B5F4R/realtime/pll_example_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'pll_example' (1#1) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.runs/synth_1/.Xil/Vivado-24020-DESKTOP-N6B5F4R/realtime/pll_example_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'openmips' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/openmips.v:35]
+INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/openmips.v:200]
+INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/openmips.v:201]
+INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/openmips.v:202]
+INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/openmips.v:203]
+INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/openmips.v:204]
+INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/openmips.v:205]
+INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/openmips.v:206]
+INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/openmips.v:207]
+INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/openmips.v:208]
+INFO: [Synth 8-6157] synthesizing module 'pc_reg' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/pc_reg.v:5]
+INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/pc_reg.v:15]
+INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/pc_reg.v:18]
+INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/pc_reg.v:19]
+INFO: [Synth 8-6155] done synthesizing module 'pc_reg' (2#1) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/pc_reg.v:5]
+INFO: [Synth 8-6157] synthesizing module 'if_id' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/if_id.v:35]
+INFO: [Synth 8-6155] done synthesizing module 'if_id' (3#1) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/if_id.v:35]
+INFO: [Synth 8-6157] synthesizing module 'id' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/id.v:35]
+INFO: [Synth 8-6155] done synthesizing module 'id' (4#1) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/id.v:35]
+INFO: [Synth 8-6157] synthesizing module 'regfile' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/regfile.v:23]
+INFO: [Synth 8-6155] done synthesizing module 'regfile' (5#1) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/regfile.v:23]
+INFO: [Synth 8-6157] synthesizing module 'id_ex' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/id_ex.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'id_ex' (6#1) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/id_ex.v:5]
+INFO: [Synth 8-6157] synthesizing module 'ex' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/ex.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'ex' (7#1) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/ex.v:5]
+INFO: [Synth 8-6157] synthesizing module 'ex_mem' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/ex_mem.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'ex_mem' (8#1) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/ex_mem.v:5]
+INFO: [Synth 8-6157] synthesizing module 'mem' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/mem.v:5]
+INFO: [Synth 8-226] default block is never used [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/mem.v:154]
+INFO: [Synth 8-226] default block is never used [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/mem.v:182]
+INFO: [Synth 8-226] default block is never used [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/mem.v:283]
+INFO: [Synth 8-6155] done synthesizing module 'mem' (9#1) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/mem.v:5]
+WARNING: [Synth 8-689] width (4) of port connection 'mem_ce_o' does not match port width (1) of module 'mem' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/openmips.v:547]
+INFO: [Synth 8-6157] synthesizing module 'mem_wb' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/mem_wb.v:4]
+INFO: [Synth 8-6155] done synthesizing module 'mem_wb' (10#1) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/mem_wb.v:4]
+INFO: [Synth 8-6157] synthesizing module 'hilo_reg' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/hilo_reg.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'hilo_reg' (11#1) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/hilo_reg.v:5]
+INFO: [Synth 8-6157] synthesizing module 'ctrl' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/ctrl.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'ctrl' (12#1) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/ctrl.v:5]
+INFO: [Synth 8-6157] synthesizing module 'div' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/div.v:5]
+WARNING: [Synth 8-6014] Unused sequential element temp_op1_reg was removed.  [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/div.v:45]
+WARNING: [Synth 8-6014] Unused sequential element temp_op2_reg was removed.  [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/div.v:50]
+INFO: [Synth 8-6155] done synthesizing module 'div' (13#1) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/div.v:5]
+INFO: [Synth 8-6157] synthesizing module 'LLbit_reg' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/LLbit_reg.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'LLbit_reg' (14#1) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/LLbit_reg.v:5]
+INFO: [Synth 8-6157] synthesizing module 'cp0_reg' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/cp0_reg.v:36]
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/cp0_reg.v:91]
+WARNING: [Synth 8-151] case item 5'b01111 is unreachable [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/cp0_reg.v:229]
+INFO: [Synth 8-6155] done synthesizing module 'cp0_reg' (15#1) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/cp0_reg.v:36]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'cp0_reg0'. This will prevent further optimization [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/openmips.v:653]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'mem0'. This will prevent further optimization [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/openmips.v:486]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'ctrl0'. This will prevent further optimization [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/openmips.v:609]
+INFO: [Synth 8-6155] done synthesizing module 'openmips' (16#1) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/openmips.v:35]
+WARNING: [Synth 8-689] width (1) of port connection 'ram_ce_o' does not match port width (4) of module 'openmips' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/thinpad_top.v:152]
+INFO: [Synth 8-6157] synthesizing module 'mmu_memory' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/mmu_memory.v:22]
+INFO: [Synth 8-6157] synthesizing module 'uart' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/uart.v:23]
+INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/uart.v:38]
+INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/uart.v:39]
+INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/uart.v:49]
+INFO: [Synth 8-5534] Detected attribute (* MARK_DEBUG = "TRUE" *) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/uart.v:50]
+INFO: [Synth 8-6157] synthesizing module 'async_receiver' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/async.v:75]
+	Parameter ClkFrequency bound to: 50000000 - type: integer 
 	Parameter Baud bound to: 9600 - type: integer 
 	Parameter Oversampling bound to: 8 - type: integer 
 	Parameter l2o bound to: 4 - type: integer 
-INFO: [Synth 8-6157] synthesizing module 'BaudTickGen' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/async.v:189]
-	Parameter ClkFrequency bound to: 40000000 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'BaudTickGen' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/async.v:189]
+	Parameter ClkFrequency bound to: 50000000 - type: integer 
 	Parameter Baud bound to: 9600 - type: integer 
 	Parameter Oversampling bound to: 8 - type: integer 
 	Parameter AccWidth bound to: 21 - type: integer 
 	Parameter ShiftLimiter bound to: 7 - type: integer 
-	Parameter Inc bound to: 4027 - type: integer 
-INFO: [Synth 8-6155] done synthesizing module 'BaudTickGen' (17#1) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/async.v:189]
-INFO: [Synth 8-6155] done synthesizing module 'async_receiver' (18#1) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/async.v:75]
-WARNING: [Synth 8-350] instance 'ext_uart_r' of module 'async_receiver' requires 7 connections, but only 5 given [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/uart.v:55]
-INFO: [Synth 8-6157] synthesizing module 'async_transmitter' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/async.v:14]
-	Parameter ClkFrequency bound to: 40000000 - type: integer 
+	Parameter Inc bound to: 3221 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'BaudTickGen' (17#1) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/async.v:189]
+INFO: [Synth 8-6155] done synthesizing module 'async_receiver' (18#1) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/async.v:75]
+WARNING: [Synth 8-350] instance 'ext_uart_r' of module 'async_receiver' requires 7 connections, but only 5 given [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/uart.v:55]
+INFO: [Synth 8-6157] synthesizing module 'async_transmitter' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/async.v:14]
+	Parameter ClkFrequency bound to: 50000000 - type: integer 
 	Parameter Baud bound to: 9600 - type: integer 
-INFO: [Synth 8-6157] synthesizing module 'BaudTickGen__parameterized0' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/async.v:189]
-	Parameter ClkFrequency bound to: 40000000 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'BaudTickGen__parameterized0' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/async.v:189]
+	Parameter ClkFrequency bound to: 50000000 - type: integer 
 	Parameter Baud bound to: 9600 - type: integer 
 	Parameter Oversampling bound to: 1 - type: integer 
 	Parameter AccWidth bound to: 21 - type: integer 
 	Parameter ShiftLimiter bound to: 4 - type: integer 
-	Parameter Inc bound to: 503 - type: integer 
-INFO: [Synth 8-6155] done synthesizing module 'BaudTickGen__parameterized0' (18#1) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/async.v:189]
-INFO: [Synth 8-6155] done synthesizing module 'async_transmitter' (19#1) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/async.v:14]
-INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'ext_uart_r'. This will prevent further optimization [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/uart.v:55]
-INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'ext_uart_t'. This will prevent further optimization [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/uart.v:64]
-INFO: [Synth 8-6155] done synthesizing module 'uart' (20#1) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/uart.v:23]
-INFO: [Synth 8-6157] synthesizing module 'memory' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/memory.v:23]
-INFO: [Synth 8-6155] done synthesizing module 'memory' (21#1) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/memory.v:23]
-INFO: [Synth 8-6155] done synthesizing module 'mmu_memory' (22#1) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mmu_memory.v:22]
-INFO: [Synth 8-6157] synthesizing module 'SEG7_LUT' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/SEG7_LUT.v:1]
-INFO: [Synth 8-6155] done synthesizing module 'SEG7_LUT' (23#1) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/SEG7_LUT.v:1]
-INFO: [Synth 8-6157] synthesizing module 'vga' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/vga.v:15]
+	Parameter Inc bound to: 403 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'BaudTickGen__parameterized0' (18#1) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/async.v:189]
+INFO: [Synth 8-6155] done synthesizing module 'async_transmitter' (19#1) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/async.v:14]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'ext_uart_r'. This will prevent further optimization [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/uart.v:55]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'ext_uart_t'. This will prevent further optimization [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/uart.v:64]
+INFO: [Synth 8-6155] done synthesizing module 'uart' (20#1) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/uart.v:23]
+INFO: [Synth 8-6157] synthesizing module 'memory' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/memory.v:23]
+INFO: [Synth 8-6155] done synthesizing module 'memory' (21#1) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/memory.v:23]
+INFO: [Synth 8-6155] done synthesizing module 'mmu_memory' (22#1) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/mmu_memory.v:22]
+INFO: [Synth 8-6157] synthesizing module 'SEG7_LUT' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/SEG7_LUT.v:1]
+INFO: [Synth 8-6155] done synthesizing module 'SEG7_LUT' (23#1) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/SEG7_LUT.v:1]
+INFO: [Synth 8-6157] synthesizing module 'vga' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/vga.v:15]
 	Parameter WIDTH bound to: 12 - type: integer 
 	Parameter HSIZE bound to: 800 - type: integer 
 	Parameter HFP bound to: 856 - type: integer 
@@ -136,28 +136,28 @@ INFO: [Synth 8-6157] synthesizing module 'vga' [D:/Computer_Organization/thinpad
 	Parameter VMAX bound to: 666 - type: integer 
 	Parameter HSPP bound to: 1 - type: integer 
 	Parameter VSPP bound to: 1 - type: integer 
-INFO: [Synth 8-6155] done synthesizing module 'vga' (24#1) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/vga.v:15]
-INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'openmips0'. This will prevent further optimization [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/thinpad_top.v:137]
-INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'mmu_memory_version1'. This will prevent further optimization [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/thinpad_top.v:158]
-WARNING: [Synth 8-3848] Net flash_a in module/entity thinpad_top does not have driver. [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/thinpad_top.v:44]
-WARNING: [Synth 8-3848] Net flash_rp_n in module/entity thinpad_top does not have driver. [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/thinpad_top.v:46]
-WARNING: [Synth 8-3848] Net flash_vpen in module/entity thinpad_top does not have driver. [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/thinpad_top.v:47]
-WARNING: [Synth 8-3848] Net flash_ce_n in module/entity thinpad_top does not have driver. [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/thinpad_top.v:48]
-WARNING: [Synth 8-3848] Net flash_oe_n in module/entity thinpad_top does not have driver. [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/thinpad_top.v:49]
-WARNING: [Synth 8-3848] Net flash_we_n in module/entity thinpad_top does not have driver. [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/thinpad_top.v:50]
-WARNING: [Synth 8-3848] Net flash_byte_n in module/entity thinpad_top does not have driver. [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/thinpad_top.v:51]
-WARNING: [Synth 8-3848] Net sl811_a0 in module/entity thinpad_top does not have driver. [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/thinpad_top.v:54]
-WARNING: [Synth 8-3848] Net sl811_wr_n in module/entity thinpad_top does not have driver. [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/thinpad_top.v:56]
-WARNING: [Synth 8-3848] Net sl811_rd_n in module/entity thinpad_top does not have driver. [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/thinpad_top.v:57]
-WARNING: [Synth 8-3848] Net sl811_cs_n in module/entity thinpad_top does not have driver. [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/thinpad_top.v:58]
-WARNING: [Synth 8-3848] Net sl811_rst_n in module/entity thinpad_top does not have driver. [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/thinpad_top.v:59]
-WARNING: [Synth 8-3848] Net sl811_dack_n in module/entity thinpad_top does not have driver. [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/thinpad_top.v:60]
-WARNING: [Synth 8-3848] Net dm9k_cmd in module/entity thinpad_top does not have driver. [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/thinpad_top.v:65]
-WARNING: [Synth 8-3848] Net dm9k_iow_n in module/entity thinpad_top does not have driver. [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/thinpad_top.v:67]
-WARNING: [Synth 8-3848] Net dm9k_ior_n in module/entity thinpad_top does not have driver. [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/thinpad_top.v:68]
-WARNING: [Synth 8-3848] Net dm9k_cs_n in module/entity thinpad_top does not have driver. [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/thinpad_top.v:69]
-WARNING: [Synth 8-3848] Net dm9k_pwrst_n in module/entity thinpad_top does not have driver. [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/thinpad_top.v:70]
-INFO: [Synth 8-6155] done synthesizing module 'thinpad_top' (25#1) [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/thinpad_top.v:3]
+INFO: [Synth 8-6155] done synthesizing module 'vga' (24#1) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/vga.v:15]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'openmips0'. This will prevent further optimization [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/thinpad_top.v:137]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'mmu_memory_version1'. This will prevent further optimization [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/thinpad_top.v:158]
+WARNING: [Synth 8-3848] Net flash_a in module/entity thinpad_top does not have driver. [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/thinpad_top.v:44]
+WARNING: [Synth 8-3848] Net flash_rp_n in module/entity thinpad_top does not have driver. [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/thinpad_top.v:46]
+WARNING: [Synth 8-3848] Net flash_vpen in module/entity thinpad_top does not have driver. [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/thinpad_top.v:47]
+WARNING: [Synth 8-3848] Net flash_ce_n in module/entity thinpad_top does not have driver. [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/thinpad_top.v:48]
+WARNING: [Synth 8-3848] Net flash_oe_n in module/entity thinpad_top does not have driver. [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/thinpad_top.v:49]
+WARNING: [Synth 8-3848] Net flash_we_n in module/entity thinpad_top does not have driver. [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/thinpad_top.v:50]
+WARNING: [Synth 8-3848] Net flash_byte_n in module/entity thinpad_top does not have driver. [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/thinpad_top.v:51]
+WARNING: [Synth 8-3848] Net sl811_a0 in module/entity thinpad_top does not have driver. [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/thinpad_top.v:54]
+WARNING: [Synth 8-3848] Net sl811_wr_n in module/entity thinpad_top does not have driver. [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/thinpad_top.v:56]
+WARNING: [Synth 8-3848] Net sl811_rd_n in module/entity thinpad_top does not have driver. [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/thinpad_top.v:57]
+WARNING: [Synth 8-3848] Net sl811_cs_n in module/entity thinpad_top does not have driver. [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/thinpad_top.v:58]
+WARNING: [Synth 8-3848] Net sl811_rst_n in module/entity thinpad_top does not have driver. [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/thinpad_top.v:59]
+WARNING: [Synth 8-3848] Net sl811_dack_n in module/entity thinpad_top does not have driver. [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/thinpad_top.v:60]
+WARNING: [Synth 8-3848] Net dm9k_cmd in module/entity thinpad_top does not have driver. [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/thinpad_top.v:65]
+WARNING: [Synth 8-3848] Net dm9k_iow_n in module/entity thinpad_top does not have driver. [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/thinpad_top.v:67]
+WARNING: [Synth 8-3848] Net dm9k_ior_n in module/entity thinpad_top does not have driver. [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/thinpad_top.v:68]
+WARNING: [Synth 8-3848] Net dm9k_cs_n in module/entity thinpad_top does not have driver. [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/thinpad_top.v:69]
+WARNING: [Synth 8-3848] Net dm9k_pwrst_n in module/entity thinpad_top does not have driver. [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/thinpad_top.v:70]
+INFO: [Synth 8-6155] done synthesizing module 'thinpad_top' (25#1) [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/thinpad_top.v:3]
 WARNING: [Synth 8-3917] design thinpad_top has port uart_rdn driven by constant 1
 WARNING: [Synth 8-3917] design thinpad_top has port uart_wrn driven by constant 1
 WARNING: [Synth 8-3331] design mem_wb has unconnected port stall[3]
@@ -262,7 +262,7 @@ WARNING: [Synth 8-3331] design thinpad_top has unconnected port flash_a[4]
 WARNING: [Synth 8-3331] design thinpad_top has unconnected port flash_a[3]
 INFO: [Common 17-14] Message 'Synth 8-3331' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:08 . Memory (MB): peak = 462.406 ; gain = 173.625
+Finished RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 463.586 ; gain = 174.516
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -275,51 +275,51 @@ Report Check Netlist:
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:06 ; elapsed = 00:00:09 . Memory (MB): peak = 462.406 ; gain = 173.625
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 463.586 ; gain = 174.516
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:06 ; elapsed = 00:00:09 . Memory (MB): peak = 462.406 ; gain = 173.625
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 463.586 ; gain = 174.516
 ---------------------------------------------------------------------------------
 INFO: [Device 21-403] Loading part xc7a100tfgg676-2L
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
 Initializing timing engine
-Parsing XDC File [d:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/ip/pll_example/pll_example/pll_example_in_context.xdc] for cell 'clock_gen'
-Finished Parsing XDC File [d:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/ip/pll_example/pll_example/pll_example_in_context.xdc] for cell 'clock_gen'
-Parsing XDC File [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/constrs_1/new/thinpad_top.xdc]
-WARNING: [Vivado 12-507] No nets matched 'clk_11M0592_IBUF'. [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/constrs_1/new/thinpad_top.xdc:4]
-WARNING: [Constraints 18-619] A clock with name 'clk_50M' already exists, overwriting the previous clock with the same name. [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/constrs_1/new/thinpad_top.xdc:6]
-WARNING: [Vivado 12-507] No nets matched 'clock_btn_IBUF'. [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/constrs_1/new/thinpad_top.xdc:18]
-WARNING: [Vivado 12-507] No nets matched 'reset_btn_IBUF'. [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/constrs_1/new/thinpad_top.xdc:19]
-Finished Parsing XDC File [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/constrs_1/new/thinpad_top.xdc]
-WARNING: [Project 1-498] One or more constraints failed evaluation while reading constraint file [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/constrs_1/new/thinpad_top.xdc] and the design contains unresolved black boxes. These constraints will be read post-synthesis (as long as their source constraint file is marked as used_in_implementation) and should be applied correctly then. You should review the constraints listed in the file [.Xil/thinpad_top_propImpl.xdc] and check the run log file to verify that these constraints were correctly applied.
-INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/constrs_1/new/thinpad_top.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/thinpad_top_propImpl.xdc].
+Parsing XDC File [c:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/ip/pll_example/pll_example/pll_example_in_context.xdc] for cell 'clock_gen'
+Finished Parsing XDC File [c:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/ip/pll_example/pll_example/pll_example_in_context.xdc] for cell 'clock_gen'
+Parsing XDC File [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/constrs_1/new/thinpad_top.xdc]
+WARNING: [Vivado 12-507] No nets matched 'clk_11M0592_IBUF'. [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/constrs_1/new/thinpad_top.xdc:4]
+WARNING: [Constraints 18-619] A clock with name 'clk_50M' already exists, overwriting the previous clock with the same name. [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/constrs_1/new/thinpad_top.xdc:6]
+WARNING: [Vivado 12-507] No nets matched 'clock_btn_IBUF'. [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/constrs_1/new/thinpad_top.xdc:18]
+WARNING: [Vivado 12-507] No nets matched 'reset_btn_IBUF'. [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/constrs_1/new/thinpad_top.xdc:19]
+Finished Parsing XDC File [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/constrs_1/new/thinpad_top.xdc]
+WARNING: [Project 1-498] One or more constraints failed evaluation while reading constraint file [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/constrs_1/new/thinpad_top.xdc] and the design contains unresolved black boxes. These constraints will be read post-synthesis (as long as their source constraint file is marked as used_in_implementation) and should be applied correctly then. You should review the constraints listed in the file [.Xil/thinpad_top_propImpl.xdc] and check the run log file to verify that these constraints were correctly applied.
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/constrs_1/new/thinpad_top.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/thinpad_top_propImpl.xdc].
 Resolution: To avoid this warning, move constraints listed in [.Xil/thinpad_top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
 Completed Processing XDC Constraints
 
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.039 . Memory (MB): peak = 850.355 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.012 . Memory (MB): peak = 849.250 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:20 ; elapsed = 00:00:28 . Memory (MB): peak = 850.355 ; gain = 561.574
+Finished Constraint Validation : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 849.250 ; gain = 560.180
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a100tfgg676-2L
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:20 ; elapsed = 00:00:28 . Memory (MB): peak = 850.355 ; gain = 561.574
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 849.250 ; gain = 560.180
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
-Applied set_property IO_BUFFER_TYPE = NONE for clk_50M. (constraint file  d:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/ip/pll_example/pll_example/pll_example_in_context.xdc, line 5).
-Applied set_property CLOCK_BUFFER_TYPE = NONE for clk_50M. (constraint file  d:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/ip/pll_example/pll_example/pll_example_in_context.xdc, line 6).
+Applied set_property IO_BUFFER_TYPE = NONE for clk_50M. (constraint file  c:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/ip/pll_example/pll_example/pll_example_in_context.xdc, line 5).
+Applied set_property CLOCK_BUFFER_TYPE = NONE for clk_50M. (constraint file  c:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/ip/pll_example/pll_example/pll_example_in_context.xdc, line 6).
 Applied set_property DONT_TOUCH = true for clock_gen. (constraint file  auto generated constraint, line ).
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:20 ; elapsed = 00:00:28 . Memory (MB): peak = 850.355 ; gain = 561.574
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 849.250 ; gain = 560.180
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-5545] ROM "reg1_read_o" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-5546] ROM "reg1_read_o" won't be mapped to RAM because it is too sparse
@@ -384,7 +384,7 @@ INFO: [Synth 8-5544] ROM "hilo_temp_o" won't be mapped to Block RAM because addr
 INFO: [Synth 8-5544] ROM "cnt_o" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "stallreq_for_madd_msub" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
 INFO: [Synth 8-5546] ROM "cp0_reg_read_addr_o" won't be mapped to RAM because it is too sparse
-INFO: [Synth 8-5845] Not enough pipeline registers after wide multiplier. Recommended levels of pipeline registers is 4 [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/ex.v:285]
+INFO: [Synth 8-5845] Not enough pipeline registers after wide multiplier. Recommended levels of pipeline registers is 4 [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/ex.v:285]
 INFO: [Synth 8-5546] ROM "mem_we" won't be mapped to RAM because it is too sparse
 INFO: [Synth 8-5544] ROM "mem_sel_o" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "mem_ce_o" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
@@ -417,23 +417,22 @@ INFO: [Synth 8-5544] ROM "RxD_bit" won't be mapped to Block RAM because address 
 INFO: [Synth 8-5544] ROM "RxD_bit" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "OversamplingCnt0" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
 INFO: [Synth 8-802] inferred FSM for state register 'TxD_state_reg' in module 'async_transmitter'
-INFO: [Synth 8-4471] merging register 'ext_uart_clear_reg' into 'read_finished_reg' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/uart.v:59]
-WARNING: [Synth 8-6014] Unused sequential element ext_uart_clear_reg was removed.  [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/uart.v:59]
+INFO: [Synth 8-4471] merging register 'ext_uart_clear_reg' into 'read_finished_reg' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/uart.v:59]
+WARNING: [Synth 8-6014] Unused sequential element ext_uart_clear_reg was removed.  [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/uart.v:59]
 INFO: [Synth 8-5544] ROM "uart_enable" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
 INFO: [Synth 8-5546] ROM "vdata" won't be mapped to RAM because it is too sparse
-WARNING: [Synth 8-327] inferring latch for variable 'reg1_o_reg' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/id.v:824]
-WARNING: [Synth 8-327] inferring latch for variable 'reg2_o_reg' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/id.v:846]
-WARNING: [Synth 8-327] inferring latch for variable 'cp0_reg_read_addr_o_reg' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/ex.v:445]
-WARNING: [Synth 8-327] inferring latch for variable 'hilo_temp1_reg' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/ex.v:333]
-WARNING: [Synth 8-327] inferring latch for variable 'hilo_temp_o_reg' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/ex.v:322]
-WARNING: [Synth 8-327] inferring latch for variable 'cnt_o_reg' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/ex.v:323]
-WARNING: [Synth 8-327] inferring latch for variable 'stallreq_for_madd_msub_reg' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/ex.v:324]
-WARNING: [Synth 8-327] inferring latch for variable 'cp0_cause_reg' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mem.v:392]
-WARNING: [Synth 8-327] inferring latch for variable 'if_lerr_reg' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mem.v:146]
-WARNING: [Synth 8-327] inferring latch for variable 'if_serr_reg' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mem.v:145]
-WARNING: [Synth 8-327] inferring latch for variable 'mem_data_o_reg' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mem.v:120]
-WARNING: [Synth 8-327] inferring latch for variable 'cp0_epc_reg' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mem.v:94]
-WARNING: [Synth 8-327] inferring latch for variable 'new_pc_reg' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/ctrl.v:30]
+WARNING: [Synth 8-327] inferring latch for variable 'reg1_o_reg' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/id.v:824]
+WARNING: [Synth 8-327] inferring latch for variable 'reg2_o_reg' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/id.v:847]
+WARNING: [Synth 8-327] inferring latch for variable 'cp0_reg_read_addr_o_reg' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/ex.v:458]
+WARNING: [Synth 8-327] inferring latch for variable 'hilo_temp1_reg' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/ex.v:333]
+WARNING: [Synth 8-327] inferring latch for variable 'hilo_temp_o_reg' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/ex.v:322]
+WARNING: [Synth 8-327] inferring latch for variable 'cnt_o_reg' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/ex.v:323]
+WARNING: [Synth 8-327] inferring latch for variable 'stallreq_for_madd_msub_reg' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/ex.v:324]
+WARNING: [Synth 8-327] inferring latch for variable 'cp0_cause_reg' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/mem.v:393]
+WARNING: [Synth 8-327] inferring latch for variable 'if_lerr_reg' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/mem.v:147]
+WARNING: [Synth 8-327] inferring latch for variable 'if_serr_reg' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/mem.v:146]
+WARNING: [Synth 8-327] inferring latch for variable 'cp0_epc_reg' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/mem.v:94]
+WARNING: [Synth 8-327] inferring latch for variable 'new_pc_reg' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/ctrl.v:30]
 ---------------------------------------------------------------------------------------------------
                    State |                     New Encoding |                Previous Encoding 
 ---------------------------------------------------------------------------------------------------
@@ -443,7 +442,7 @@ WARNING: [Synth 8-327] inferring latch for variable 'new_pc_reg' [D:/Computer_Or
                  iSTATE2 |                               11 |                               11
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'div'
-WARNING: [Synth 8-327] inferring latch for variable 'data_o_reg' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/cp0_reg.v:227]
+WARNING: [Synth 8-327] inferring latch for variable 'data_o_reg' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/cp0_reg.v:227]
 ---------------------------------------------------------------------------------------------------
                    State |                     New Encoding |                Previous Encoding 
 ---------------------------------------------------------------------------------------------------
@@ -476,20 +475,9 @@ INFO: [Synth 8-3354] encoded FSM with state register 'RxD_state_reg' using encod
                  iSTATE1 |                      10000000000 |                             0010
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'TxD_state_reg' using encoding 'one-hot' in module 'async_transmitter'
-WARNING: [Synth 8-327] inferring latch for variable 'instruction_output_data_reg' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mmu_memory.v:230]
-WARNING: [Synth 8-327] inferring latch for variable 'data_output_data_reg' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mmu_memory.v:227]
-WARNING: [Synth 8-327] inferring latch for variable 'baseram_write_or_read_reg' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mmu_memory.v:109]
-WARNING: [Synth 8-327] inferring latch for variable 'baseram_input_data_reg' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mmu_memory.v:112]
-WARNING: [Synth 8-327] inferring latch for variable 'baseram_addr_reg' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mmu_memory.v:114]
-WARNING: [Synth 8-327] inferring latch for variable 'base_cpu_be_n_reg' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mmu_memory.v:115]
-WARNING: [Synth 8-327] inferring latch for variable 'extram_write_or_read_reg' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mmu_memory.v:139]
-WARNING: [Synth 8-327] inferring latch for variable 'extram_input_data_reg' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mmu_memory.v:142]
-WARNING: [Synth 8-327] inferring latch for variable 'extram_addr_reg' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mmu_memory.v:144]
-WARNING: [Synth 8-327] inferring latch for variable 'ext_cpu_be_n_reg' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mmu_memory.v:145]
-WARNING: [Synth 8-327] inferring latch for variable 'uart_input_data_reg' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mmu_memory.v:80]
-WARNING: [Synth 8-327] inferring latch for variable 'uart_write_or_read_reg' [D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/new/mmu_memory.v:82]
+WARNING: [Synth 8-327] inferring latch for variable 'data_output_data_reg' [C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/new/mmu_memory.v:238]
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:25 ; elapsed = 00:00:33 . Memory (MB): peak = 850.355 ; gain = 561.574
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:17 ; elapsed = 00:00:19 . Memory (MB): peak = 849.250 ; gain = 560.180
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -533,16 +521,16 @@ Detailed RTL Component Info :
 	   2 Input     64 Bit        Muxes := 10    
 	   3 Input     64 Bit        Muxes := 2     
 	   4 Input     64 Bit        Muxes := 1     
-	   2 Input     32 Bit        Muxes := 100   
+	   2 Input     32 Bit        Muxes := 111   
 	  11 Input     32 Bit        Muxes := 3     
 	   8 Input     32 Bit        Muxes := 4     
 	  33 Input     32 Bit        Muxes := 1     
 	   5 Input     32 Bit        Muxes := 3     
-	   4 Input     32 Bit        Muxes := 3     
+	   4 Input     32 Bit        Muxes := 4     
 	   3 Input     32 Bit        Muxes := 6     
-	   9 Input     32 Bit        Muxes := 5     
+	   9 Input     32 Bit        Muxes := 4     
 	   9 Input     24 Bit        Muxes := 1     
-	   2 Input     20 Bit        Muxes := 4     
+	   2 Input     20 Bit        Muxes := 8     
 	   3 Input     16 Bit        Muxes := 1     
 	   2 Input     16 Bit        Muxes := 1     
 	   2 Input     12 Bit        Muxes := 2     
@@ -550,7 +538,7 @@ Detailed RTL Component Info :
 	   2 Input     11 Bit        Muxes := 2     
 	   8 Input      8 Bit        Muxes := 1     
 	  33 Input      8 Bit        Muxes := 1     
-	   2 Input      8 Bit        Muxes := 12    
+	   2 Input      8 Bit        Muxes := 17    
 	   4 Input      8 Bit        Muxes := 2     
 	  28 Input      7 Bit        Muxes := 1     
 	   8 Input      7 Bit        Muxes := 3     
@@ -565,7 +553,7 @@ Detailed RTL Component Info :
 	  12 Input      4 Bit        Muxes := 1     
 	   4 Input      4 Bit        Muxes := 1     
 	   3 Input      4 Bit        Muxes := 2     
-	   2 Input      4 Bit        Muxes := 5     
+	   2 Input      4 Bit        Muxes := 8     
 	   9 Input      4 Bit        Muxes := 1     
 	   5 Input      4 Bit        Muxes := 1     
 	  11 Input      4 Bit        Muxes := 2     
@@ -583,18 +571,18 @@ Detailed RTL Component Info :
 	   4 Input      2 Bit        Muxes := 2     
 	   2 Input      2 Bit        Muxes := 8     
 	   3 Input      2 Bit        Muxes := 1     
-	   9 Input      2 Bit        Muxes := 2     
-	   2 Input      1 Bit        Muxes := 183   
+	   9 Input      2 Bit        Muxes := 3     
+	   2 Input      1 Bit        Muxes := 175   
 	  28 Input      1 Bit        Muxes := 3     
-	   9 Input      1 Bit        Muxes := 14    
+	   9 Input      1 Bit        Muxes := 13    
 	  11 Input      1 Bit        Muxes := 7     
 	   8 Input      1 Bit        Muxes := 9     
 	  33 Input      1 Bit        Muxes := 6     
 	   4 Input      1 Bit        Muxes := 11    
 	   5 Input      1 Bit        Muxes := 2     
 	  27 Input      1 Bit        Muxes := 1     
-	   3 Input      1 Bit        Muxes := 10    
-	   7 Input      1 Bit        Muxes := 1     
+	   3 Input      1 Bit        Muxes := 9     
+	   7 Input      1 Bit        Muxes := 2     
 	   6 Input      1 Bit        Muxes := 1     
 	  10 Input      1 Bit        Muxes := 1     
 ---------------------------------------------------------------------------------
@@ -725,10 +713,10 @@ Detailed RTL Component Info :
 Module mem 
 Detailed RTL Component Info : 
 +---Muxes : 
-	   4 Input     32 Bit        Muxes := 1     
+	   4 Input     32 Bit        Muxes := 2     
 	   3 Input     32 Bit        Muxes := 2     
-	   2 Input     32 Bit        Muxes := 16    
-	   9 Input     32 Bit        Muxes := 3     
+	   2 Input     32 Bit        Muxes := 19    
+	   9 Input     32 Bit        Muxes := 2     
 	   3 Input     16 Bit        Muxes := 1     
 	   2 Input     16 Bit        Muxes := 1     
 	   4 Input      8 Bit        Muxes := 1     
@@ -739,9 +727,10 @@ Detailed RTL Component Info :
 	   3 Input      4 Bit        Muxes := 2     
 	   2 Input      4 Bit        Muxes := 3     
 	   9 Input      4 Bit        Muxes := 1     
+	   9 Input      2 Bit        Muxes := 1     
 	   3 Input      1 Bit        Muxes := 4     
-	   2 Input      1 Bit        Muxes := 15    
-	   9 Input      1 Bit        Muxes := 5     
+	   2 Input      1 Bit        Muxes := 14    
+	   9 Input      1 Bit        Muxes := 4     
 Module mem_wb 
 Detailed RTL Component Info : 
 +---Registers : 
@@ -878,11 +867,12 @@ Detailed RTL Component Info :
 Module mmu_memory 
 Detailed RTL Component Info : 
 +---Muxes : 
-	   2 Input     32 Bit        Muxes := 4     
-	   2 Input     20 Bit        Muxes := 2     
-	   2 Input      4 Bit        Muxes := 2     
-	   2 Input      1 Bit        Muxes := 12    
-	   3 Input      1 Bit        Muxes := 1     
+	   2 Input     32 Bit        Muxes := 12    
+	   2 Input     20 Bit        Muxes := 6     
+	   2 Input      8 Bit        Muxes := 5     
+	   2 Input      4 Bit        Muxes := 5     
+	   2 Input      1 Bit        Muxes := 5     
+	   7 Input      1 Bit        Muxes := 1     
 Module vga 
 Detailed RTL Component Info : 
 +---Adders : 
@@ -1101,7 +1091,7 @@ WARNING: [Synth 8-3332] Sequential element (cause_o_reg[6]) is unused and will b
 WARNING: [Synth 8-3332] Sequential element (config_o_reg[15]) is unused and will be removed from module cp0_reg.
 WARNING: [Synth 8-3332] Sequential element (cause_o_reg[30]) is unused and will be removed from module cp0_reg.
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:01:01 ; elapsed = 00:01:10 . Memory (MB): peak = 850.355 ; gain = 561.574
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:41 ; elapsed = 00:00:43 . Memory (MB): peak = 849.250 ; gain = 560.180
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP and Shift Register Reporting
@@ -1136,13 +1126,13 @@ INFO: [Synth 8-5578] Moved timing constraint from pin 'clock_gen/clk_out3' to pi
 WARNING: [Synth 8-565] redefining clock 'clk_50M'
 INFO: [Synth 8-5819] Moved 3 constraints on hierarchical pins to their respective driving/loading pins
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:18 ; elapsed = 00:01:29 . Memory (MB): peak = 867.684 ; gain = 578.902
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:53 ; elapsed = 00:00:57 . Memory (MB): peak = 867.984 ; gain = 578.914
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:01:23 ; elapsed = 00:01:34 . Memory (MB): peak = 918.441 ; gain = 629.660
+Finished Timing Optimization : Time (s): cpu = 00:00:57 ; elapsed = 00:01:00 . Memory (MB): peak = 919.824 ; gain = 630.754
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1154,7 +1144,7 @@ Report RTL Partitions:
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:01:29 ; elapsed = 00:01:40 . Memory (MB): peak = 994.336 ; gain = 705.555
+Finished Technology Mapping : Time (s): cpu = 00:01:01 ; elapsed = 00:01:04 . Memory (MB): peak = 989.914 ; gain = 700.844
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1178,7 +1168,7 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:01:31 ; elapsed = 00:01:42 . Memory (MB): peak = 994.336 ; gain = 705.555
+Finished IO Insertion : Time (s): cpu = 00:01:02 ; elapsed = 00:01:05 . Memory (MB): peak = 989.914 ; gain = 700.844
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -1191,7 +1181,7 @@ Report Check Netlist:
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:01:31 ; elapsed = 00:01:42 . Memory (MB): peak = 994.336 ; gain = 705.555
+Finished Renaming Generated Instances : Time (s): cpu = 00:01:02 ; elapsed = 00:01:05 . Memory (MB): peak = 989.914 ; gain = 700.844
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1203,25 +1193,25 @@ Report RTL Partitions:
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:32 ; elapsed = 00:01:43 . Memory (MB): peak = 994.336 ; gain = 705.555
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:03 ; elapsed = 00:01:06 . Memory (MB): peak = 989.914 ; gain = 700.844
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:01:32 ; elapsed = 00:01:43 . Memory (MB): peak = 994.336 ; gain = 705.555
+Finished Renaming Generated Ports : Time (s): cpu = 00:01:03 ; elapsed = 00:01:06 . Memory (MB): peak = 989.914 ; gain = 700.844
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:01:32 ; elapsed = 00:01:43 . Memory (MB): peak = 994.336 ; gain = 705.555
+Finished Handling Custom Attributes : Time (s): cpu = 00:01:03 ; elapsed = 00:01:06 . Memory (MB): peak = 989.914 ; gain = 700.844
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:01:32 ; elapsed = 00:01:44 . Memory (MB): peak = 994.336 ; gain = 705.555
+Finished Renaming Generated Nets : Time (s): cpu = 00:01:03 ; elapsed = 00:01:06 . Memory (MB): peak = 989.914 ; gain = 700.844
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -1239,92 +1229,87 @@ Report Cell Usage:
 |      |Cell        |Count |
 +------+------------+------+
 |1     |pll_example |     1|
-|2     |BUFG        |    11|
+|2     |BUFG        |     8|
 |3     |CARRY4      |   233|
 |4     |DSP48E1     |     4|
-|5     |LUT1        |   247|
-|6     |LUT2        |   596|
-|7     |LUT3        |   317|
-|8     |LUT4        |   556|
-|9     |LUT5        |   810|
-|10    |LUT6        |  1766|
+|5     |LUT1        |   236|
+|6     |LUT2        |   566|
+|7     |LUT3        |   351|
+|8     |LUT4        |   561|
+|9     |LUT5        |   712|
+|10    |LUT6        |  1869|
 |11    |MUXF7       |   283|
 |12    |MUXF8       |   122|
-|13    |FDE_1       |     8|
-|14    |FDPE        |     1|
-|15    |FDRE        |  2501|
-|16    |FDSE        |    12|
-|17    |LD          |   128|
-|18    |LDC         |   392|
-|19    |LDP         |     4|
-|20    |IBUF        |     2|
-|21    |IOBUF       |    64|
-|22    |OBUF        |   101|
-|23    |OBUFT       |    40|
+|13    |FDPE        |     1|
+|14    |FDRE        |  2512|
+|15    |FDSE        |     9|
+|16    |LD          |   103|
+|17    |LDC         |   234|
+|18    |IBUF        |     2|
+|19    |IOBUF       |    64|
+|20    |OBUF        |   101|
+|21    |OBUFT       |    40|
 +------+------------+------+
 
 Report Instance Areas: 
 +------+----------------------+----------------------------+------+
 |      |Instance              |Module                      |Cells |
 +------+----------------------+----------------------------+------+
-|1     |top                   |                            |  8202|
-|2     |  openmips0           |openmips                    |  7217|
-|3     |    mem0              |mem                         |   480|
-|4     |    ctrl0             |ctrl                        |    98|
-|5     |    cp0_reg0          |cp0_reg                     |   535|
-|6     |    LLbit_reg0        |LLbit_reg                   |     1|
-|7     |    div0              |div                         |   444|
-|8     |    ex0               |ex                          |   342|
-|9     |    ex_mem0           |ex_mem                      |   470|
-|10    |    hilo_reg0         |hilo_reg                    |    64|
-|11    |    id0               |id                          |   111|
-|12    |    id_ex0            |id_ex                       |  1673|
-|13    |    if_id0            |if_id                       |   677|
-|14    |    mem_wb0           |mem_wb                      |   312|
-|15    |    pc_reg0           |pc_reg                      |    57|
+|1     |top                   |                            |  8015|
+|2     |  openmips0           |openmips                    |  7162|
+|3     |    pc_reg0           |pc_reg                      |    77|
+|4     |    mem0              |mem                         |   426|
+|5     |    ctrl0             |ctrl                        |    98|
+|6     |    cp0_reg0          |cp0_reg                     |   535|
+|7     |    LLbit_reg0        |LLbit_reg                   |     1|
+|8     |    div0              |div                         |   445|
+|9     |    ex0               |ex                          |   342|
+|10    |    ex_mem0           |ex_mem                      |   470|
+|11    |    hilo_reg0         |hilo_reg                    |    64|
+|12    |    id0               |id                          |   111|
+|13    |    id_ex0            |id_ex                       |  1671|
+|14    |    if_id0            |if_id                       |   644|
+|15    |    mem_wb0           |mem_wb                      |   312|
 |16    |    regfile1          |regfile                     |  1949|
-|17    |  mmu_memory_version1 |mmu_memory                  |   763|
-|18    |    directUart        |uart                        |   202|
-|19    |      ext_uart_r      |async_receiver              |    98|
-|20    |        tickgen       |BaudTickGen                 |    53|
-|21    |      ext_uart_t      |async_transmitter           |    72|
-|22    |        tickgen       |BaudTickGen__parameterized0 |    40|
-|23    |    baseRam           |memory                      |   140|
-|24    |    extRam            |memory_1                    |   109|
+|17    |  mmu_memory_version1 |mmu_memory                  |   631|
+|18    |    directUart        |uart                        |   195|
+|19    |      ext_uart_r      |async_receiver              |    94|
+|20    |        tickgen       |BaudTickGen                 |    49|
+|21    |      ext_uart_t      |async_transmitter           |    69|
+|22    |        tickgen       |BaudTickGen__parameterized0 |    37|
+|23    |    baseRam           |memory                      |   194|
+|24    |    extRam            |memory_1                    |   118|
 |25    |  segH                |SEG7_LUT                    |     7|
 |26    |  segL                |SEG7_LUT_0                  |     7|
 |27    |  vga800x600at75      |vga                         |    58|
 +------+----------------------+----------------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:01:32 ; elapsed = 00:01:44 . Memory (MB): peak = 994.336 ; gain = 705.555
+Finished Writing Synthesis Report : Time (s): cpu = 00:01:03 ; elapsed = 00:01:06 . Memory (MB): peak = 989.914 ; gain = 700.844
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 258 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:01:16 ; elapsed = 00:01:29 . Memory (MB): peak = 994.336 ; gain = 317.605
-Synthesis Optimization Complete : Time (s): cpu = 00:01:33 ; elapsed = 00:01:44 . Memory (MB): peak = 994.336 ; gain = 705.555
+Synthesis finished with 0 errors, 0 critical warnings and 252 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:51 ; elapsed = 00:00:58 . Memory (MB): peak = 989.914 ; gain = 315.180
+Synthesis Optimization Complete : Time (s): cpu = 00:01:03 ; elapsed = 00:01:07 . Memory (MB): peak = 989.914 ; gain = 700.844
 INFO: [Project 1-571] Translating synthesized netlist
-INFO: [Netlist 29-17] Analyzing 1240 Unisim elements for replacement
+INFO: [Netlist 29-17] Analyzing 1045 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-140] Inserted 1 IBUFs to IO ports without IO buffers.
-INFO: [Opt 31-138] Pushed 2 inverter(s) to 34 load pin(s).
+INFO: [Opt 31-138] Pushed 1 inverter(s) to 2 load pin(s).
 INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 596 instances were transformed.
-  FDE_1 => FDRE (inverted pins: C): 8 instances
+  A total of 401 instances were transformed.
   IOBUF => IOBUF (IBUF, OBUFT): 64 instances
-  LD => LDCE: 126 instances
+  LD => LDCE: 101 instances
   LD => LDCE (inverted pins: G): 2 instances
-  LDC => LDCE: 360 instances
-  LDC => LDCE (inverted pins: G): 32 instances
-  LDP => LDPE: 4 instances
+  LDC => LDCE: 234 instances
 
 INFO: [Common 17-83] Releasing license: Synthesis
-321 Infos, 224 Warnings, 0 Critical Warnings and 0 Errors encountered.
+327 Infos, 206 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:01:37 ; elapsed = 00:01:50 . Memory (MB): peak = 994.336 ; gain = 717.027
+synth_design: Time (s): cpu = 00:01:07 ; elapsed = 00:01:10 . Memory (MB): peak = 989.914 ; gain = 712.316
 INFO: [Common 17-600] The following parameters have non-default value.
 tcl.collectionResultDisplayLimit
 WARNING: [Constraints 18-5210] No constraint will be written out.
-INFO: [Common 17-1381] The checkpoint 'D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.runs/synth_1/thinpad_top.dcp' has been generated.
+INFO: [Common 17-1381] The checkpoint 'C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.runs/synth_1/thinpad_top.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file thinpad_top_utilization_synth.rpt -pb thinpad_top_utilization_synth.pb
-report_utilization: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.291 . Memory (MB): peak = 994.336 ; gain = 0.000
-INFO: [Common 17-206] Exiting Vivado at Mon Dec  3 01:19:21 2018...
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.108 . Memory (MB): peak = 989.914 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Mon Dec  3 23:40:42 2018...

@@ -337,6 +337,12 @@ module ex(
 						hilo_temp1 <= hilo_temp_i + {HI,LO};
 						stallreq_for_madd_msub <= `NoStop;
 					end
+					else begin
+						hilo_temp_o <= hilo_temp_o;
+						cnt_o <= cnt_o;
+						stallreq_for_madd_msub <= stallreq_for_madd_msub;
+						hilo_temp1 <= hilo_temp1;  
+					end
 				end
 				`EXE_MSUB_OP, `EXE_MSUBU_OP:		begin
 					if(cnt_i == 2'b00) begin
@@ -348,12 +354,19 @@ module ex(
 						cnt_o <= 2'b10;
 						hilo_temp1 <= hilo_temp_i + {HI,LO};
 						stallreq_for_madd_msub <= `NoStop;
-					end				
+					end	
+					else begin
+						hilo_temp_o <= hilo_temp_o;
+						cnt_o <= cnt_o;
+						stallreq_for_madd_msub <= stallreq_for_madd_msub;
+						hilo_temp1 <= hilo_temp1;  
+					end			
 				end
 				default:	begin
 					hilo_temp_o <= {`ZeroWord,`ZeroWord};
 					cnt_o <= 2'b00;
 					stallreq_for_madd_msub <= `NoStop;				
+					hilo_temp1 <= hilo_temp1;
 				end
 			endcase
 		end

@@ -1,10 +1,10 @@
 -- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2018.2 (win64) Build 2258646 Thu Jun 14 20:03:12 MDT 2018
--- Date        : Sat Dec  1 20:23:07 2018
--- Host        : LAPTOP-5JKB6L2D running 64-bit major release  (build 9200)
+-- Date        : Mon Dec  3 22:25:43 2018
+-- Host        : DESKTOP-N6B5F4R running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim
---               D:/Computer_Organization/thinpad_top-rev.3/thinpad_top-rev.3/thinpad_top.srcs/sources_1/ip/pll_example/pll_example_sim_netlist.vhdl
+--               C:/Users/liujiashuo/Desktop/mips32_cpu_making_pipeline/thinpad_top.srcs/sources_1/ip/pll_example/pll_example_sim_netlist.vhdl
 -- Design      : pll_example
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -104,11 +104,11 @@ mmcm_adv_inst: unisim.vcomponents.MMCME2_ADV
       CLKOUT0_USE_FINE_PS => false,
       CLKOUT1_DIVIDE => 50,
       CLKOUT1_DUTY_CYCLE => 0.500000,
-      CLKOUT1_PHASE => 0.000000,
+      CLKOUT1_PHASE => 90.000000,
       CLKOUT1_USE_FINE_PS => false,
       CLKOUT2_DIVIDE => 40,
       CLKOUT2_DUTY_CYCLE => 0.500000,
-      CLKOUT2_PHASE => 0.000000,
+      CLKOUT2_PHASE => 90.000000,
       CLKOUT2_USE_FINE_PS => false,
       CLKOUT3_DIVIDE => 1,
       CLKOUT3_DUTY_CYCLE => 0.500000,

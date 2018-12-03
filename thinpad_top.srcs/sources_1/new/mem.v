@@ -135,6 +135,7 @@ module mem(
 			whilo_o <= whilo_i;		
 			mem_we <= `WriteDisable;
 			mem_addr_o <= `ZeroWord;
+			mem_data_o <= `ZeroWord;
 			mem_sel_o <= 4'b1111;
 			mem_ce_o <= `ChipDisable;
 		  LLbit_we_o <= 1'b0;

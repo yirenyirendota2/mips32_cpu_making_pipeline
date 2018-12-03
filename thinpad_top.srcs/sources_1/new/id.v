@@ -824,7 +824,8 @@ module id(
 			reg1_o <= `ZeroWord;	
 		end else if(pre_inst_is_load == 1'b1 && ex_wd_i == reg1_addr_o 
 								&& reg1_read_o == 1'b1 ) begin
-		  stallreq_for_reg1_loadrelate <= `Stop;							
+		  stallreq_for_reg1_loadrelate <= `Stop;
+		  reg1_o <= reg1_o;							
 		end else if((reg1_read_o == 1'b1) && (ex_wreg_i == 1'b1) 
 								&& (ex_wd_i == reg1_addr_o)) begin
 			reg1_o <= ex_wdata_i; 
@@ -846,7 +847,8 @@ module id(
 			reg2_o <= `ZeroWord;
 		end else if(pre_inst_is_load == 1'b1 && ex_wd_i == reg2_addr_o 
 								&& reg2_read_o == 1'b1 ) begin
-		  stallreq_for_reg2_loadrelate <= `Stop;			
+		  stallreq_for_reg2_loadrelate <= `Stop;
+		  reg2_o <= reg2_o;			
 		end else if((reg2_read_o == 1'b1) && (ex_wreg_i == 1'b1) 
 								&& (ex_wd_i == reg2_addr_o)) begin
 			reg2_o <= ex_wdata_i; 

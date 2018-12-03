@@ -12,11 +12,11 @@ module pc_reg(
 	
 	input wire[5:0]               stall,
 	input wire                    flush,
-	input wire[`RegBus]           new_pc,
+	(*MARK_DEBUG="TRUE"*) input wire[`RegBus]           new_pc,
 
 	
-	input wire                    branch_flag_i,
-	input wire[`RegBus]           branch_target_address_i,
+	(*MARK_DEBUG="TRUE"*) input wire                    branch_flag_i,
+	(*MARK_DEBUG="TRUE"*) input wire[`RegBus]           branch_target_address_i,
 	
 	output reg[`InstAddrBus]	  pc,
 	output reg                    ce

@@ -575,7 +575,7 @@ module openmips(
 		.mem_cp0_reg_write_addr(mem_cp0_reg_write_addr_o),
 		.mem_cp0_reg_data(mem_cp0_reg_data_o),					
 	
-		//�͵���д�׶ε���Ϣ
+		
 		.wb_wd(wb_wd_i),
 		.wb_wreg(wb_wreg_i),
 		.wb_wdata(wb_wdata_i),

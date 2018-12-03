@@ -51,7 +51,7 @@ module uart(
 reg ext_uart_start;
 reg ext_uart_clear;
 
-async_receiver #(.ClkFrequency(40000000),.Baud(9600)) //接收模块�?9600无检验位
+async_receiver #(.ClkFrequency(50000000),.Baud(9600)) //接收模块�?9600无检验位
     ext_uart_r(
         .clk(clk_50M),                       //外部时钟信号
         .RxD(rxd),                           //外部串行信号输入
@@ -60,7 +60,7 @@ async_receiver #(.ClkFrequency(40000000),.Baud(9600)) //接收模块�?9600无�
         .RxD_data(ext_uart_rx)             //接收到的�?字节数据
     );
 
-async_transmitter #(.ClkFrequency(40000000),.Baud(9600)) //发�?�模块，9600无检验位
+async_transmitter #(.ClkFrequency(50000000),.Baud(9600)) //发�?�模块，9600无检验位
     ext_uart_t(
         .clk(clk_50M),                  //外部时钟信号
         .TxD(txd),                      //串行信号输出
@@ -69,7 +69,7 @@ async_transmitter #(.ClkFrequency(40000000),.Baud(9600)) //发�?�模块，9600�
         .TxD_data(ext_uart_tx)        //待发送的数据
     );
 
-always @(negedge clk_50M) begin
+always @(posedge clk_50M) begin
     if(enable) begin
         if(write_or_read) begin
             if(~ext_uart_busy) begin
