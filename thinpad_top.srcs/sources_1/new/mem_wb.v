@@ -1,4 +1,3 @@
-
 `include "defines.v"
 
 module mem_wb(
@@ -17,9 +16,9 @@ module mem_wb(
 	input wire                  mem_LLbit_we,
 	input wire                  mem_LLbit_value,	
 
-	input wire                   mem_cp0_reg_we,
-	input wire[4:0]              mem_cp0_reg_write_addr,
-	input wire[31:0]          mem_cp0_reg_data,			
+	input wire                   mem_cp0_we,
+	input wire[4:0]              mem_cp0_write_addr,
+	input wire[31:0]          mem_cp0_data,			
 
 	output reg[`RegAddrBus]      wb_wd,
 	output reg                   wb_wreg,
@@ -31,9 +30,9 @@ module mem_wb(
 	output reg                  wb_LLbit_we,
 	output reg                  wb_LLbit_value,
 
-	output reg                   wb_cp0_reg_we,
-	output reg[4:0]              wb_cp0_reg_write_addr,
-	output reg[31:0]          wb_cp0_reg_data								       
+	output reg                   wb_cp0_we,
+	output reg[4:0]              wb_cp0_write_addr,
+	output reg[31:0]          wb_cp0_data								       
 	
 );
 
@@ -48,9 +47,9 @@ module mem_wb(
 		  wb_whilo <= 1'b0;
 		  wb_LLbit_we <= 1'b0;
 		  wb_LLbit_value <= 1'b0;		
-			wb_cp0_reg_we <= 1'b0;
-			wb_cp0_reg_write_addr <= 5'b00000;
-			wb_cp0_reg_data <= `ZeroWord;			
+			wb_cp0_we <= 1'b0;
+			wb_cp0_write_addr <= 5'b00000;
+			wb_cp0_data <= `ZeroWord;			
 		end else if(flush == 1'b1 ) begin
 			wb_wd <= `NOPRegAddr;
 			wb_wreg <= 1'b0;
@@ -60,13 +59,13 @@ module mem_wb(
 		  wb_whilo <= 1'b0;
 		  wb_LLbit_we <= 1'b0;
 		  wb_LLbit_value <= 1'b0;	
-//			wb_cp0_reg_we <= 1'b0;
-			             wb_cp0_reg_write_addr <= mem_cp0_reg_write_addr;
-						wb_cp0_reg_data <= mem_cp0_reg_data;			  		
-			wb_cp0_reg_we <= mem_cp0_reg_we;
+//			wb_cp0_we <= 1'b0;
+			             wb_cp0_write_addr <= mem_cp0_write_addr;
+						wb_cp0_data <= mem_cp0_data;			  		
+			wb_cp0_we <= mem_cp0_we;
 
-			//wb_cp0_reg_write_addr <= 5'b00000;
-//			wb_cp0_reg_data <= `ZeroWord;				  				  	  	
+			//wb_cp0_write_addr <= 5'b00000;
+//			wb_cp0_data <= `ZeroWord;				  				  	  	
 		end else if(stall[4] == 1'b1 && stall[5] == 1'b0) begin
 			wb_wd <= `NOPRegAddr;
 			wb_wreg <= 1'b0;
@@ -76,9 +75,9 @@ module mem_wb(
 		  wb_whilo <= 1'b0;	
 		  wb_LLbit_we <= 1'b0;
 		  wb_LLbit_value <= 1'b0;	
-			wb_cp0_reg_we <= 1'b0;
-			wb_cp0_reg_write_addr <= 5'b00000;
-			wb_cp0_reg_data <= `ZeroWord;					  		  	  	  
+			wb_cp0_we <= 1'b0;
+			wb_cp0_write_addr <= 5'b00000;
+			wb_cp0_data <= `ZeroWord;					  		  	  	  
 		end else if(stall[4] == 1'b0) begin
 			wb_wd <= mem_wd;
 			wb_wreg <= mem_wreg;
@@ -88,9 +87,9 @@ module mem_wb(
 			wb_whilo <= mem_whilo;		
 		  wb_LLbit_we <= mem_LLbit_we;
 		  wb_LLbit_value <= mem_LLbit_value;		
-			wb_cp0_reg_we <= mem_cp0_reg_we;
-			wb_cp0_reg_write_addr <= mem_cp0_reg_write_addr;
-			wb_cp0_reg_data <= mem_cp0_reg_data;			  		
+			wb_cp0_we <= mem_cp0_we;
+			wb_cp0_write_addr <= mem_cp0_write_addr;
+			wb_cp0_data <= mem_cp0_data;			  		
 		end    //if
 	end      //always
 			

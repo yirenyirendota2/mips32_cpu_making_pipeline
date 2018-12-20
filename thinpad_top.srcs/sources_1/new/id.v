@@ -46,7 +46,7 @@ module id(
 	output reg[31:0]              link_addr_o,
 	output reg                    is_in_delayslot_o,
 
-    output wire[31:0]             excepttype_o,
+    output wire[31:0]             except_type_o,
     output wire[31:0]             current_inst_address_o,
 	
 	output wire                   stallreq	
@@ -65,8 +65,8 @@ module id(
   reg stallreq_for_reg1_loadrelate;
   reg stallreq_for_reg2_loadrelate;
   wire pre_inst_is_load;
-  reg excepttype_is_syscall;
-  reg excepttype_is_eret;
+  reg except_type_is_syscall;
+  reg except_type_is_eret;
   
   
   assign pc_plus_8 = pc_i + 8;
@@ -84,7 +84,7 @@ module id(
   													(ex_aluop_i == `EXE_SC_OP)) ? 1'b1 : 1'b0;
 
   assign inst_o = inst_i;
-  assign excepttype_o = {19'b0,excepttype_is_eret,2'b0, instvalid, excepttype_is_syscall,8'b0};
+  assign except_type_o = {19'b0,except_type_is_eret,2'b0, instvalid, except_type_is_syscall,8'b0};
   assign current_inst_address_o = pc_i;
     
 	always @ (*) begin	
@@ -103,8 +103,8 @@ module id(
 			branch_target_address_o <= `ZeroWord;
 			branch_flag_o <= `NotBranch;
 			next_inst_in_delayslot_o <= `NotInDelaySlot;
-			excepttype_is_syscall <= `False_v;
-			excepttype_is_eret <= `False_v;								
+			except_type_is_syscall <= `False_v;
+			except_type_is_eret <= `False_v;								
 
 	  end else begin
 			aluop_o <= `EXE_NOP_OP;
@@ -121,8 +121,8 @@ module id(
 			branch_target_address_o <= `ZeroWord;
 			branch_flag_o <= `NotBranch;	
 			next_inst_in_delayslot_o <= `NotInDelaySlot;
-			excepttype_is_syscall <= `False_v;	
-			excepttype_is_eret <= `False_v;					 			
+			except_type_is_syscall <= `False_v;	
+			except_type_is_eret <= `False_v;					 			
 		  case (op)
 		    `EXE_SPECIAL_INST:		begin
 		    	case (op2)
@@ -342,7 +342,7 @@ module id(
 		  						`EXE_SYSCALL: begin
 									wreg_o <= 1'b0;		aluop_o <= `EXE_SYSCALL_OP;
 		  							alusel_o <= `EXE_RES_NOP;   reg1_read_o <= 1'b0;	reg2_read_o <= 1'b0;
-		  							instvalid <= 1'b0; excepttype_is_syscall<= `True_v;
+		  							instvalid <= 1'b0; except_type_is_syscall<= `True_v;
 		  						end							 																					
 								default:	begin
 								end	
@@ -719,7 +719,7 @@ module id(
      	if(inst_i == `EXE_ERET) begin
 				wreg_o <= 1'b0;		aluop_o <= `EXE_ERET_OP;
 		  	alusel_o <= `EXE_RES_NOP;   reg1_read_o <= 1'b0;	reg2_read_o <= 1'b0;
-		  	instvalid <= 1'b0; excepttype_is_eret<= `True_v;				
+		  	instvalid <= 1'b0; except_type_is_eret<= `True_v;				
 			end else if(inst_i[31:21] == 11'b01000000000 && 
 										inst_i[10:3] == 11'b00000000) begin
 				aluop_o <= `EXE_MFC0_OP;

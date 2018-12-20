@@ -1,5 +1,3 @@
-
-
 `include "defines.v"
 
 module ex(
@@ -14,7 +12,7 @@ module ex(
 	input wire[4:0]       wd_i,
 	input wire                    wreg_i,
 	input wire[31:0]           inst_i,
-	input wire[31:0]              excepttype_i,
+	input wire[31:0]              except_type_i,
 	input wire[31:0]          current_inst_address_i,
 	
 	//HI/LO模块ֵ
@@ -41,20 +39,20 @@ module ex(
 	input wire                    is_in_delayslot_i,	
 
 	//CP0模块  
-	input wire                    mem_cp0_reg_we,
-	input wire[4:0]               mem_cp0_reg_write_addr,
-	input wire[31:0]           mem_cp0_reg_data,
+	input wire                    mem_cp0_we,
+	input wire[4:0]               mem_cp0_write_addr,
+	input wire[31:0]           mem_cp0_data,
 	
-    input wire                    wb_cp0_reg_we,
-	input wire[4:0]               wb_cp0_reg_write_addr,
-	input wire[31:0]           wb_cp0_reg_data,
+    input wire                    wb_cp0_we,
+	input wire[4:0]               wb_cp0_write_addr,
+	input wire[31:0]           wb_cp0_data,
 
 	//ֵCP0 REG
-	input wire[31:0]           cp0_reg_data_i,
-	output reg[4:0]               cp0_reg_read_addr_o,
-	output reg                    cp0_reg_we_o,
-	output reg[4:0]               cp0_reg_write_addr_o,
-	output reg[31:0]           cp0_reg_data_o,
+	input wire[31:0]           cp0_data_i,
+	output reg[4:0]               cp0_read_addr_o,
+	output reg                    cp0_we_o,
+	output reg[4:0]               cp0_write_addr_o,
+	output reg[31:0]           cp0_data_o,
 	
 	// 输出到wb阶段
 	output reg[4:0]       wd_o,
@@ -78,7 +76,7 @@ module ex(
 	output wire[31:0]          mem_addr_o,
 	output wire[31:0]          reg2_o,
 	
-	output wire[31:0]             excepttype_o,
+	output wire[31:0]             except_type_o,
 	output wire                   is_in_delayslot_o,
 	output wire[31:0]          current_inst_address_o,	
 
@@ -116,7 +114,7 @@ module ex(
 
   assign reg2_o = reg2_i;
  
-  assign excepttype_o = {excepttype_i[31:12],ovassert,trapassert,excepttype_i[9:8],8'h00};
+  assign except_type_o = {except_type_i[31:12],ovassert,trapassert,except_type_i[9:8],8'h00};
   
   assign is_in_delayslot_o = is_in_delayslot_i;
   assign current_inst_address_o = current_inst_address_i;
@@ -451,14 +449,14 @@ module ex(
 	   		moveres <= reg1_i;
 	   	end
 	   	`EXE_MFC0_OP:		begin
-	   	  cp0_reg_read_addr_o <= inst_i[15:11];
-	   		moveres <= cp0_reg_data_i;
-	   		if( mem_cp0_reg_we == 1'b1 &&
-	   				  mem_cp0_reg_write_addr == inst_i[15:11] ) begin
-	   				moveres <= mem_cp0_reg_data;
-	   		end else if( wb_cp0_reg_we == 1'b1 &&
-	   				 							 wb_cp0_reg_write_addr == inst_i[15:11] ) begin
-	   				moveres <= wb_cp0_reg_data;
+	   	  cp0_read_addr_o <= inst_i[15:11];
+	   		moveres <= cp0_data_i;
+	   		if( mem_cp0_we == 1'b1 &&
+	   				  mem_cp0_write_addr == inst_i[15:11] ) begin
+	   				moveres <= mem_cp0_data;
+	   		end else if( wb_cp0_we == 1'b1 &&
+	   				 							 wb_cp0_write_addr == inst_i[15:11] ) begin
+	   				moveres <= wb_cp0_data;
 	   		end
 	   	end	   	
 	   	default : begin
@@ -542,17 +540,17 @@ module ex(
 
 	always @ (*) begin
 		if(rst == 1'b1) begin
-			cp0_reg_write_addr_o <= 5'b00000;
-			cp0_reg_we_o <= 1'b0;
-			cp0_reg_data_o <= `ZeroWord;
+			cp0_write_addr_o <= 5'b00000;
+			cp0_we_o <= 1'b0;
+			cp0_data_o <= `ZeroWord;
 		end else if(aluop_i == `EXE_MTC0_OP) begin
-			cp0_reg_write_addr_o <= inst_i[15:11];
-			cp0_reg_we_o <= 1'b1;
-			cp0_reg_data_o <= reg1_i;
+			cp0_write_addr_o <= inst_i[15:11];
+			cp0_we_o <= 1'b1;
+			cp0_data_o <= reg1_i;
 	  end else begin
-			cp0_reg_write_addr_o <= 5'b00000;
-			cp0_reg_we_o <= 1'b0;
-			cp0_reg_data_o <= `ZeroWord;
+			cp0_write_addr_o <= 5'b00000;
+			cp0_we_o <= 1'b0;
+			cp0_data_o <= `ZeroWord;
 		end				
 	end		
 

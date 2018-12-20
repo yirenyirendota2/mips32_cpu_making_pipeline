@@ -24,7 +24,7 @@ module id_ex(
 	input wire                    next_inst_in_delayslot_i,		
 	input wire[31:0]           id_inst,		
 	input wire[31:0]           id_current_inst_address,
-	input wire[31:0]              id_excepttype,
+	input wire[31:0]              id_except_type,
 	
 	//���ݵ�ִ�н׶ε���Ϣ
 	output reg[`AluOpBus]         ex_aluop,
@@ -37,7 +37,7 @@ module id_ex(
   output reg                    ex_is_in_delayslot,
 	output reg                    is_in_delayslot_o,
 	output reg[31:0]           ex_inst,
-	output reg[31:0]              ex_excepttype,
+	output reg[31:0]              ex_except_type,
 	output reg[31:0]          ex_current_inst_address	
 	
 );
@@ -54,7 +54,7 @@ module id_ex(
 			ex_is_in_delayslot <= `NotInDelaySlot;
 	    is_in_delayslot_o <= `NotInDelaySlot;		
 	    ex_inst <= `ZeroWord;	
-	    ex_excepttype <= `ZeroWord;
+	    ex_except_type <= `ZeroWord;
 	    ex_current_inst_address <= `ZeroWord;
 		end else if(flush == 1'b1 ) begin
 			ex_aluop <= `EXE_NOP_OP;
@@ -63,7 +63,7 @@ module id_ex(
 			ex_reg2 <= `ZeroWord;
 			ex_wd <= `NOPRegAddr;
 			ex_wreg <= 1'b0;
-			ex_excepttype <= `ZeroWord;
+			ex_except_type <= `ZeroWord;
 			ex_link_address <= `ZeroWord;
 			ex_inst <= `ZeroWord;
 			ex_is_in_delayslot <= `NotInDelaySlot;
@@ -79,7 +79,7 @@ module id_ex(
 			ex_link_address <= `ZeroWord;
 			ex_is_in_delayslot <= `NotInDelaySlot;
 	    ex_inst <= `ZeroWord;			
-	    ex_excepttype <= `ZeroWord;
+	    ex_except_type <= `ZeroWord;
 	    ex_current_inst_address <= `ZeroWord;	
 		end else if(stall_signal[2] == 1'b0) begin		
 			ex_aluop <= id_aluop;
@@ -92,7 +92,7 @@ module id_ex(
 			ex_is_in_delayslot <= id_is_in_delayslot;
 	    is_in_delayslot_o <= next_inst_in_delayslot_i;
 	    ex_inst <= id_inst;			
-	    ex_excepttype <= id_excepttype;
+	    ex_except_type <= id_except_type;
 	    ex_current_inst_address <= id_current_inst_address;		
 		end
 	end

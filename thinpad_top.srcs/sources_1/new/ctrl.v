@@ -1,12 +1,10 @@
-
-
 `include "defines.v"
 
 module ctrl(
 
-	input wire										rst,
+	input wire					rst,
 
-	input wire[31:0]             excepttype_i,
+	input wire[31:0]             except_type_i,
 	input wire[`RegBus]          cp0_epc_i,
 
 	input wire                   stallreq_from_id,
@@ -28,10 +26,10 @@ module ctrl(
 			stall <= 6'b000000;
 			flush <= 1'b0;
 			new_pc <= `ZeroWord;
-		end else if(excepttype_i != `ZeroWord) begin
+		end else if(except_type_i != `ZeroWord) begin
 		  flush <= 1'b1;
 		  stall <= 6'b000000;
-			case (excepttype_i)
+			case (except_type_i)
 				32'h00000001:		begin   //interrupt
 					new_pc <= ebase_i + 32'h80000180;
 				end

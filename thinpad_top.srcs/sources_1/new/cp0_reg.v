@@ -1,42 +1,9 @@
-//////////////////////////////////////////////////////////////////////
-////                                                              ////
-//// Copyright (C) 2014 leishangwen@163.com                       ////
-////                                                              ////
-//// This source file may be used and distributed without         ////
-//// restriction provided that this copyright statement is not    ////
-//// removed from the file and that any derivative work contains  ////
-//// the original copyright notice and the associated disclaimer. ////
-////                                                              ////
-//// This source file is free software; you can redistribute it   ////
-//// and/or modify it under the terms of the GNU Lesser General   ////
-//// Public License as published by the Free Software Foundation; ////
-//// either version 2.1 of the License, or (at your option) any   ////
-//// later version.                                               ////
-////                                                              ////
-//// This source is distributed in the hope that it will be       ////
-//// useful, but WITHOUT ANY WARRANTY; without even the implied   ////
-//// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR      ////
-//// PURPOSE.  See the GNU Lesser General Public License for more ////
-//// details.                                                     ////
-////                                                              ////
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-// Module:  cp0_reg
-// File:    cp0_reg.v
-// Author:  Lei Silei
-// E-mail:  leishangwen@163.com
-// Description:ʵ����CP0�е�һЩ�Ĵ����������У�count��compare��status��
-//             cause��EPC��config��PrId
-// Revision: 1.0
-//////////////////////////////////////////////////////////////////////
-
 `include "defines.v"
 
 module cp0_reg(
 
-	input	wire										clk,
-	input wire										rst,
+	input	wire				clk,
+	input wire					rst,
 	
 	
 	input wire                    we_i,
@@ -44,7 +11,7 @@ module cp0_reg(
 	input wire[4:0]               raddr_i,
 	input wire[`RegBus]           data_i,
 	
-	input wire[31:0]              excepttype_i,
+	input wire[31:0]              except_type_i,
 	input wire[5:0]               int_i,
 	input wire[`RegBus]           current_inst_addr_i,
 	input wire                    is_in_delayslot_i,
@@ -118,7 +85,7 @@ module cp0_reg(
 				endcase  //case addr_i
 			end
 
-			case (excepttype_i)
+			case (except_type_i)
 				32'h00000001:		begin
 					if(is_in_delayslot_i == `InDelaySlot ) begin
 						epc_o <= current_inst_addr_i - 4 ;
@@ -167,8 +134,7 @@ module cp0_reg(
 					  	cause_o[31] <= 1'b0;
 						end
 					end
-					status_o[1] <= 1'b1;
-					//cause_o[6:2] <= 5'b01101;	to satisfy break				
+					status_o[1] <= 1'b1;			
 					cause_o[6:2] <= 5'b01001;					
 				end
 				32'h00000009:		begin
@@ -181,8 +147,7 @@ module cp0_reg(
                           cause_o[31] <= 1'b0;
                         end
                     end
-                    status_o[1] <= 1'b1;
-                    //cause_o[6:2] <= 5'b01101;    to satisfy break                
+                    status_o[1] <= 1'b1;        
                     cause_o[6:2] <= 5'b00100;                    
                 end
                 32'h0000000f:		begin
@@ -195,8 +160,7 @@ module cp0_reg(
                           cause_o[31] <= 1'b0;
                         end
                     end
-                    status_o[1] <= 1'b1;
-                    //cause_o[6:2] <= 5'b01101;    to satisfy break                
+                    status_o[1] <= 1'b1;             
                     cause_o[6:2] <= 5'b00101;                    
                 end
 				32'h0000000c:		begin
