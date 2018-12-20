@@ -45,31 +45,31 @@ module uart(
     output reg read_finished
     );
 
-//直连串口接收发送演示，从直连串口收到的数据再发送出去
+//直连串口接收发�?�演示，从直连串口收到的数据再发送出�?
 (*MARK_DEBUG="TRUE"*) wire [7:0] ext_uart_rx;
 (*MARK_DEBUG="TRUE"*) reg  [7:0] ext_uart_tx;
 reg ext_uart_start;
 reg ext_uart_clear;
 
-async_receiver #(.ClkFrequency(20000000),.Baud(9600)) //接收模块，9600无检验位
+async_receiver #(.ClkFrequency(50000000),.Baud(9600)) //接收模块�?9600无检验位
     ext_uart_r(
         .clk(clk_50M),                       //外部时钟信号
         .RxD(rxd),                           //外部串行信号输入
-        .RxD_data_ready(ext_uart_ready),  //数据接收到标志
+        .RxD_data_ready(ext_uart_ready),  //数据接收到标�?
         .RxD_clear(ext_uart_clear),       //清除接收标志
-        .RxD_data(ext_uart_rx)             //接收到的一字节数据
+        .RxD_data(ext_uart_rx)             //接收到的�?字节数据
     );
 
-async_transmitter #(.ClkFrequency(20000000),.Baud(9600)) //发送模块，9600无检验位
+async_transmitter #(.ClkFrequency(50000000),.Baud(9600)) //发�?�模块，9600无检验位
     ext_uart_t(
         .clk(clk_50M),                  //外部时钟信号
         .TxD(txd),                      //串行信号输出
-        .TxD_busy(ext_uart_busy),       //发送器忙状态指示
-        .TxD_start(ext_uart_start),    //开始发送信号
+        .TxD_busy(ext_uart_busy),       //发�?�器忙状态指�?
+        .TxD_start(ext_uart_start),    //�?始发送信�?
         .TxD_data(ext_uart_tx)        //待发送的数据
     );
 
-always @(negedge clk_50M) begin
+always @(posedge clk_50M) begin
     if(enable) begin
         if(write_or_read) begin
             if(~ext_uart_busy) begin

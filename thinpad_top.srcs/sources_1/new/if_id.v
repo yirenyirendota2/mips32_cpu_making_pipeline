@@ -1,50 +1,25 @@
-//////////////////////////////////////////////////////////////////////
-////                                                              ////
-//// Copyright (C) 2014 leishangwen@163.com                       ////
-////                                                              ////
-//// This source file may be used and distributed without         ////
-//// restriction provided that this copyright statement is not    ////
-//// removed from the file and that any derivative work contains  ////
-//// the original copyright notice and the associated disclaimer. ////
-////                                                              ////
-//// This source file is free software; you can redistribute it   ////
-//// and/or modify it under the terms of the GNU Lesser General   ////
-//// Public License as published by the Free Software Foundation; ////
-//// either version 2.1 of the License, or (at your option) any   ////
-//// later version.                                               ////
-////                                                              ////
-//// This source is distributed in the hope that it will be       ////
-//// useful, but WITHOUT ANY WARRANTY; without even the implied   ////
-//// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR      ////
-//// PURPOSE.  See the GNU Lesser General Public License for more ////
-//// details.                                                     ////
-////                                                              ////
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-// Module:  if_id
-// File:    if_id.v
-// Author:  Lei Silei
-// E-mail:  leishangwen@163.com
-// Description: IF/ID�׶εļĴ���
-// Revision: 1.0
-//////////////////////////////////////////////////////////////////////
-
-`include "defines.v"
+/*
+IF_ID模块
+*/
+`define InstAddrBus 31:0
+`define InstBus 31:0
+`define ZeroWord 32'h00000000
+`define Stop 1'b1
+`define NoStop 1'b0
 
 module if_id(
 
-	input	wire				   clk,
-	input wire					   rst,
+	input wire	clk,
+	input wire	rst,
 
 	// 来自指令储存器的暂停信号
 	input wire inst_pause, 
 
 	//来自控制模块
-	input wire[5:0]               stall,	
+	input wire[5:0]               stall_signal,	
 	input wire                    flush,
 
-	input wire[`InstAddrBus]			if_pc,
+	input wire[`InstAddrBus]	  if_pc,
 	input wire[`InstBus]          if_inst,
 	output reg[`InstAddrBus]      id_pc,
 	output reg[`InstBus]          id_inst  
@@ -52,23 +27,18 @@ module if_id(
 );
 
 	always @ (posedge clk) begin
-		if (rst == `RstEnable) begin
+		if (rst ==  1'b1) begin
 			id_pc <= `ZeroWord;
 			id_inst <= `ZeroWord;
 		end else if(flush == 1'b1 ) begin
 			id_pc <= `ZeroWord;
 			id_inst <= `ZeroWord;					
-		// end else if((stall[1] == `Stop && stall[2] == `NoStop) || inst_pause ) begin
-		end else if(stall[1] == `Stop && stall[2] == `NoStop) begin
+		end else if(stall_signal[1] == 1'b1 && stall_signal[2] == 1'b0) begin
 			id_pc <= `ZeroWord;
 			id_inst <= `ZeroWord;	
-	    end else if(stall[1] == `NoStop) begin
+	    end else if(stall_signal[1] == 1'b0) begin
 		  id_pc <= if_pc;
 		  id_inst <= if_inst;
-//		     id_inst[31:24] <= if_inst[7:0];	       
-//                   id_inst[23:16] <= if_inst[15:8];
-//                   id_inst[15:8] <= if_inst[23:16];
-//                   id_inst[7:0] <= if_inst[31:24];
 		end
 	end
 

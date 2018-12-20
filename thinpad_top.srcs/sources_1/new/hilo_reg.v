@@ -4,17 +4,15 @@
 
 module hilo_reg(
 
-	input	wire										clk,
-	input wire										rst,
+	input wire	clk,
+	input wire	rst,
 	
-	//д�˿�
-	input wire										we,
-	input wire[`RegBus]				    hi_i,
-	input wire[`RegBus]						lo_i,
+	input wire	we,
+	input wire[`RegBus]	hi_i,
+	input wire[`RegBus]	lo_i,
 	
-	//���˿�1
-	output reg[`RegBus]           hi_o,
-	output reg[`RegBus]           lo_o
+	output reg[`RegBus] hi_o,
+	output reg[`RegBus] lo_o
 	
 );
 

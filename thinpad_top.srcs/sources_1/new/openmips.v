@@ -1,53 +1,23 @@
-//////////////////////////////////////////////////////////////////////
-////                                                              ////
-//// Copyright (C) 2014 leishangwen@163.com                       ////
-////                                                              ////
-//// This source file may be used and distributed without         ////
-//// restriction provided that this copyright statement is not    ////
-//// removed from the file and that any derivative work contains  ////
-//// the original copyright notice and the associated disclaimer. ////
-////                                                              ////
-//// This source file is free software; you can redistribute it   ////
-//// and/or modify it under the terms of the GNU Lesser General   ////
-//// Public License as published by the Free Software Foundation; ////
-//// either version 2.1 of the License, or (at your option) any   ////
-//// later version.                                               ////
-////                                                              ////
-//// This source is distributed in the hope that it will be       ////
-//// useful, but WITHOUT ANY WARRANTY; without even the implied   ////
-//// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR      ////
-//// PURPOSE.  See the GNU Lesser General Public License for more ////
-//// details.                                                     ////
-////                                                              ////
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-// Module:  openmips
-// File:    openmips.v
-// Author:  Lei Silei
-// E-mail:  leishangwen@163.com
-// Description: OpenMIPS�������Ķ����ļ�
-// Revision: 1.0
-//////////////////////////////////////////////////////////////////////
+/*流水线顶层模块*/
 
 `include "defines.v"
 
-module openmips(
+module mips32cpu(
 
-	input	wire										clk,
-	input wire										rst,
-	input wire inst_pause,        // ָ��洢��Ҫд�룬������ͻ���ź�
+	input	wire				clk,
+	input wire					rst,
+	input wire inst_pause,        //来自SRAM的取指令的暂停信号
 	
   input wire[5:0]                int_i,
   
-	input wire[`RegBus]           rom_data_i,
-	output wire[`RegBus]           rom_addr_o,
+	input wire[31:0]           rom_data_i,
+	output wire[31:0]           rom_addr_o,
 	output wire                    rom_ce_o,
 	
-  //�������ݴ洢��data_ram
-	input wire[`RegBus]           ram_data_i,
-	output wire[`RegBus]           ram_addr_o,
-	output wire[`RegBus]           ram_data_o,
+  //data_ram
+	input wire[31:0]           ram_data_i,
+	output wire[31:0]           ram_addr_o,
+	output wire[31:0]           ram_data_o,
 	output wire                    ram_we_o,
 	output wire[3:0]               ram_sel_o,
 	output wire[3:0]               ram_ce_o,
@@ -60,112 +30,110 @@ module openmips(
 	wire[`InstAddrBus] id_pc_i;
 	wire[`InstBus] id_inst_i;
 	
-	//��������׶�IDģ��������ID/EXģ�������?
+	//id
 	wire[`AluOpBus] id_aluop_o;
 	wire[`AluSelBus] id_alusel_o;
-	wire[`RegBus] id_reg1_o;
-	wire[`RegBus] id_reg2_o;
+	wire[31:0] id_reg1_o;
+	wire[31:0] id_reg2_o;
 	wire id_wreg_o;
 	wire[`RegAddrBus] id_wd_o;
 	wire id_is_in_delayslot_o;
-  wire[`RegBus] id_link_address_o;	
-  wire[`RegBus] id_inst_o;
-  wire[31:0] id_excepttype_o;
-  wire[`RegBus] id_current_inst_address_o;
+    wire[31:0] id_link_address_o;	
+    wire[31:0] id_inst_o;
+    wire[31:0] id_excepttype_o;
+    wire[31:0] id_current_inst_address_o;
 	
-	//����ID/EXģ��������ִ�н׶�EXģ�������?
+	//ALU
 	wire[`AluOpBus] ex_aluop_i;
 	wire[`AluSelBus] ex_alusel_i;
-	wire[`RegBus] ex_reg1_i;
-	wire[`RegBus] ex_reg2_i;
+	wire[31:0] ex_reg1_i;
+	wire[31:0] ex_reg2_i;
 	wire ex_wreg_i;
 	wire[`RegAddrBus] ex_wd_i;
 	wire ex_is_in_delayslot_i;	
-  wire[`RegBus] ex_link_address_i;	
-  wire[`RegBus] ex_inst_i;
-  wire[31:0] ex_excepttype_i;	
-  wire[`RegBus] ex_current_inst_address_i;	
+    wire[31:0] ex_link_address_i;	
+    wire[31:0] ex_inst_i;
+    wire[31:0] ex_excepttype_i;	
+    wire[31:0] ex_current_inst_address_i;	
 	
-	//����ִ�н׶�EXģ��������EX/MEMģ�������?
+	//EX阶段
 	wire ex_wreg_o;
 	wire[`RegAddrBus] ex_wd_o;
-	wire[`RegBus] ex_wdata_o;
-	wire[`RegBus] ex_hi_o;
-	wire[`RegBus] ex_lo_o;
+	wire[31:0] ex_wdata_o;
+	wire[31:0] ex_hi_o;
+	wire[31:0] ex_lo_o;
 	wire ex_whilo_o;
 	wire[`AluOpBus] ex_aluop_o;
-	wire[`RegBus] ex_mem_addr_o;
-	wire[`RegBus] ex_reg2_o;
+	wire[31:0] ex_mem_addr_o;
+	wire[31:0] ex_reg2_o;
 	wire ex_cp0_reg_we_o;
 	wire[4:0] ex_cp0_reg_write_addr_o;
-	wire[`RegBus] ex_cp0_reg_data_o; 	
+	wire[31:0] ex_cp0_reg_data_o; 	
 	wire[31:0] ex_excepttype_o;
-	wire[`RegBus] ex_current_inst_address_o;
+	wire[31:0] ex_current_inst_address_o;
 	wire ex_is_in_delayslot_o;
 
-	//����EX/MEMģ��������ô�׶�MEMģ�������?
+	//MEM阶段
 	wire mem_wreg_i;
 	wire[`RegAddrBus] mem_wd_i;
-	wire[`RegBus] mem_wdata_i;
-	wire[`RegBus] mem_hi_i;
-	wire[`RegBus] mem_lo_i;
+	wire[31:0] mem_wdata_i;
+	wire[31:0] mem_hi_i;
+	wire[31:0] mem_lo_i;
 	wire mem_whilo_i;		
 	wire[`AluOpBus] mem_aluop_i;
-	wire[`RegBus] mem_mem_addr_i;
-	wire[`RegBus] mem_reg2_i;		
+	wire[31:0] mem_mem_addr_i;
+	wire[31:0] mem_reg2_i;		
 	wire mem_cp0_reg_we_i;
 	wire[4:0] mem_cp0_reg_write_addr_i;
-	wire[`RegBus] mem_cp0_reg_data_i;	
+	wire[31:0] mem_cp0_reg_data_i;	
 	wire[31:0] mem_excepttype_i;	
 	wire mem_is_in_delayslot_i;
-	wire[`RegBus] mem_current_inst_address_i;	
+	wire[31:0] mem_current_inst_address_i;	
 
-	//���ӷô�׶�MEMģ��������MEM/WBģ�������?
 	wire mem_wreg_o;
 	wire[`RegAddrBus] mem_wd_o;
-	wire[`RegBus] mem_wdata_o;
-	wire[`RegBus] mem_hi_o;
-	wire[`RegBus] mem_lo_o;
+	wire[31:0] mem_wdata_o;
+	wire[31:0] mem_hi_o;
+	wire[31:0] mem_lo_o;
 	wire mem_whilo_o;	
 	wire mem_LLbit_value_o;
 	wire mem_LLbit_we_o;
 	wire mem_cp0_reg_we_o;
 	wire[4:0] mem_cp0_reg_write_addr_o;
-	wire[`RegBus] mem_cp0_reg_data_o;	
+	wire[31:0] mem_cp0_reg_data_o;	
 	wire[31:0] mem_excepttype_o;
 	wire mem_is_in_delayslot_o;
-	wire[`RegBus] mem_current_inst_address_o;			
+	wire[31:0] mem_current_inst_address_o;			
 	
-	//����MEM/WBģ���������д�׶ε�����?	
+	//WB
 	wire wb_wreg_i;
 	wire[`RegAddrBus] wb_wd_i;
-	wire[`RegBus] wb_wdata_i;
-	wire[`RegBus] wb_hi_i;
-	wire[`RegBus] wb_lo_i;
+	wire[31:0] wb_wdata_i;
+	wire[31:0] wb_hi_i;
+	wire[31:0] wb_lo_i;
 	wire wb_whilo_i;	
 	wire wb_LLbit_value_i;
 	wire wb_LLbit_we_i;	
 	wire wb_cp0_reg_we_i;
 	wire[4:0] wb_cp0_reg_write_addr_i;
-	wire[`RegBus] wb_cp0_reg_data_i;		
+	wire[31:0] wb_cp0_reg_data_i;		
 	wire[31:0] wb_excepttype_i;
 	wire wb_is_in_delayslot_i;
-	wire[`RegBus] wb_current_inst_address_i;
+	wire[31:0] wb_current_inst_address_i;
 	
-	//��������׶�IDģ����ͨ�üĴ���Regfileģ��
-  wire reg1_read;
-  wire reg2_read;
-  wire[`RegBus] reg1_data;
-  wire[`RegBus] reg2_data;
-  wire[`RegAddrBus] reg1_addr;
-  wire[`RegAddrBus] reg2_addr;
+    wire reg1_read;
+    wire reg2_read;
+    wire[31:0] reg1_data;
+    wire[31:0] reg2_data;
+    wire[`RegAddrBus] reg1_addr;
+    wire[`RegAddrBus] reg2_addr;
 
-	//����ִ�н׶���hiloģ����������ȡHI��LO�Ĵ���
-	wire[`RegBus] 	hi;
-	wire[`RegBus]   lo;
+	//HI/LO
+	wire[31:0] 	hi;
+	wire[31:0]   lo;
 
-  //����ִ�н׶���ex_regģ�飬���ڶ����ڵ�MADD��MADDU��MSUB��MSUBUָ��
-	wire[`DoubleRegBus] hilo_temp_o;
+    //除法
+    wire[`DoubleRegBus] hilo_temp_o;
 	wire[1:0] cnt_o;
 	
 	wire[`DoubleRegBus] hilo_temp_i;
@@ -173,8 +141,8 @@ module openmips(
 
 	wire[`DoubleRegBus] div_result;
 	wire div_ready;
-	wire[`RegBus] div_opdata1;
-	wire[`RegBus] div_opdata2;
+	wire[31:0] div_opdata1;
+	wire[31:0] div_opdata2;
 	wire div_start;
 	wire div_annul;
 	wire signed_div;
@@ -183,7 +151,7 @@ module openmips(
 	wire is_in_delayslot_o;
 	wire next_inst_in_delayslot_o;
 	wire id_branch_flag_o;
-	wire[`RegBus] branch_target_address;
+	wire[31:0] branch_target_address;
 
 	wire[5:0] stall;
 	wire stallreq_from_id;	
@@ -191,30 +159,30 @@ module openmips(
 
 	wire LLbit_o;
 
-  wire[`RegBus] cp0_data_o;
-  wire[4:0] cp0_raddr_i;
+    wire[31:0] cp0_data_o;
+    wire[4:0] cp0_raddr_i;
  
-  wire flush;
-  wire[`RegBus] new_pc;
+    wire flush;
+    wire[31:0] new_pc;
 
-	wire[`RegBus] cp0_count;
-	wire[`RegBus]	cp0_compare;
-	wire[`RegBus]	cp0_status;
-	wire[`RegBus]	cp0_cause;
-	wire[`RegBus]	cp0_epc;
-	wire[`RegBus]	cp0_config;
-	wire[`RegBus]	cp0_prid; 
-	wire[`RegBus]	cp0_badvaddr; 
-	wire[`RegBus]   cp0_ebase;
+	wire[31:0] cp0_count;
+	wire[31:0]	cp0_compare;
+	wire[31:0]	cp0_status;
+	wire[31:0]	cp0_cause;
+	wire[31:0]	cp0_epc;
+	wire[31:0]	cp0_config;
+	wire[31:0]	cp0_prid; 
+	wire[31:0]	cp0_badvaddr; 
+	wire[31:0]   cp0_ebase;
 
 
-  wire[`RegBus] latest_epc;
+  wire[31:0] latest_epc;
   
-  //pc_reg����
+  //pc_reg
 	pc_reg pc_reg0(
 		.clk(clk),
 		.rst(rst),
-		.inst_pause(inst_pause),   // ����ṹ��ͻ
+		.inst_pause(inst_pause),   // 取指令阶段的暂停信号
 		.stall(stall),
 		.flush(flush),
 	  .new_pc(new_pc),
@@ -227,12 +195,12 @@ module openmips(
 	
   assign rom_addr_o = pc;
 
-  //IF/IDģ������
+  //IF/ID
 	if_id if_id0(
 		.clk(clk),
 		.rst(rst),
 		.inst_pause(inst_pause),
-		.stall(stall),
+		.stall_signal(stall),
 		.flush(flush),
 		.if_pc(pc),
 		.if_inst(rom_data_i),
@@ -240,37 +208,34 @@ module openmips(
 		.id_inst(id_inst_i)      	
 	);
 	
-	//����׶�IDģ��
+	//ID
 	id id0(
 		.rst(rst),
 		.pc_i(id_pc_i),
 		.inst_i(id_inst_i),
 
-  	.ex_aluop_i(ex_aluop_o),
+  		.ex_aluop_i(ex_aluop_o),
 
 		.reg1_data_i(reg1_data),
 		.reg2_data_i(reg2_data),
 
-	  //����ִ�н׶ε�ָ��Ҫд���Ŀ�ļĴ������?
+		//EX
 		.ex_wreg_i(ex_wreg_o),
 		.ex_wdata_i(ex_wdata_o),
 		.ex_wd_i(ex_wd_o),
 
-	  //���ڷô�׶ε�ָ���?д���Ŀ�ļĴ������?
+	  	//MEM
 		.mem_wreg_i(mem_wreg_o),
 		.mem_wdata_i(mem_wdata_o),
 		.mem_wd_i(mem_wd_o),
 
-	  .is_in_delayslot_i(is_in_delayslot_i),
-
-		//�͵�regfile����Ϣ
+	  	.is_in_delayslot_i(is_in_delayslot_i),
 		.reg1_read_o(reg1_read),
 		.reg2_read_o(reg2_read), 	  
 
 		.reg1_addr_o(reg1_addr),
 		.reg2_addr_o(reg2_addr), 
-	  
-		//�͵�ID/EXģ������?
+
 		.aluop_o(id_aluop_o),
 		.alusel_o(id_alusel_o),
 		.reg1_o(id_reg1_o),
@@ -291,7 +256,7 @@ module openmips(
 		.stallreq(stallreq_from_id)		
 	);
 
-  //ͨ�üĴ���Regfile����
+  //Regfile
 	regfile regfile1(
 		.clk (clk),
 		.rst (rst),
@@ -308,15 +273,15 @@ module openmips(
 	);
 
 
-	//ID/EXģ��
+	//ID/EX
 	id_ex id_ex0(
 		.clk(clk),
 		.rst(rst),
 		
-		.stall(stall),
+		.stall_signal(stall),
 		.flush(flush),
 		
-		//������׶�IDģ�鴫�ݵ���Ϣ
+		//ID
 		.id_aluop(id_aluop_o),
 		.id_alusel(id_alusel_o),
 		.id_reg1(id_reg1_o),
@@ -330,7 +295,7 @@ module openmips(
 		.id_excepttype(id_excepttype_o),
 		.id_current_inst_address(id_current_inst_address_o),
 	
-		//���ݵ�ִ�н׶�EXģ������?
+		//EX
 		.ex_aluop(ex_aluop_i),
 		.ex_alusel(ex_alusel_i),
 		.ex_reg1(ex_reg1_i),
@@ -345,11 +310,11 @@ module openmips(
 		.ex_current_inst_address(ex_current_inst_address_i)		
 	);		
 	
-	//EXģ��
+	//EX
 	ex ex0(
 		.rst(rst),
 	
-		//�͵�ִ�н׶�EXģ������?
+		//
 		.aluop_i(ex_aluop_i),
 		.alusel_i(ex_alusel_i),
 		.reg1_i(ex_reg1_i),
@@ -379,12 +344,10 @@ module openmips(
 		.excepttype_i(ex_excepttype_i),
 		.current_inst_address_i(ex_current_inst_address_i),
 
-		//�ô�׶ε�ָ���Ƿ��?дCP0����������������
   	.mem_cp0_reg_we(mem_cp0_reg_we_o),
 		.mem_cp0_reg_write_addr(mem_cp0_reg_write_addr_o),
 		.mem_cp0_reg_data(mem_cp0_reg_data_o),
 	
-		//��д�׶ε�ָ���Ƿ�ҪдCP0����������������
   	.wb_cp0_reg_we(wb_cp0_reg_we_i),
 		.wb_cp0_reg_write_addr(wb_cp0_reg_write_addr_i),
 		.wb_cp0_reg_data(wb_cp0_reg_data_i),
@@ -392,12 +355,10 @@ module openmips(
 		.cp0_reg_data_i(cp0_data_o),
 		.cp0_reg_read_addr_o(cp0_raddr_i),
 		
-		//����һ��ˮ�����ݣ�����дCP0�еļĴ���
 		.cp0_reg_we_o(ex_cp0_reg_we_o),
 		.cp0_reg_write_addr_o(ex_cp0_reg_write_addr_o),
 		.cp0_reg_data_o(ex_cp0_reg_data_o),	  
 			  
-	  //EXģ��������EX/MEMģ����Ϣ
 		.wd_o(ex_wd_o),
 		.wreg_o(ex_wreg_o),
 		.wdata_o(ex_wdata_o),
@@ -426,15 +387,14 @@ module openmips(
 		
 	);
 
-  //EX/MEMģ��
+  //EX/MEM
   ex_mem ex_mem0(
 		.clk(clk),
 		.rst(rst),
 	  
 	  .stall(stall),
 	  .flush(flush),
-	  
-		//����ִ�н׶�EXģ������?	
+	
 		.ex_wd(ex_wd_o),
 		.ex_wreg(ex_wreg_o),
 		.ex_wdata(ex_wdata_o),
@@ -457,7 +417,6 @@ module openmips(
 		.hilo_i(hilo_temp_o),
 		.cnt_i(cnt_o),	
 
-		//�͵��ô�׶�MEMģ������?
 		.mem_wd(mem_wd_i),
 		.mem_wreg(mem_wreg_i),
 		.mem_wdata(mem_wdata_i),
@@ -482,11 +441,9 @@ module openmips(
 						       	
 	);
 	
-  //MEMģ������
+  //MEM
 	mem mem0(
 		.rst(rst),
-	
-		//����EX/MEMģ������?	
 		.wd_i(mem_wd_i),
 		.wreg_i(mem_wreg_i),
 		.wdata_i(mem_wdata_i),
@@ -497,13 +454,10 @@ module openmips(
   	.aluop_i(mem_aluop_i),
 		.mem_addr_i(mem_mem_addr_i),
 		.reg2_i(mem_reg2_i),
-	
-		//����memory����Ϣ
 		.mem_data_i(ram_data_i),
 
-		//LLbit_i��LLbit�Ĵ�����ֵ
+		//LLbit_i
 		.LLbit_i(LLbit_o),
-		//����һ��������ֵ����д�׶ο���ҪдLLbit�����Ի�Ҫ��һ���ж�
 		.wb_LLbit_we_i(wb_LLbit_we_i),
 		.wb_LLbit_value_i(wb_LLbit_value_i),
 
@@ -519,7 +473,6 @@ module openmips(
 		.cp0_cause_i(cp0_cause),
 		.cp0_epc_i(cp0_epc),
 		
-		//��д�׶ε�ָ���Ƿ�ҪдCP0����������������
   	.wb_cp0_reg_we(wb_cp0_reg_we_i),
 		.wb_cp0_reg_write_addr(wb_cp0_reg_write_addr_i),
 		.wb_cp0_reg_data(wb_cp0_reg_data_i),	  
@@ -531,7 +484,6 @@ module openmips(
 		.cp0_reg_write_addr_o(mem_cp0_reg_write_addr_o),
 		.cp0_reg_data_o(mem_cp0_reg_data_o),			
 	  
-		//�͵�MEM/WBģ������?
 		.wd_o(mem_wd_o),
 		.wreg_o(mem_wreg_o),
 		.wdata_o(mem_wdata_o),
@@ -539,7 +491,6 @@ module openmips(
 		.lo_o(mem_lo_o),
 		.whilo_o(mem_whilo_o),
 		
-		//�͵�memory����Ϣ
 		.mem_addr_o(ram_addr_o),
 		.mem_we_o(ram_we_o),
 		.mem_sel_o(ram_sel_o),
@@ -552,15 +503,14 @@ module openmips(
 		.current_inst_address_o(mem_current_inst_address_o)		
 	);
 
-  //MEM/WBģ��
+  //MEM/WB
 	mem_wb mem_wb0(
 		.clk(clk),
 		.rst(rst),
 
-    .stall(stall),
-    .flush(flush),
+    	.stall(stall),
+   	 	.flush(flush),
 
-		//���Էô�׶�MEMģ������?	
 		.mem_wd(mem_wd_o),
 		.mem_wreg(mem_wreg_o),
 		.mem_wdata(mem_wdata_o),
@@ -575,7 +525,7 @@ module openmips(
 		.mem_cp0_reg_write_addr(mem_cp0_reg_write_addr_o),
 		.mem_cp0_reg_data(mem_cp0_reg_data_o),					
 	
-		//�͵���д�׶ε���Ϣ
+		
 		.wb_wd(wb_wd_i),
 		.wb_wreg(wb_wreg_i),
 		.wb_wdata(wb_wdata_i),
@@ -596,12 +546,10 @@ module openmips(
 		.clk(clk),
 		.rst(rst),
 	
-		//д�˿�
+		
 		.we(wb_whilo_i),
 		.hi_i(wb_hi_i),
 		.lo_i(wb_lo_i),
-	
-		//���˿�1
 		.hi_o(hi),
 		.lo_o(lo)	
 	);
@@ -614,7 +562,7 @@ module openmips(
  
 		.stallreq_from_id(stallreq_from_id),
 	
-  	//����ִ�н׶ε���ͣ����
+  	//
 		.stallreq_from_ex(stallreq_from_ex),
 		.stallreq_from_if(inst_pause),
 	  .new_pc(new_pc),
@@ -640,12 +588,9 @@ module openmips(
 		.clk(clk),
 		.rst(rst),
 	  .flush(flush),
-	  
-		//д�˿�
+	
 		.LLbit_i(wb_LLbit_value_i),
 		.we(wb_LLbit_we_i),
-	
-		//���˿�1
 		.LLbit_o(LLbit_o)
 	
 	);

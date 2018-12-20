@@ -12,7 +12,7 @@ module ctrl(
 	input wire                   stallreq_from_id,
 	input wire[31:0]               ebase_i,
 
-  //����ִ�н׶ε���ͣ����
+  //输入的暂停信号
 	input wire                   stallreq_from_ex,
 	input wire					 stallreq_from_if,   // 取指令阶段的暂停
 
@@ -33,46 +33,29 @@ module ctrl(
 		  stall <= 6'b000000;
 			case (excepttype_i)
 				32'h00000001:		begin   //interrupt
-					new_pc <= ebase_i + 32'h00000180;
-//					new_pc <= 32'h00000020;
-//					new_pc <= 32'h80000000 + 32'h00000200;
+					new_pc <= ebase_i + 32'h80000180;
 				end
-				32'h00000008:		begin   //syscall
-//					new_pc <= 32'h80000000 + 32'h00000200;
-					//new_pc <= 32'h00000040;
-//					 new_pc <= 32'h00000040;
-new_pc <= ebase_i+ 32'h00000180;
+				32'h00000008:		begin   //syscall	
+					new_pc <= ebase_i+ 32'h80000180;
 				end
-				32'h0000000a:		begin   //inst_invalid
-//					new_pc <= 32'h00000040;
-//					new_pc <= 32'h80000000 + 32'h00000200;
-new_pc <= ebase_i+ 32'h00000180;
+				32'h0000000a:		begin   
+					new_pc <= ebase_i+ 32'h80000180;
 				end
 				32'h0000000d:		begin   //trap
-//					new_pc <= 32'h00000040;
-//					new_pc <= 32'h80000000 + 32'h00000180;
-new_pc <= ebase_i+ 32'h00000180;
+					new_pc <= ebase_i+ 32'h80000180;
 				end
-								32'h0000000f:		begin   //trap
-//                    new_pc <= 32'h00000040;
-//                    new_pc <= 32'h80000000 + 32'h00000180;
-new_pc <= ebase_i+ 32'h00000180;
+				32'h0000000f:		begin   //trap
+					new_pc <= ebase_i+ 32'h80000180;
                 end
-                				32'h00000009:		begin   //trap
-//                    new_pc <= 32'h00000040;
-//                    new_pc <= 32'h80000000 + 32'h00000180;
-new_pc <= ebase_i+ 32'h00000180;
+            	32'h00000009:		begin   //trap
+					new_pc <= ebase_i+ 32'h80000180;
                 end
 				32'h0000000c:		begin   //ov
-//					new_pc <= 32'h00000040;
-//					new_pc <= 32'h80000000 + 32'h00000200;
-new_pc <= ebase_i+ 32'h00000180;
+					new_pc <= ebase_i+ 32'h80000180;
 				end
 				32'h0000000e:		begin   //eret
 				    
 					   new_pc <= cp0_epc_i;
-					
-//					new_pc <= 32'h80000000 + 32'h00000200;
 				end
 				default	: begin
 				end
@@ -83,7 +66,7 @@ new_pc <= ebase_i+ 32'h00000180;
 		end else if(stallreq_from_id == `Stop) begin
 			stall <= 6'b000111;	
 			flush <= 1'b0;		
-		end else if(stallreq_from_if == `Stop) begin
+		end else if(stallreq_from_if == `Stop) begin    // 处理取指令阶段的结构冲突
 		  	stall <= 6'b000111;	
 			flush <= 1'b0;
 		end else begin
